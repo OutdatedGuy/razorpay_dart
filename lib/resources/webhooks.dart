@@ -10,8 +10,8 @@ class Webhooks {
 
   Webhooks(this.api);
   final API api;
-  static const String BASE_URL = '/accounts'; // For partner context
-  static const String WEBHOOKS_BASE = '/webhooks';
+  static const String baseUrl = '/accounts'; // For partner context
+  static const String webhooksBase = '/webhooks';
 
   /// Creates a webhook (merchant or partner context)
   ///
@@ -27,12 +27,12 @@ class Webhooks {
     if (accountId != null && accountId.isNotEmpty) {
       payload = {
         'version': 'v2',
-        'url': '$BASE_URL/$accountId$WEBHOOKS_BASE',
+        'url': '$baseUrl/$accountId$webhooksBase',
         'data': params.toJson(),
       };
     } else {
       payload = {
-        'url': WEBHOOKS_BASE, // Merchant context (v1)
+        'url': webhooksBase, // Merchant context (v1)
         'data': params.toJson(),
       };
     }
@@ -64,7 +64,7 @@ class Webhooks {
         // V2 uses PATCH
         {
           'version': 'v2',
-          'url': '$BASE_URL/$accountId$WEBHOOKS_BASE/$webhookId',
+          'url': '$baseUrl/$accountId$webhooksBase/$webhookId',
           'data': params.toJson(),
         },
         fromJsonFactory: RazorpayWebhook.fromJson,
@@ -73,10 +73,7 @@ class Webhooks {
     } else {
       return api.put<RazorpayWebhook>(
         // V1 uses PUT
-        {
-          'url': '$WEBHOOKS_BASE/$webhookId',
-          'data': params.toJson(),
-        },
+        {'url': '$webhooksBase/$webhookId', 'data': params.toJson()},
         fromJsonFactory: RazorpayWebhook.fromJson,
         callback: callback,
       );
@@ -93,7 +90,8 @@ class Webhooks {
     void Function(
       RazorpayApiException?,
       Response<RazorpayWebhookListResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     var from = params?.from;
     var to = params?.to;
@@ -121,14 +119,11 @@ class Webhooks {
     if (accountId != null && accountId.isNotEmpty) {
       payload = {
         'version': 'v2',
-        'url': '$BASE_URL/$accountId$WEBHOOKS_BASE',
+        'url': '$baseUrl/$accountId$webhooksBase',
         'data': queryParams,
       };
     } else {
-      payload = {
-        'url': WEBHOOKS_BASE,
-        'data': queryParams,
-      };
+      payload = {'url': webhooksBase, 'data': queryParams};
     }
 
     return api.get<RazorpayWebhookListResponse>(
@@ -158,10 +153,7 @@ class Webhooks {
       );
     }
     return api.get<RazorpayWebhook>(
-      {
-        'version': 'v2',
-        'url': '$BASE_URL/$accountId$WEBHOOKS_BASE/$webhookId',
-      },
+      {'version': 'v2', 'url': '$baseUrl/$accountId$webhooksBase/$webhookId'},
       fromJsonFactory: RazorpayWebhook.fromJson,
       callback: callback,
     );
@@ -178,7 +170,8 @@ class Webhooks {
     void Function(
       RazorpayApiException?,
       Response<RazorpayWebhookDeleteResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (webhookId.isEmpty) {
       throw ArgumentError('webhookId is required');
@@ -189,10 +182,7 @@ class Webhooks {
       );
     }
     return api.delete<RazorpayWebhookDeleteResponse>(
-      {
-        'version': 'v2',
-        'url': '$BASE_URL/$accountId$WEBHOOKS_BASE/$webhookId',
-      },
+      {'version': 'v2', 'url': '$baseUrl/$accountId$webhooksBase/$webhookId'},
       fromJsonFactory: RazorpayWebhookDeleteResponse.fromJson,
       callback: callback,
     );

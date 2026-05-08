@@ -17,16 +17,18 @@ abstract class RazorpayAccountBaseRequestBody
     required String email,
     required Profile profile,
     required dynamic phone,
-    required String business_type,
-    required String legal_business_name,
-    required String contact_name, // string | number
+    @JsonKey(name: 'business_type') required String businessType,
+    @JsonKey(name: 'legal_business_name') required String legalBusinessName,
+    @JsonKey(name: 'contact_name')
+    required String contactName, // string | number
     String? type,
-    String? reference_id,
-    String? customer_facing_business_name,
-    LegalInfo? legal_info,
+    @JsonKey(name: 'reference_id') String? referenceId,
+    @JsonKey(name: 'customer_facing_business_name')
+    String? customerFacingBusinessName,
+    @JsonKey(name: 'legal_info') LegalInfo? legalInfo,
     Apps? apps,
     Brand? brand,
-    ContactInfoSupport? contact_info,
+    @JsonKey(name: 'contact_info') ContactInfoSupport? contactInfo,
     IMap<dynamic>? notes, // IMap<string | number>
   }) = _RazorpayAccountBaseRequestBody;
 
@@ -38,10 +40,8 @@ abstract class RazorpayAccountBaseRequestBody
 @freezed
 abstract class AppDetails with _$AppDetails {
   @JsonSerializable(includeIfNull: false)
-  const factory AppDetails({
-    required String url,
-    required String name,
-  }) = _AppDetails;
+  const factory AppDetails({required String url, required String name}) =
+      _AppDetails;
 
   factory AppDetails.fromJson(Map<String, dynamic> json) =>
       _$AppDetailsFromJson(json);
@@ -55,7 +55,7 @@ abstract class Profile with _$Profile {
     String? subcategory,
     @Deprecated('Use business_model instead') String? description,
     ProfileAddressesContainer? addresses,
-    String? business_model,
+    @JsonKey(name: 'business_model') String? businessModel,
   }) = _Profile;
 
   factory Profile.fromJson(Map<String, dynamic> json) =>
@@ -80,10 +80,11 @@ abstract class ProfileAddresses with _$ProfileAddresses {
   const factory ProfileAddresses({
     required String street1,
     required String
-        street2, // Note: d.ts says required, but might be optional in practice
+    street2, // Note: d.ts says required, but might be optional in practice
     required String city,
     required String state,
-    required dynamic postal_code, // number | string
+    @JsonKey(name: 'postal_code')
+    required dynamic postalCode, // number | string
     required String country,
   }) = _ProfileAddresses;
 
@@ -94,11 +95,7 @@ abstract class ProfileAddresses with _$ProfileAddresses {
 @freezed
 abstract class LegalInfo with _$LegalInfo {
   @JsonSerializable(includeIfNull: false)
-  const factory LegalInfo({
-    String? pan,
-    String? gst,
-    String? cin,
-  }) = _LegalInfo;
+  const factory LegalInfo({String? pan, String? gst, String? cin}) = _LegalInfo;
 
   factory LegalInfo.fromJson(Map<String, dynamic> json) =>
       _$LegalInfoFromJson(json);
@@ -119,9 +116,7 @@ abstract class Apps with _$Apps {
 @freezed
 abstract class Brand with _$Brand {
   @JsonSerializable(includeIfNull: false)
-  const factory Brand({
-    String? color,
-  }) = _Brand;
+  const factory Brand({String? color}) = _Brand;
 
   factory Brand.fromJson(Map<String, dynamic> json) => _$BrandFromJson(json);
 }
@@ -145,7 +140,7 @@ abstract class SupportType with _$SupportType {
   const factory SupportType({
     String? email,
     String? phone,
-    String? policy_url,
+    @JsonKey(name: 'policy_url') String? policyUrl,
   }) = _SupportType;
 
   factory SupportType.fromJson(Map<String, dynamic> json) =>
@@ -162,49 +157,51 @@ abstract class RazorpayAccountCreateRequestBody
     required String email,
     required Profile profile,
     required dynamic phone,
-    required String business_type,
-    required String legal_business_name,
-    required String contact_name, // string | number
+    @JsonKey(name: 'business_type') required String businessType,
+    @JsonKey(name: 'legal_business_name') required String legalBusinessName,
+    @JsonKey(name: 'contact_name')
+    required String contactName, // string | number
     String? type,
-    String? reference_id,
-    String? customer_facing_business_name,
-    LegalInfo? legal_info,
+    @JsonKey(name: 'reference_id') String? referenceId,
+    @JsonKey(name: 'customer_facing_business_name')
+    String? customerFacingBusinessName,
+    @JsonKey(name: 'legal_info') LegalInfo? legalInfo,
     Apps? apps,
     Brand? brand,
-    ContactInfoSupport? contact_info,
+    @JsonKey(name: 'contact_info') ContactInfoSupport? contactInfo,
     IMap<dynamic>? notes, // IMap<string | number>
   }) = _RazorpayAccountCreateRequestBody;
 
   factory RazorpayAccountCreateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayAccountCreateRequestBodyFromJson(json);
+  ) => _$RazorpayAccountCreateRequestBodyFromJson(json);
 }
 
 @freezed
 abstract class RazorpayAccountUpdateRequestBody
     with _$RazorpayAccountUpdateRequestBody {
   // Partial<Omit<RazorpayAccountBaseRequestBody, 'email' | 'business_type'>>
+
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayAccountUpdateRequestBody({
     Profile? profile,
     dynamic phone, // string | number
     String? type,
-    String? reference_id,
-    String? legal_business_name,
-    String? customer_facing_business_name,
-    LegalInfo? legal_info,
+    @JsonKey(name: 'reference_id') String? referenceId,
+    @JsonKey(name: 'legal_business_name') String? legalBusinessName,
+    @JsonKey(name: 'customer_facing_business_name')
+    String? customerFacingBusinessName,
+    @JsonKey(name: 'legal_info') LegalInfo? legalInfo,
     Apps? apps,
     Brand? brand,
-    String? contact_name,
-    ContactInfoSupport? contact_info,
+    @JsonKey(name: 'contact_name') String? contactName,
+    @JsonKey(name: 'contact_info') ContactInfoSupport? contactInfo,
     IMap<dynamic>? notes, // IMap<string | number>
   }) = _RazorpayAccountUpdateRequestBody;
 
   factory RazorpayAccountUpdateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayAccountUpdateRequestBodyFromJson(json);
+  ) => _$RazorpayAccountUpdateRequestBodyFromJson(json);
 }
 
 // --- Response Body ---
@@ -216,22 +213,24 @@ abstract class RazorpayAccount with _$RazorpayAccount {
     required String email,
     required Profile profile,
     required dynamic phone,
-    required String business_type,
-    required String legal_business_name,
-    required String contact_name,
+    @JsonKey(name: 'business_type') required String businessType,
+    @JsonKey(name: 'legal_business_name') required String legalBusinessName,
+    @JsonKey(name: 'contact_name') required String contactName,
     required bool live,
-    required bool hold_funds,
+    @JsonKey(name: 'hold_funds') required bool holdFunds,
     required String status,
-    required int created_at, // string | number
+    @JsonKey(name: 'created_at') required int createdAt, // string | number
     String? type,
-    String? reference_id,
-    String? customer_facing_business_name,
-    LegalInfo? legal_info,
+    @JsonKey(name: 'reference_id') String? referenceId,
+    @JsonKey(name: 'customer_facing_business_name')
+    String? customerFacingBusinessName,
+    @JsonKey(name: 'legal_info') LegalInfo? legalInfo,
     Apps? apps,
     Brand? brand,
-    ContactInfoSupport? contact_info,
+    @JsonKey(name: 'contact_info') ContactInfoSupport? contactInfo,
     IMap<dynamic>? notes, // IMap<string | number>
-    int? activated_at, // Use nullable int for potential null Unix timestamp
+    @JsonKey(name: 'activated_at')
+    int? activatedAt, // Use nullable int for potential null Unix timestamp
   }) = _RazorpayAccount;
 
   factory RazorpayAccount.fromJson(Map<String, dynamic> json) =>
@@ -261,7 +260,9 @@ abstract class RazorpayAccountDocuments with _$RazorpayAccountDocuments {
     // The TS definition uses a tuple `[...]`, JSON will likely be a list.
     // Using List<RazorpayAccountDocument> for flexibility.
     // Adjust the key if the actual JSON key is different.
-    List<RazorpayAccountDocument>? business_proof_of_identification,
+    @JsonKey(name: 'business_proof_of_identification')
+    List<RazorpayAccountDocument>? businessProofOfIdentification,
+
     // Add other document types if needed based on actual API response
   }) = _RazorpayAccountDocuments;
 

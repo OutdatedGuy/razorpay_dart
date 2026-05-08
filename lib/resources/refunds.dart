@@ -18,7 +18,8 @@ class Refunds {
     void Function(
       RazorpayApiException?,
       Response<RazorpayApiResponse<RazorpayRefund>>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     var url = '/refunds';
     if (paymentId != null && paymentId.isNotEmpty) {
@@ -47,10 +48,7 @@ class Refunds {
     queryParams.removeWhere((key, value) => value == null);
 
     return api.get<RazorpayApiResponse<RazorpayRefund>>(
-      {
-        'url': url,
-        'data': queryParams,
-      },
+      {'url': url, 'data': queryParams},
       callback: callback,
       fromJsonFactory: (json) => RazorpayApiResponse<RazorpayRefund>.fromJson(
         json,
@@ -73,10 +71,7 @@ class Refunds {
       throw ArgumentError('refundId is mandatory');
     }
     return api.patch<RazorpayRefund>(
-      {
-        'url': '/refunds/$refundId',
-        'data': params.toJson(),
-      },
+      {'url': '/refunds/$refundId', 'data': params.toJson()},
       fromJsonFactory: RazorpayRefund.fromJson,
       callback: callback,
     );

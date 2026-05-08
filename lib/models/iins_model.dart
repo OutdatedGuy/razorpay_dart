@@ -6,26 +6,26 @@ part 'iins_model.g.dart';
 
 // Enums based on d.ts types
 enum IinNetwork {
-  @JsonValue('Visa')
-  Visa,
-  @JsonValue('RuPay')
-  RuPay,
-  @JsonValue('MasterCard')
-  MasterCard,
+  @JsonValue('visa')
+  visa,
+  @JsonValue('ruPay')
+  ruPay,
+  @JsonValue('masterCard')
+  masterCard,
   @JsonValue('American Express')
-  AmericanExpress,
+  americanExpress,
   @JsonValue('Diners Club')
-  DinersClub,
+  dinersClub,
   @JsonValue('Bajaj Finserv')
-  BajajFinserv,
-  @JsonValue('Maestro')
-  Maestro,
-  @JsonValue('JCB')
-  JCB,
+  bajajFinserv,
+  @JsonValue('maestro')
+  maestro,
+  @JsonValue('jcb')
+  jcb,
   @JsonValue('Union Pay')
-  UnionPay,
-  @JsonValue('Unknown')
-  Unknown,
+  unionPay,
+  @JsonValue('unknown')
+  unknown,
 }
 
 enum IinCardType {
@@ -52,9 +52,7 @@ enum IinSubType {
 @freezed
 abstract class IinEmi with _$IinEmi {
   @JsonSerializable(includeIfNull: false)
-  const factory IinEmi({
-    required bool available,
-  }) = _IinEmi;
+  const factory IinEmi({required bool available}) = _IinEmi;
 
   factory IinEmi.fromJson(Map<String, dynamic> json) => _$IinEmiFromJson(json);
 }
@@ -62,9 +60,7 @@ abstract class IinEmi with _$IinEmi {
 @freezed
 abstract class IinRecurring with _$IinRecurring {
   @JsonSerializable(includeIfNull: false)
-  const factory IinRecurring({
-    required bool available,
-  }) = _IinRecurring;
+  const factory IinRecurring({required bool available}) = _IinRecurring;
 
   factory IinRecurring.fromJson(Map<String, dynamic> json) =>
       _$IinRecurringFromJson(json);
@@ -88,17 +84,18 @@ abstract class RazorpayIin with _$RazorpayIin {
   const factory RazorpayIin({
     required String iin,
     required String entity,
-    required String issuer_code,
-    required String issuer_name,
+    @JsonKey(name: 'issuer_code') required String issuerCode,
+    @JsonKey(name: 'issuer_name') required String issuerName,
     required bool international,
-    required bool is_tokenized,
+    @JsonKey(name: 'is_tokenized') required bool isTokenized,
     required IinEmi emi,
     required IinRecurring recurring,
-    required List<IinAuthenticationType> authentication_types,
+    @JsonKey(name: 'authentication_types')
+    required List<IinAuthenticationType> authenticationTypes,
     IinNetwork? network, // Nullable enum
     IinCardType? type, // Nullable enum
-    IinSubType? sub_type, // Nullable enum
-    String? card_iin, // Nullable string
+    @JsonKey(name: 'sub_type') IinSubType? subType, // Nullable enum
+    @JsonKey(name: 'card_iin') String? cardIin, // Nullable string
   }) = _RazorpayIin;
 
   factory RazorpayIin.fromJson(Map<String, dynamic> json) =>

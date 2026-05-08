@@ -34,31 +34,30 @@ class Items {
       ...?params?.toJson(),
     };
 
-    return api.get<RazorpayApiResponse<RazorpayItem>>(
-      {
-        'url': '/items',
-        'data': queryParams,
-      },
-      fromJsonFactory: (json) => RazorpayApiResponse<RazorpayItem>.fromJson(
-        json,
-        (itemJson) => RazorpayItem.fromJson(itemJson! as Map<String, dynamic>),
-      ),
-    ).then((value) => value.data!);
+    return api
+        .get<RazorpayApiResponse<RazorpayItem>>(
+          {'url': '/items', 'data': queryParams},
+          fromJsonFactory: (json) => RazorpayApiResponse<RazorpayItem>.fromJson(
+            json,
+            (itemJson) =>
+                RazorpayItem.fromJson(itemJson! as Map<String, dynamic>),
+          ),
+        )
+        .then((value) => value.data!);
   }
 
   /// Fetch an item given Item ID
   ///
   /// @param itemId - The unique identifier of the item.
-  Future<RazorpayItem> fetch({
-    required String itemId,
-  }) async {
+  Future<RazorpayItem> fetch({required String itemId}) async {
     if (itemId.isEmpty) {
       throw ArgumentError('`item_id` is mandatory');
     }
-    return api.get<RazorpayItem>(
-      {'url': '/items/$itemId'},
-      fromJsonFactory: RazorpayItem.fromJson,
-    ).then((value) => value.data!);
+    return api
+        .get<RazorpayItem>({
+          'url': '/items/$itemId',
+        }, fromJsonFactory: RazorpayItem.fromJson)
+        .then((value) => value.data!);
   }
 
   /// Create an Item
@@ -77,13 +76,12 @@ class Items {
       data['currency'] = 'INR';
     }
 
-    return api.post<RazorpayItem>(
-      {
-        'url': '/items',
-        'data': data,
-      },
-      fromJsonFactory: RazorpayItem.fromJson,
-    ).then((value) => value.data!);
+    return api
+        .post<RazorpayItem>({
+          'url': '/items',
+          'data': data,
+        }, fromJsonFactory: RazorpayItem.fromJson)
+        .then((value) => value.data!);
   }
 
   /// Edit an item given Item ID
@@ -97,13 +95,12 @@ class Items {
     if (itemId.isEmpty) {
       throw ArgumentError('`item_id` is mandatory');
     }
-    return api.patch<RazorpayItem>(
-      {
-        'url': '/items/$itemId',
-        'data': params.toJson(),
-      },
-      fromJsonFactory: RazorpayItem.fromJson,
-    ).then((value) => value.data!);
+    return api
+        .patch<RazorpayItem>({
+          'url': '/items/$itemId',
+          'data': params.toJson(),
+        }, fromJsonFactory: RazorpayItem.fromJson)
+        .then((value) => value.data!);
   }
 
   /// Delete an item given Item ID
@@ -116,9 +113,8 @@ class Items {
     if (itemId.isEmpty) {
       throw ArgumentError('`item_id` is mandatory');
     }
-    return api.delete<void>(
-      {'url': '/items/$itemId'},
-      fromJsonFactory: (json) {},
-    ).then((value) {});
+    return api
+        .delete<void>({'url': '/items/$itemId'}, fromJsonFactory: (json) {})
+        .then((value) {});
   }
 }

@@ -11,12 +11,12 @@ abstract class InitiateAuthorisationRequest
     with _$InitiateAuthorisationRequest {
   @JsonSerializable(includeIfNull: false)
   const factory InitiateAuthorisationRequest({
-    required String client_id,
-    required String response_type, // 'code'
-    required String redirect_uri,
+    @JsonKey(name: 'client_id') required String clientId,
+    @JsonKey(name: 'response_type') required String responseType, // 'code'
+    @JsonKey(name: 'redirect_uri') required String redirectUri,
     required List<String> scope, // ['read_only'] or ['read_write']
     required String state,
-    String? onboarding_signature,
+    @JsonKey(name: 'onboarding_signature') String? onboardingSignature,
   }) = _InitiateAuthorisationRequest;
 
   factory InitiateAuthorisationRequest.fromJson(Map<String, dynamic> json) =>
@@ -27,14 +27,18 @@ abstract class InitiateAuthorisationRequest
 abstract class OAuthTokenRequest with _$OAuthTokenRequest {
   @JsonSerializable(includeIfNull: false)
   const factory OAuthTokenRequest({
-    required String client_id,
-    required String client_secret,
-    String? grant_type, // 'authorization_code' | 'refresh_token'
-    String? redirect_uri, // Required for authorization_code grant
+    @JsonKey(name: 'client_id') required String clientId,
+    @JsonKey(name: 'client_secret') required String clientSecret,
+    @JsonKey(name: 'grant_type')
+    String? grantType, // 'authorization_code' | 'refresh_token'
+    @JsonKey(name: 'redirect_uri')
+    String? redirectUri, // Required for authorization_code grant
     String? code, // Required for authorization_code grant
     String? mode, // 'test' | 'live'
-    String? refresh_token, // Required for refresh_token grant
-    String? token_type_hint, // 'access_token' | 'refresh_token' (for revoke)
+    @JsonKey(name: 'refresh_token')
+    String? refreshToken, // Required for refresh_token grant
+    @JsonKey(name: 'token_type_hint')
+    String? tokenTypeHint, // 'access_token' | 'refresh_token' (for revoke)
     String? token, // Required for revoke
   }) = _OAuthTokenRequest;
 
@@ -47,13 +51,14 @@ abstract class OAuthTokenRequest with _$OAuthTokenRequest {
 abstract class OAuthTokenResponse with _$OAuthTokenResponse {
   @JsonSerializable(includeIfNull: false)
   const factory OAuthTokenResponse({
+    @JsonKey(name: 'public_token')
     required String
-        public_token, // Should this be razorpay_public_key? Check actual response
-    required String token_type, // 'Bearer'
-    required int expires_in,
-    required String access_token,
-    required String refresh_token,
-    required String razorpay_account_id,
+    publicToken, // Should this be razorpay_public_key? Check actual response
+    @JsonKey(name: 'token_type') required String tokenType, // 'Bearer'
+    @JsonKey(name: 'expires_in') required int expiresIn,
+    @JsonKey(name: 'access_token') required String accessToken,
+    @JsonKey(name: 'refresh_token') required String refreshToken,
+    @JsonKey(name: 'razorpay_account_id') required String razorpayAccountId,
   }) = _OAuthTokenResponse;
 
   factory OAuthTokenResponse.fromJson(Map<String, dynamic> json) =>

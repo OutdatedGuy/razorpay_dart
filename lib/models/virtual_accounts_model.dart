@@ -10,12 +10,17 @@ part 'virtual_accounts_model.g.dart';
 // --- Enums ---
 enum VirtualAccountStatus { active, closed }
 
-enum AllowedPayerType { bank_account }
+enum AllowedPayerType {
+  @JsonValue('bank_account')
+  bankAccount,
+}
 
 enum ReceiverType {
-  bank_account,
+  @JsonValue('bank_account')
+  bankAccount,
   vpa,
-  qr_code
+  @JsonValue('qr_code')
+  qrCode,
 } // qr_code seems implied by vpa receiver?
 
 // --- Nested Allowed Payer ---
@@ -25,13 +30,13 @@ abstract class RazorpayAllowedPayerBaseRequestBody
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayAllowedPayerBaseRequestBody({
     required AllowedPayerType type, // 'bank_account'
-    required RazorpayOrderBankDetailsBaseRequestBody bank_account,
+    @JsonKey(name: 'bank_account')
+    required RazorpayOrderBankDetailsBaseRequestBody bankAccount,
   }) = _RazorpayAllowedPayerBaseRequestBody;
 
   factory RazorpayAllowedPayerBaseRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayAllowedPayerBaseRequestBodyFromJson(json);
+  ) => _$RazorpayAllowedPayerBaseRequestBodyFromJson(json);
 }
 
 @freezed
@@ -40,11 +45,12 @@ abstract class RazorpayAllowedPayer with _$RazorpayAllowedPayer {
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayAllowedPayer({
     required String
-        id, // ID of the allowed payer entry? Or the account? Check API.
+    id, // ID of the allowed payer entry? Or the account? Check API.
     required String entity, // 'allowed_payer' ?
     required AllowedPayerType type,
+    @JsonKey(name: 'bank_account')
     required RazorpayOrderBankDetailsBaseRequestBody
-        bank_account, // Response likely includes name etc. Need full BankAccount model?
+    bankAccount, // Response likely includes name etc. Need full BankAccount model?
   }) = _RazorpayAllowedPayer;
 
   factory RazorpayAllowedPayer.fromJson(Map<String, dynamic> json) =>
@@ -55,9 +61,7 @@ abstract class RazorpayAllowedPayer with _$RazorpayAllowedPayer {
 @freezed
 abstract class VpaDescriptor with _$VpaDescriptor {
   @JsonSerializable(includeIfNull: false)
-  const factory VpaDescriptor({
-    required String descriptor,
-  }) = _VpaDescriptor;
+  const factory VpaDescriptor({required String descriptor}) = _VpaDescriptor;
 
   factory VpaDescriptor.fromJson(Map<String, dynamic> json) =>
       _$VpaDescriptorFromJson(json);
@@ -74,8 +78,7 @@ abstract class RazorpayVirtualAccountReceiverBaseRequestBody
 
   factory RazorpayVirtualAccountReceiverBaseRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayVirtualAccountReceiverBaseRequestBodyFromJson(json);
+  ) => _$RazorpayVirtualAccountReceiverBaseRequestBodyFromJson(json);
 }
 
 @freezed
@@ -87,17 +90,18 @@ abstract class RazorpayVirtualAccountReceiver
     required String id, // ID of the bank account or VPA receiver
     required String entity, // Common fields
     required String
-        name, // Merchant billing label, required IMap<dynamic> notes, required int updated_at, // Added based on d.ts inconsistency, // 'bank_account' or 'vpa'
+    name, // Merchant billing label, required IMap<dynamic> notes, required int updated_at, // Added based on d.ts inconsistency, // 'bank_account' or 'vpa'
     // Bank Account specific fields (nullable if VPA)
     String? ifsc,
-    String? bank_name,
-    String? account_number,
+    @JsonKey(name: 'bank_name') String? bankName,
+    @JsonKey(name: 'account_number') String? accountNumber,
+
     // VPA specific fields (nullable if Bank Account)
     String? username,
     String? handle,
     String? address,
     // QR Code specific fields (nullable if not QR) - Tied to VPA usually
-    String? short_url,
+    @JsonKey(name: 'short_url') String? shortUrl,
     String? reference,
     String? status, // 'active', 'closed' for QR?
   }) = _RazorpayVirtualAccountReceiver;
@@ -115,10 +119,12 @@ abstract class RazorpayVirtualAccountBaseRequestBody
     required RazorpayVirtualAccountReceiverBaseRequestBody receivers,
     String? name,
     String? description,
-    dynamic amount_expected, // string | number | null
-    dynamic amount_paid, // string | number -> Usually not in request?
-    String? customer_id,
-    int? close_by, // Unix timestamp
+    @JsonKey(name: 'amount_expected')
+    dynamic amountExpected, // string | number | null
+    @JsonKey(name: 'amount_paid')
+    dynamic amountPaid, // string | number -> Usually not in request?
+    @JsonKey(name: 'customer_id') String? customerId,
+    @JsonKey(name: 'close_by') int? closeBy, // Unix timestamp
     IMap<dynamic>? notes,
     // TPV specific field (handled in separate model)
     // List<RazorpayAllowedPayerBaseRequestBody>? allowed_payers,
@@ -126,8 +132,7 @@ abstract class RazorpayVirtualAccountBaseRequestBody
 
   factory RazorpayVirtualAccountBaseRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayVirtualAccountBaseRequestBodyFromJson(json);
+  ) => _$RazorpayVirtualAccountBaseRequestBodyFromJson(json);
 }
 
 // --- Create Request Bodies ---
@@ -140,17 +145,17 @@ abstract class RazorpayVirtualAccountCreateRequestBody
     required RazorpayVirtualAccountReceiverBaseRequestBody receivers,
     String? name,
     String? description,
-    dynamic amount_expected,
+    @JsonKey(name: 'amount_expected') dynamic amountExpected,
+
     // dynamic amount_paid, // Not in request
-    String? customer_id,
-    int? close_by,
+    @JsonKey(name: 'customer_id') String? customerId,
+    @JsonKey(name: 'close_by') int? closeBy,
     IMap<dynamic>? notes,
   }) = _RazorpayVirtualAccountCreateRequestBody;
 
   factory RazorpayVirtualAccountCreateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayVirtualAccountCreateRequestBodyFromJson(json);
+  ) => _$RazorpayVirtualAccountCreateRequestBodyFromJson(json);
 }
 
 @freezed
@@ -160,21 +165,22 @@ abstract class RazorpayVirtualAccountTPVCreateRequestBody
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayVirtualAccountTPVCreateRequestBody({
     required RazorpayVirtualAccountReceiverBaseRequestBody
-        receivers, // TPV specific field
-    required List<RazorpayAllowedPayerBaseRequestBody> allowed_payers,
+    receivers, // TPV specific field
+    @JsonKey(name: 'allowed_payers')
+    required List<RazorpayAllowedPayerBaseRequestBody> allowedPayers,
     String? name,
     String? description,
-    dynamic amount_expected,
+    @JsonKey(name: 'amount_expected') dynamic amountExpected,
+
     // dynamic amount_paid, // Not in request
-    String? customer_id,
-    int? close_by,
+    @JsonKey(name: 'customer_id') String? customerId,
+    @JsonKey(name: 'close_by') int? closeBy,
     IMap<dynamic>? notes,
   }) = _RazorpayVirtualAccountTPVCreateRequestBody;
 
   factory RazorpayVirtualAccountTPVCreateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayVirtualAccountTPVCreateRequestBodyFromJson(json);
+  ) => _$RazorpayVirtualAccountTPVCreateRequestBodyFromJson(json);
 }
 
 // --- Response Body ---
@@ -185,17 +191,20 @@ abstract class RazorpayVirtualAccount with _$RazorpayVirtualAccount {
   const factory RazorpayVirtualAccount({
     required String id,
     required String entity,
+    @JsonKey(name: 'amount_paid')
     required dynamic
-        amount_paid, // string | number -> required in response, required VirtualAccountStatus status, required int created_at, // Unix timestamp, // Response uses detailed receiver/payer models
+    amountPaid, // string | number -> required in response, required VirtualAccountStatus status, required int created_at, // Unix timestamp, // Response uses detailed receiver/payer models
     required List<RazorpayVirtualAccountReceiver> receivers,
+    @JsonKey(name: 'allowed_payers')
     required List<RazorpayAllowedPayer>
-        allowed_payers, // May be empty if not TPV, // 'virtual_account'
+    allowedPayers, // May be empty if not TPV, // 'virtual_account'
     String? name,
     String? description,
-    dynamic amount_expected, // string | number | null
-    String? customer_id,
-    int? close_by, // Unix timestamp
-    int? closed_at, // Nullable Unix timestamp
+    @JsonKey(name: 'amount_expected')
+    dynamic amountExpected, // string | number | null
+    @JsonKey(name: 'customer_id') String? customerId,
+    @JsonKey(name: 'close_by') int? closeBy, // Unix timestamp
+    @JsonKey(name: 'closed_at') int? closedAt, // Nullable Unix timestamp
     IMap<dynamic>? notes,
   }) = _RazorpayVirtualAccount;
 
@@ -216,8 +225,7 @@ abstract class RazorpayVirtualAccountPaymentsResponse
 
   factory RazorpayVirtualAccountPaymentsResponse.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayVirtualAccountPaymentsResponseFromJson(json);
+  ) => _$RazorpayVirtualAccountPaymentsResponseFromJson(json);
 }
 
 // --- Close Response ---

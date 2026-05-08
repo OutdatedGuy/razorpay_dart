@@ -6,7 +6,7 @@ import 'package:razorpay_dart/models/iins_model.dart';
 class Iins {
   Iins(this.api);
   final API api;
-  static const String BASE_URL = '/iins';
+  static const String baseUrl = '/iins';
 
   /// Fetch the properties of the card using token IIN
   ///
@@ -19,7 +19,7 @@ class Iins {
       throw ArgumentError('tokenIin is required');
     }
     return api.get<RazorpayIin>(
-      {'url': '$BASE_URL/$tokenIin'},
+      {'url': '$baseUrl/$tokenIin'},
       fromJsonFactory: RazorpayIin.fromJson,
       callback: callback,
     );
@@ -46,10 +46,7 @@ class Iins {
     if (subType != null) queryParams['sub_type'] = subType;
 
     return api.get<RazorpayIinList>(
-      {
-        'url': '$BASE_URL/list',
-        'data': queryParams,
-      },
+      {'url': '$baseUrl/list', 'data': queryParams},
       fromJsonFactory: RazorpayIinList.fromJson,
       callback: callback,
     );

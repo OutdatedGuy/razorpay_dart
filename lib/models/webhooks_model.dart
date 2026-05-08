@@ -15,7 +15,7 @@ abstract class RazorpayWebhookBaseRequestBody
     required List<String> events, // List of event names, String? alert_email,
     String? secret,
     String?
-        active, // 'true' or 'false'? Or bool? d.ts says string. Assuming bool for Dart.
+    active, // 'true' or 'false'? Or bool? d.ts says string. Assuming bool for Dart.
   }) = _RazorpayWebhookBaseRequestBody;
 
   factory RazorpayWebhookBaseRequestBody.fromJson(Map<String, dynamic> json) =>
@@ -31,15 +31,14 @@ abstract class RazorpayWebhookCreateRequestBody
   const factory RazorpayWebhookCreateRequestBody({
     required String url,
     required List<String> events,
-    String? alert_email,
+    @JsonKey(name: 'alert_email') String? alertEmail,
     String? secret,
     String? active, // Assuming bool
   }) = _RazorpayWebhookCreateRequestBody;
 
   factory RazorpayWebhookCreateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayWebhookCreateRequestBodyFromJson(json);
+  ) => _$RazorpayWebhookCreateRequestBodyFromJson(json);
 }
 
 // --- Update Request Body ---
@@ -51,15 +50,14 @@ abstract class RazorpayWebhookUpdateRequestBody
   const factory RazorpayWebhookUpdateRequestBody({
     required String url,
     required List<String> events,
-    String? alert_email,
+    @JsonKey(name: 'alert_email') String? alertEmail,
     String? secret,
     String? active, // Assuming bool
   }) = _RazorpayWebhookUpdateRequestBody;
 
   factory RazorpayWebhookUpdateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayWebhookUpdateRequestBodyFromJson(json);
+  ) => _$RazorpayWebhookUpdateRequestBodyFromJson(json);
 }
 
 // --- Response Body ---
@@ -72,12 +70,13 @@ abstract class RazorpayWebhook with _$RazorpayWebhook {
     required String entity, // 'webhook'
     required String url,
     // secret is not usually returned in fetch response for security
+    @JsonKey(name: 'secret_exists')
     required bool
-        secret_exists, // derived from presence of secret, required List<String> events, required String active, // Assuming bool in response too, required String owner_id, // Account ID, required String owner_type, // 'account' or 'application'?, required int created_at, String? alert_email,
+    secretExists, // derived from presence of secret, required List<String> events, required String active, // Assuming bool in response too, required String owner_id, // Account ID, required String owner_type, // 'account' or 'application'?, required int created_at, String? alert_email,
     @Default([]) List<String> context, // Seems empty in d.ts example
-    int? disabled_at, // Nullable timestamp
+    @JsonKey(name: 'disabled_at') int? disabledAt, // Nullable timestamp
     @Default(false) bool service, // default to false if not present
-    int? updated_at, // Nullable timestamp
+    @JsonKey(name: 'updated_at') int? updatedAt, // Nullable timestamp
   }) = _RazorpayWebhook;
 
   factory RazorpayWebhook.fromJson(Map<String, dynamic> json) =>

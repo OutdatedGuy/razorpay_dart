@@ -76,7 +76,8 @@ abstract class RazorpayPlan with _$RazorpayPlan {
     required PlanPeriod period,
     required int interval,
     required RazorpayItem item,
-    required int created_at, // Use the full Item response model
+    @JsonKey(name: 'created_at')
+    required int createdAt, // Use the full Item response model
     @NotesConverter() Map<String, dynamic>? notes,
   }) = _RazorpayPlan;
 

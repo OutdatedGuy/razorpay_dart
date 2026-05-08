@@ -124,13 +124,14 @@ class API {
     Map<String, dynamic> params, {
     required FromJsonFactory<T> fromJsonFactory,
     void Function(RazorpayApiException?, Response<T>?)?
-        callback, // Updated callback signature
+    callback, // Updated callback signature
   }) async {
     try {
       final rawResponse = await client.get<Map<String, dynamic>>(
         getEntityUrl(params),
-        queryParameters: params['data']
-            as Map<String, dynamic>?, // Pass data as query params for GET
+        queryParameters:
+            params['data']
+                as Map<String, dynamic>?, // Pass data as query params for GET
       );
 
       if (rawResponse.data == null) {
@@ -159,8 +160,9 @@ class API {
       callback?.call(normalizedError, null);
       throw normalizedError;
     } catch (error) {
-      final exception =
-          RazorpayApiException(message: 'An unexpected error occurred: $error');
+      final exception = RazorpayApiException(
+        message: 'An unexpected error occurred: $error',
+      );
       callback?.call(exception, null);
       throw exception;
     }
@@ -203,8 +205,9 @@ class API {
       callback?.call(normalizedError, null);
       throw normalizedError;
     } catch (error) {
-      final exception =
-          RazorpayApiException(message: 'An unexpected error occurred: $error');
+      final exception = RazorpayApiException(
+        message: 'An unexpected error occurred: $error',
+      );
       callback?.call(exception, null);
       throw exception;
     }
@@ -251,8 +254,9 @@ class API {
       callback?.call(normalizedError, null);
       throw normalizedError;
     } catch (error) {
-      final exception =
-          RazorpayApiException(message: 'An unexpected error occurred: $error');
+      final exception = RazorpayApiException(
+        message: 'An unexpected error occurred: $error',
+      );
       callback?.call(exception, null);
       throw exception;
     }
@@ -295,8 +299,9 @@ class API {
       callback?.call(normalizedError, null);
       throw normalizedError;
     } catch (error) {
-      final exception =
-          RazorpayApiException(message: 'An unexpected error occurred: $error');
+      final exception = RazorpayApiException(
+        message: 'An unexpected error occurred: $error',
+      );
       callback?.call(exception, null);
       throw exception;
     }
@@ -339,8 +344,9 @@ class API {
       callback?.call(normalizedError, null);
       throw normalizedError;
     } catch (error) {
-      final exception =
-          RazorpayApiException(message: 'An unexpected error occurred: $error');
+      final exception = RazorpayApiException(
+        message: 'An unexpected error occurred: $error',
+      );
       callback?.call(exception, null);
       throw exception;
     }
@@ -423,8 +429,9 @@ class API {
       callback?.call(normalizedError, null);
       throw normalizedError;
     } catch (error) {
-      final exception =
-          RazorpayApiException(message: 'An unexpected error occurred: $error');
+      final exception = RazorpayApiException(
+        message: 'An unexpected error occurred: $error',
+      );
       callback?.call(exception, null);
       throw exception;
     }

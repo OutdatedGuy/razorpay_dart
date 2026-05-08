@@ -14,10 +14,11 @@ abstract class RazorpayDocument with _$RazorpayDocument {
     required String entity,
     required String purpose, // Consider an enum: 'dispute_evidence'
     required String name,
+    @JsonKey(name: 'mime_type')
     required String
-        mime_type, // Consider an enum: 'image/jpg', 'image/jpeg', 'image/png', 'application/pdf'
+    mimeType, // Consider an enum: 'image/jpg', 'image/jpeg', 'image/png', 'application/pdf'
     required int size,
-    required int created_at,
+    @JsonKey(name: 'created_at') required int createdAt,
   }) = _RazorpayDocument;
 
   factory RazorpayDocument.fromJson(Map<String, dynamic> json) =>

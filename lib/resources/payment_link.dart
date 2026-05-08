@@ -7,8 +7,8 @@ import 'package:razorpay_dart/utils.dart'; // For normalizeDate
 class PaymentLink {
   PaymentLink(this.api);
   final API api;
-  static const String BASE_URL = '/payment_links';
-  static const String MISSING_ID_ERROR = 'Payment Link ID is mandatory';
+  static const String baseUrl = '/payment_links';
+  static const String missingIdError = 'Payment Link ID is mandatory';
 
   /// Create payment link (standard or with advanced options)
   ///
@@ -17,9 +17,9 @@ class PaymentLink {
   Future<Response<RazorpayPaymentLink>> create({
     required dynamic params, // Use dynamic for flexibility
     void Function(RazorpayApiException?, Response<RazorpayPaymentLink>?)?
-        callback,
+    callback,
   }) async {
-    const url = BASE_URL;
+    const url = baseUrl;
     Map<String, dynamic> requestData;
 
     // Basic type checking - expand if needed for advanced options
@@ -41,10 +41,7 @@ class PaymentLink {
     }
 
     return api.post<RazorpayPaymentLink>(
-      {
-        'url': url,
-        'data': requestData,
-      },
+      {'url': url, 'data': requestData},
       fromJsonFactory: RazorpayPaymentLink.fromJson,
       callback: callback,
     );
@@ -56,12 +53,12 @@ class PaymentLink {
   Future<Response<RazorpayPaymentLink>> cancel({
     required String paymentLinkId,
     void Function(RazorpayApiException?, Response<RazorpayPaymentLink>?)?
-        callback,
+    callback,
   }) async {
     if (paymentLinkId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$paymentLinkId/cancel';
+    final url = '$baseUrl/$paymentLinkId/cancel';
     return api.post<RazorpayPaymentLink>(
       {'url': url},
       fromJsonFactory: RazorpayPaymentLink.fromJson,
@@ -75,12 +72,12 @@ class PaymentLink {
   Future<Response<RazorpayPaymentLink>> fetch({
     required String paymentLinkId,
     void Function(RazorpayApiException?, Response<RazorpayPaymentLink>?)?
-        callback,
+    callback,
   }) async {
     if (paymentLinkId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$paymentLinkId';
+    final url = '$baseUrl/$paymentLinkId';
     return api.get<RazorpayPaymentLink>(
       {'url': url},
       fromJsonFactory: RazorpayPaymentLink.fromJson,
@@ -96,9 +93,10 @@ class PaymentLink {
     void Function(
       RazorpayApiException?,
       Response<RazorpayPaymentLinkListResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
-    const url = BASE_URL;
+    const url = baseUrl;
     var from = params?.from;
     var to = params?.to;
     final count = params?.count ?? 10;
@@ -123,10 +121,7 @@ class PaymentLink {
 
     // Note: JS returns { payment_links: [...] }. Use specific model.
     return api.get<RazorpayPaymentLinkListResponse>(
-      {
-        'url': url,
-        'data': queryParams,
-      },
+      {'url': url, 'data': queryParams},
       callback: callback,
       fromJsonFactory: RazorpayPaymentLinkListResponse.fromJson,
     );
@@ -140,16 +135,13 @@ class PaymentLink {
     required String paymentLinkId,
     required RazorpayPaymentLinkUpdateRequestBody params,
     void Function(RazorpayApiException?, Response<RazorpayPaymentLink>?)?
-        callback,
+    callback,
   }) async {
     if (paymentLinkId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
     return api.patch<RazorpayPaymentLink>(
-      {
-        'url': '$BASE_URL/$paymentLinkId',
-        'data': params.toJson(),
-      },
+      {'url': '$baseUrl/$paymentLinkId', 'data': params.toJson()},
       fromJsonFactory: RazorpayPaymentLink.fromJson,
       callback: callback,
     );
@@ -163,14 +155,14 @@ class PaymentLink {
     required String paymentLinkId,
     required NotifyMedium medium,
     void Function(RazorpayApiException?, Response<RazorpayNotifyResponse>?)?
-        callback,
+    callback,
   }) async {
     if (paymentLinkId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
 
     final mediumString = medium.toString().split('.').last;
-    final url = '$BASE_URL/$paymentLinkId/notify_by/$mediumString';
+    final url = '$baseUrl/$paymentLinkId/notify_by/$mediumString';
 
     return api.post<RazorpayNotifyResponse>(
       {'url': url},

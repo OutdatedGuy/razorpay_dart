@@ -7,23 +7,24 @@ part of 'plans_model.dart';
 // **************************************************************************
 
 _RazorpayPlanBaseRequestBody _$RazorpayPlanBaseRequestBodyFromJson(
-        Map<String, dynamic> json) =>
-    _RazorpayPlanBaseRequestBody(
-      item: RazorpayItemBaseRequestBody.fromJson(
-          json['item'] as Map<String, dynamic>),
-      period: $enumDecode(_$PlanPeriodEnumMap, json['period']),
-      interval: (json['interval'] as num).toInt(),
-      notes: json['notes'] as Map<String, dynamic>?,
-    );
+  Map<String, dynamic> json,
+) => _RazorpayPlanBaseRequestBody(
+  item: RazorpayItemBaseRequestBody.fromJson(
+    json['item'] as Map<String, dynamic>,
+  ),
+  period: $enumDecode(_$PlanPeriodEnumMap, json['period']),
+  interval: (json['interval'] as num).toInt(),
+  notes: json['notes'] as Map<String, dynamic>?,
+);
 
 Map<String, dynamic> _$RazorpayPlanBaseRequestBodyToJson(
-        _RazorpayPlanBaseRequestBody instance) =>
-    <String, dynamic>{
-      'item': instance.item,
-      'period': _$PlanPeriodEnumMap[instance.period]!,
-      'interval': instance.interval,
-      if (instance.notes case final value?) 'notes': value,
-    };
+  _RazorpayPlanBaseRequestBody instance,
+) => <String, dynamic>{
+  'item': instance.item,
+  'period': _$PlanPeriodEnumMap[instance.period]!,
+  'interval': instance.interval,
+  'notes': ?instance.notes,
+};
 
 const _$PlanPeriodEnumMap = {
   PlanPeriod.daily: 'daily',
@@ -33,23 +34,24 @@ const _$PlanPeriodEnumMap = {
 };
 
 _RazorpayPlanCreateRequestBody _$RazorpayPlanCreateRequestBodyFromJson(
-        Map<String, dynamic> json) =>
-    _RazorpayPlanCreateRequestBody(
-      item: RazorpayItemBaseRequestBody.fromJson(
-          json['item'] as Map<String, dynamic>),
-      period: $enumDecode(_$PlanPeriodEnumMap, json['period']),
-      interval: (json['interval'] as num).toInt(),
-      notes: json['notes'] as Map<String, dynamic>?,
-    );
+  Map<String, dynamic> json,
+) => _RazorpayPlanCreateRequestBody(
+  item: RazorpayItemBaseRequestBody.fromJson(
+    json['item'] as Map<String, dynamic>,
+  ),
+  period: $enumDecode(_$PlanPeriodEnumMap, json['period']),
+  interval: (json['interval'] as num).toInt(),
+  notes: json['notes'] as Map<String, dynamic>?,
+);
 
 Map<String, dynamic> _$RazorpayPlanCreateRequestBodyToJson(
-        _RazorpayPlanCreateRequestBody instance) =>
-    <String, dynamic>{
-      'item': instance.item,
-      'period': _$PlanPeriodEnumMap[instance.period]!,
-      'interval': instance.interval,
-      if (instance.notes case final value?) 'notes': value,
-    };
+  _RazorpayPlanCreateRequestBody instance,
+) => <String, dynamic>{
+  'item': instance.item,
+  'period': _$PlanPeriodEnumMap[instance.period]!,
+  'interval': instance.interval,
+  'notes': ?instance.notes,
+};
 
 _RazorpayPlan _$RazorpayPlanFromJson(Map<String, dynamic> json) =>
     _RazorpayPlan(
@@ -58,7 +60,7 @@ _RazorpayPlan _$RazorpayPlanFromJson(Map<String, dynamic> json) =>
       period: $enumDecode(_$PlanPeriodEnumMap, json['period']),
       interval: (json['interval'] as num).toInt(),
       item: RazorpayItem.fromJson(json['item'] as Map<String, dynamic>),
-      created_at: (json['created_at'] as num).toInt(),
+      createdAt: (json['created_at'] as num).toInt(),
       notes: const NotesConverter().fromJson(json['notes']),
     );
 
@@ -69,7 +71,6 @@ Map<String, dynamic> _$RazorpayPlanToJson(_RazorpayPlan instance) =>
       'period': _$PlanPeriodEnumMap[instance.period]!,
       'interval': instance.interval,
       'item': instance.item,
-      'created_at': instance.created_at,
-      if (const NotesConverter().toJson(instance.notes) case final value?)
-        'notes': value,
+      'created_at': instance.createdAt,
+      'notes': ?const NotesConverter().toJson(instance.notes),
     };

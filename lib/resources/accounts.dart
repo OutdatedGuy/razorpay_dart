@@ -6,7 +6,7 @@ import 'package:razorpay_dart/models/accounts_model.dart';
 class Accounts {
   Accounts(this.api);
   final API api;
-  static const String BASE_URL = '/accounts';
+  static const String baseUrl = '/accounts';
 
   /// Creates an account
   ///
@@ -16,11 +16,7 @@ class Accounts {
     void Function(RazorpayApiException?, Response<RazorpayAccount>?)? callback,
   }) async {
     return api.post<RazorpayAccount>(
-      {
-        'version': 'v2',
-        'url': BASE_URL,
-        'data': params.toJson(),
-      },
+      {'version': 'v2', 'url': baseUrl, 'data': params.toJson()},
       fromJsonFactory: RazorpayAccount.fromJson,
       callback: callback,
     );
@@ -39,11 +35,7 @@ class Accounts {
       throw ArgumentError('accountId is required');
     }
     return api.patch<RazorpayAccount>(
-      {
-        'version': 'v2',
-        'url': '$BASE_URL/$accountId',
-        'data': params.toJson(),
-      },
+      {'version': 'v2', 'url': '$baseUrl/$accountId', 'data': params.toJson()},
       fromJsonFactory: RazorpayAccount.fromJson,
       callback: callback,
     );
@@ -60,10 +52,7 @@ class Accounts {
       throw ArgumentError('accountId is required');
     }
     return api.get<RazorpayAccount>(
-      {
-        'version': 'v2',
-        'url': '$BASE_URL/$accountId',
-      },
+      {'version': 'v2', 'url': '$baseUrl/$accountId'},
       fromJsonFactory: RazorpayAccount.fromJson,
       callback: callback,
     );
@@ -83,10 +72,7 @@ class Accounts {
     // Note: TS types suggest returning the account, JS is unclear. Using RazorpayAccount.
     // API might return empty body on success, adjust T if needed.
     return api.delete<RazorpayAccount>(
-      {
-        'version': 'v2',
-        'url': '$BASE_URL/$accountId',
-      },
+      {'version': 'v2', 'url': '$baseUrl/$accountId'},
       fromJsonFactory:
           RazorpayAccount.fromJson, // Adjust if response is different
       callback: callback,
@@ -105,7 +91,7 @@ class Accounts {
     required MultipartFile file,
     Map<String, dynamic>? otherParams, // For notes etc.
     void Function(RazorpayApiException?, Response<RazorpayAccountDocuments>?)?
-        callback,
+    callback,
   }) async {
     if (accountId.isEmpty) {
       throw ArgumentError('accountId is required');
@@ -123,7 +109,7 @@ class Accounts {
     return api.postFormData<RazorpayAccountDocuments>(
       {
         'version': 'v2',
-        'url': '$BASE_URL/$accountId/documents',
+        'url': '$baseUrl/$accountId/documents',
         // 'formData' key removed, pass FormData directly
       },
       formData: FormData.fromMap(formDataMap),
@@ -138,16 +124,13 @@ class Accounts {
   Future<Response<RazorpayAccountDocuments>> fetchAccountDoc({
     required String accountId,
     void Function(RazorpayApiException?, Response<RazorpayAccountDocuments>?)?
-        callback,
+    callback,
   }) async {
     if (accountId.isEmpty) {
       throw ArgumentError('accountId is required');
     }
     return api.get<RazorpayAccountDocuments>(
-      {
-        'version': 'v2',
-        'url': '$BASE_URL/$accountId/documents',
-      },
+      {'version': 'v2', 'url': '$baseUrl/$accountId/documents'},
       fromJsonFactory: RazorpayAccountDocuments.fromJson,
       callback: callback,
     );

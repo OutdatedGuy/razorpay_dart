@@ -12,9 +12,9 @@ _RazorpayAddon _$RazorpayAddonFromJson(Map<String, dynamic> json) =>
       entity: json['entity'] as String,
       item: RazorpayItem.fromJson(json['item'] as Map<String, dynamic>),
       quantity: (json['quantity'] as num).toInt(),
-      created_at: (json['created_at'] as num).toInt(),
-      subscription_id: json['subscription_id'] as String,
-      invoice_id: json['invoice_id'] as String?,
+      createdAt: (json['created_at'] as num).toInt(),
+      subscriptionId: json['subscription_id'] as String,
+      invoiceId: json['invoice_id'] as String?,
     );
 
 Map<String, dynamic> _$RazorpayAddonToJson(_RazorpayAddon instance) =>
@@ -23,7 +23,7 @@ Map<String, dynamic> _$RazorpayAddonToJson(_RazorpayAddon instance) =>
       'entity': instance.entity,
       'item': instance.item,
       'quantity': instance.quantity,
-      'created_at': instance.created_at,
-      'subscription_id': instance.subscription_id,
-      if (instance.invoice_id case final value?) 'invoice_id': value,
+      'created_at': instance.createdAt,
+      'subscription_id': instance.subscriptionId,
+      'invoice_id': ?instance.invoiceId,
     };

@@ -7,13 +7,27 @@ part 'qr_code_model.freezed.dart';
 part 'qr_code_model.g.dart';
 
 // --- Enums ---
-enum QrCodeType { upi_qr, bharat_qr }
+enum QrCodeType {
+  @JsonValue('upi_qr')
+  upiQr,
+  @JsonValue('bharat_qr')
+  bharatQr,
+}
 
-enum QrCodeUsage { single_use, multiple_use }
+enum QrCodeUsage {
+  @JsonValue('single_use')
+  singleUse,
+  @JsonValue('multiple_use')
+  multipleUse,
+}
 
 enum QrCodeStatus { active, closed }
 
-enum QrCodeCloseReason { on_demand, paid } // 'null' represented by null value
+enum QrCodeCloseReason {
+  @JsonValue('on_demand')
+  onDemand,
+  paid,
+} // 'null' represented by null value
 
 enum SupplyType { interstate, intrastate }
 
@@ -24,11 +38,11 @@ abstract class RazorpayTaxInvoice with _$RazorpayTaxInvoice {
   const factory RazorpayTaxInvoice({
     String? number,
     int? date, // Unix timestamp
-    String? customer_name,
-    String? business_gstin,
-    int? gst_amount, // In paise
-    int? cess_amount, // In paise
-    SupplyType? supply_type,
+    @JsonKey(name: 'customer_name') String? customerName,
+    @JsonKey(name: 'business_gstin') String? businessGstin,
+    @JsonKey(name: 'gst_amount') int? gstAmount, // In paise
+    @JsonKey(name: 'cess_amount') int? cessAmount, // In paise
+    @JsonKey(name: 'supply_type') SupplyType? supplyType,
   }) = _RazorpayTaxInvoice;
 
   factory RazorpayTaxInvoice.fromJson(Map<String, dynamic> json) =>
@@ -44,11 +58,12 @@ abstract class RazorpayQrCodeBaseRequestBody
     required QrCodeType type,
     required QrCodeUsage usage,
     String? name,
-    bool? fixed_amount, // Default false
-    int? payment_amount, // Required if fixed_amount=true
+    @JsonKey(name: 'fixed_amount') bool? fixedAmount, // Default false
+    @JsonKey(name: 'payment_amount')
+    int? paymentAmount, // Required if fixed_amount=true
     String? description,
-    String? customer_id,
-    int? close_by, // Unix timestamp
+    @JsonKey(name: 'customer_id') String? customerId,
+    @JsonKey(name: 'close_by') int? closeBy, // Unix timestamp
     IMap<dynamic>? notes,
   }) = _RazorpayQrCodeBaseRequestBody;
 
@@ -66,11 +81,11 @@ abstract class RazorpayQrCodeCreateRequestBody
     required QrCodeType type,
     required QrCodeUsage usage,
     String? name,
-    bool? fixed_amount,
-    int? payment_amount,
+    @JsonKey(name: 'fixed_amount') bool? fixedAmount,
+    @JsonKey(name: 'payment_amount') int? paymentAmount,
     String? description,
-    String? customer_id,
-    int? close_by,
+    @JsonKey(name: 'customer_id') String? customerId,
+    @JsonKey(name: 'close_by') int? closeBy,
     IMap<dynamic>? notes,
   }) = _RazorpayQrCodeCreateRequestBody;
 
@@ -87,19 +102,19 @@ abstract class RazorpayQrCodeGstCreateRequestBody
     required QrCodeType type,
     required QrCodeUsage usage,
     String? name,
-    bool? fixed_amount,
-    int? payment_amount,
+    @JsonKey(name: 'fixed_amount') bool? fixedAmount,
+    @JsonKey(name: 'payment_amount') int? paymentAmount,
     String? description,
-    String? customer_id,
-    int? close_by,
+    @JsonKey(name: 'customer_id') String? customerId,
+    @JsonKey(name: 'close_by') int? closeBy,
     IMap<dynamic>? notes,
-    RazorpayTaxInvoice? tax_invoice, // Add tax invoice details
+    @JsonKey(name: 'tax_invoice')
+    RazorpayTaxInvoice? taxInvoice, // Add tax invoice details
   }) = _RazorpayQrCodeGstCreateRequestBody;
 
   factory RazorpayQrCodeGstCreateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayQrCodeGstCreateRequestBodyFromJson(json);
+  ) => _$RazorpayQrCodeGstCreateRequestBodyFromJson(json);
 }
 
 // --- Response Body ---
@@ -112,21 +127,25 @@ abstract class RazorpayQrCode with _$RazorpayQrCode {
     required String entity,
     required QrCodeType type,
     required QrCodeUsage usage, // Response specific fields
-    required int created_at,
-    required String image_url,
+    @JsonKey(name: 'created_at') required int createdAt,
+    @JsonKey(name: 'image_url') required String imageUrl,
     required QrCodeStatus status,
-    required int payments_amount_received,
-    required int payments_count_received,
+    @JsonKey(name: 'payments_amount_received')
+    required int paymentsAmountReceived,
+    @JsonKey(name: 'payments_count_received')
+    required int paymentsCountReceived,
     String? name,
-    bool? fixed_amount,
-    int? payment_amount,
+    @JsonKey(name: 'fixed_amount') bool? fixedAmount,
+    @JsonKey(name: 'payment_amount') int? paymentAmount,
     String? description,
-    String? customer_id,
-    int? close_by,
+    @JsonKey(name: 'customer_id') String? customerId,
+    @JsonKey(name: 'close_by') int? closeBy,
     IMap<dynamic>? notes,
-    RazorpayTaxInvoice? tax_invoice, // Include if created with GST info
-    int? closed_at, // Nullable Unix timestamp
-    QrCodeCloseReason? close_reason, // Nullable enum
+    @JsonKey(name: 'tax_invoice')
+    RazorpayTaxInvoice? taxInvoice, // Include if created with GST info
+    @JsonKey(name: 'closed_at') int? closedAt, // Nullable Unix timestamp
+    @JsonKey(name: 'close_reason')
+    QrCodeCloseReason? closeReason, // Nullable enum
   }) = _RazorpayQrCode;
 
   factory RazorpayQrCode.fromJson(Map<String, dynamic> json) =>
@@ -143,8 +162,8 @@ abstract class RazorpayQrCodeQuery with _$RazorpayQrCodeQuery {
     int? to,
     int? count,
     int? skip,
-    String? customer_id,
-    String? payment_id,
+    @JsonKey(name: 'customer_id') String? customerId,
+    @JsonKey(name: 'payment_id') String? paymentId,
   }) = _RazorpayQrCodeQuery;
 
   factory RazorpayQrCodeQuery.fromJson(Map<String, dynamic> json) =>

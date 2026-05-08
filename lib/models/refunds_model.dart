@@ -69,19 +69,21 @@ abstract class RazorpayRefund with _$RazorpayRefund {
     required String id,
     required String entity,
     required String currency,
-    required String payment_id,
-    required int created_at,
+    @JsonKey(name: 'payment_id') required String paymentId,
+    @JsonKey(name: 'created_at') required int createdAt,
     required RazorpayRefundStatus status,
     int?
-        amount, // Use nullable int as amount might not be present in all contexts? d.ts shows optional
+    amount, // Use nullable int as amount might not be present in all contexts? d.ts shows optional
     IMap<dynamic>? notes, // IMap<string | number>
     String? receipt, // Nullable string
-
     // Response specific fields
-    IMap<dynamic>? acquirer_data, // Use Map<String, dynamic> for flexibility
-    String? batch_id, // Nullable string
-    ProcessedSpeed? speed_processed, // Nullable enum
-    RefundSpeed? speed_requested, // Nullable enum
+    @JsonKey(name: 'acquirer_data')
+    IMap<dynamic>? acquirerData, // Use Map<String, dynamic> for flexibility
+    @JsonKey(name: 'batch_id') String? batchId, // Nullable string
+    @JsonKey(name: 'speed_processed')
+    ProcessedSpeed? speedProcessed, // Nullable enum
+    @JsonKey(name: 'speed_requested')
+    RefundSpeed? speedRequested, // Nullable enum
   }) = _RazorpayRefund;
 
   factory RazorpayRefund.fromJson(Map<String, dynamic> json) =>
@@ -93,7 +95,8 @@ abstract class RazorpayRefund with _$RazorpayRefund {
 abstract class RazorpayRefundFetchQuery with _$RazorpayRefundFetchQuery {
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayRefundFetchQuery({
-    String? payment_id, // Optional payment_id for context
+    @JsonKey(name: 'payment_id')
+    String? paymentId, // Optional payment_id for context
   }) = _RazorpayRefundFetchQuery;
 
   factory RazorpayRefundFetchQuery.fromJson(Map<String, dynamic> json) =>

@@ -7,7 +7,7 @@ import 'package:razorpay_dart/models/qr_code_model.dart';
 class QrCode {
   QrCode(this.api);
   final API api;
-  static const String BASE_URL = '/payments/qr_codes';
+  static const String baseUrl = '/payments/qr_codes';
 
   /// Creates a qrcode (standard or GST compliant)
   ///
@@ -17,24 +17,21 @@ class QrCode {
     required dynamic params, // Use dynamic for union type
     void Function(RazorpayApiException?, Response<RazorpayQrCode>?)? callback,
   }) async {
-    const url = BASE_URL;
+    const url = baseUrl;
     Map<String, dynamic> requestData;
     if (params is RazorpayQrCodeCreateRequestBody ||
         params is RazorpayQrCodeGstCreateRequestBody) {
       requestData = params is RazorpayQrCodeCreateRequestBody
           ? params.toJson()
           : params is RazorpayQrCodeGstCreateRequestBody
-              ? params.toJson()
-              : {};
+          ? params.toJson()
+          : {};
     } else {
       throw ArgumentError('Invalid params type for QR Code creation.');
     }
 
     return api.post<RazorpayQrCode>(
-      {
-        'url': url,
-        'data': requestData,
-      },
+      {'url': url, 'data': requestData},
       fromJsonFactory: RazorpayQrCode.fromJson,
       callback: callback,
     );
@@ -48,9 +45,10 @@ class QrCode {
     void Function(
       RazorpayApiException?,
       Response<RazorpayApiResponse<RazorpayQrCode>>?,
-    )? callback,
+    )?
+    callback,
   }) async {
-    const url = BASE_URL;
+    const url = baseUrl;
     final from = params?.from;
     final to = params?.to;
     final count = params?.count ?? 10;
@@ -63,16 +61,13 @@ class QrCode {
       'to': to,
       'count': count,
       'skip': skip,
-      'customer_id': params?.customer_id,
-      'payment_id': params?.payment_id,
+      'customer_id': params?.customerId,
+      'payment_id': params?.paymentId,
     };
     queryParams.removeWhere((key, value) => value == null);
 
     return api.get<RazorpayApiResponse<RazorpayQrCode>>(
-      {
-        'url': url,
-        'data': queryParams,
-      },
+      {'url': url, 'data': queryParams},
       callback: callback,
       fromJsonFactory: (json) => RazorpayApiResponse<RazorpayQrCode>.fromJson(
         json,
@@ -92,12 +87,13 @@ class QrCode {
     void Function(
       RazorpayApiException?,
       Response<RazorpayQrCodePaymentsResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (qrCodeId.isEmpty) {
       throw ArgumentError('qrCodeId is mandatory');
     }
-    final url = '$BASE_URL/$qrCodeId/payments';
+    final url = '$baseUrl/$qrCodeId/payments';
     final from = params?.from;
     final to = params?.to;
     final count = params?.count ?? 10;
@@ -115,10 +111,7 @@ class QrCode {
     queryParams.removeWhere((key, value) => value == null);
 
     return api.get<RazorpayQrCodePaymentsResponse>(
-      {
-        'url': url,
-        'data': queryParams,
-      },
+      {'url': url, 'data': queryParams},
       fromJsonFactory: RazorpayQrCodePaymentsResponse.fromJson,
       callback: callback,
     );
@@ -135,7 +128,7 @@ class QrCode {
       throw ArgumentError('qrCodeId is mandatory');
     }
     return api.get<RazorpayQrCode>(
-      {'url': '$BASE_URL/$qrCodeId'},
+      {'url': '$baseUrl/$qrCodeId'},
       fromJsonFactory: RazorpayQrCode.fromJson,
       callback: callback,
     );
@@ -151,7 +144,7 @@ class QrCode {
     if (qrCodeId.isEmpty) {
       throw ArgumentError('qrCodeId is mandatory');
     }
-    final url = '$BASE_URL/$qrCodeId/close';
+    final url = '$baseUrl/$qrCodeId/close';
     return api.post<RazorpayQrCode>(
       {'url': url},
       fromJsonFactory: RazorpayQrCode.fromJson,

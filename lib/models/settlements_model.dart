@@ -12,7 +12,8 @@ enum SettlementStatus {
   failed,
   initiated,
   reversed,
-  partially_processed
+  @JsonValue('partially_processed')
+  partiallyProcessed,
 }
 
 enum CardNetworkSettlement {
@@ -36,7 +37,7 @@ enum CardNetworkSettlement {
 enum CardTypeSettlement {
   // Renamed to avoid conflict
   credit,
-  debit
+  debit,
 }
 
 enum TransactionType {
@@ -44,7 +45,7 @@ enum TransactionType {
   refund,
   transfer,
   adjustment,
-  reversal /* Add others? */
+  reversal /* Add others? */,
 }
 
 enum PaymentMethodSettlement { card, netbanking, wallet, emi, upi } // Renamed
@@ -56,16 +57,19 @@ abstract class RazorpayInstantSettlementBaseRequestBody
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayInstantSettlementBaseRequestBody({
     required dynamic amount, // number | string
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool)
-    bool? settle_full_balance, // 0 | 1
+    @JsonKey(
+      name: 'settle_full_balance',
+      toJson: _boolToInt,
+      fromJson: _intToBool,
+    )
+    bool? settleFullBalance, // 0 | 1
     String? description,
     IMap<dynamic>? notes,
   }) = _RazorpayInstantSettlementBaseRequestBody;
 
   factory RazorpayInstantSettlementBaseRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayInstantSettlementBaseRequestBodyFromJson(json);
+  ) => _$RazorpayInstantSettlementBaseRequestBodyFromJson(json);
 }
 
 // Helper functions for bool <-> int conversion
@@ -79,16 +83,19 @@ abstract class RazorpayInstantSettlementCreateRequestBody
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayInstantSettlementCreateRequestBody({
     required dynamic amount, // number | string
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool)
-    bool? settle_full_balance, // 0 | 1
+    @JsonKey(
+      name: 'settle_full_balance',
+      toJson: _boolToInt,
+      fromJson: _intToBool,
+    )
+    bool? settleFullBalance, // 0 | 1
     String? description,
     IMap<dynamic>? notes,
   }) = _RazorpayInstantSettlementCreateRequestBody;
 
   factory RazorpayInstantSettlementCreateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayInstantSettlementCreateRequestBodyFromJson(json);
+  ) => _$RazorpayInstantSettlementCreateRequestBodyFromJson(json);
 }
 
 // --- Standard Settlement (part of lists/details, not created directly via API) ---
@@ -100,24 +107,28 @@ abstract class RazorpaySettlement with _$RazorpaySettlement {
     required String id,
     required String entity, // 'settlement'
     required dynamic
-        amount, // Amount requested/processed for this specific part
+    amount, // Amount requested/processed for this specific part
     required SettlementStatus status,
     required int fees, // Fees for this part
     required int tax,
-    required int created_at, // Tax for this part
+    @JsonKey(name: 'created_at') required int createdAt, // Tax for this part
     String? utr, // Nullable UTR
-
     // Fields from InstantSettlementBaseRequestBody (might be present)
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool)
-    bool? settle_full_balance,
+    @JsonKey(
+      name: 'settle_full_balance',
+      toJson: _boolToInt,
+      fromJson: _intToBool,
+    )
+    bool? settleFullBalance,
     String? description,
     IMap<dynamic>? notes,
 
     // Additional detailed fields (might be nullable)
-    int? initiated_at,
-    int? processed_at,
-    int? reversed_at,
-    int? amount_settled, // Amount actually settled for this part
+    @JsonKey(name: 'initiated_at') int? initiatedAt,
+    @JsonKey(name: 'processed_at') int? processedAt,
+    @JsonKey(name: 'reversed_at') int? reversedAt,
+    @JsonKey(name: 'amount_settled')
+    int? amountSettled, // Amount actually settled for this part
   }) = _RazorpaySettlement;
 
   factory RazorpaySettlement.fromJson(Map<String, dynamic> json) =>
@@ -136,12 +147,13 @@ abstract class RazorpayOndemandPayoutItem with _$RazorpayOndemandPayoutItem {
     required SettlementStatus status,
     required int fees,
     required int tax,
-    required int created_at,
+    @JsonKey(name: 'created_at') required int createdAt,
     String? utr,
-    int? initiated_at,
-    int? processed_at,
-    int? reversed_at,
-    int? amount_settled,
+    @JsonKey(name: 'initiated_at') int? initiatedAt,
+    @JsonKey(name: 'processed_at') int? processedAt,
+    @JsonKey(name: 'reversed_at') int? reversedAt,
+    @JsonKey(name: 'amount_settled') int? amountSettled,
+
     // Add description, notes, etc. if they appear here in actual response
   }) = _RazorpayOndemandPayoutItem;
 
@@ -170,20 +182,26 @@ abstract class RazorpayInstantSettlement with _$RazorpayInstantSettlement {
     required String id,
     required String entity, // 'ondemand_settlement' ?
     required dynamic amount, // Response specific fields
-    required int amount_requested,
-    required int amount_settled,
-    required int amount_pending,
-    required int amount_reversed,
+    @JsonKey(name: 'amount_requested') required int amountRequested,
+    @JsonKey(name: 'amount_settled') required int amountSettled,
+    @JsonKey(name: 'amount_pending') required int amountPending,
+    @JsonKey(name: 'amount_reversed') required int amountReversed,
     required int fees,
     required int tax,
     required String currency,
+    @JsonKey(name: 'created_at')
     required int
-        created_at, // Typically INR, required SettlementStatus status, required int created_at, required bool scheduled, // Was it scheduled? (Usually false for instant), // Base Amount requested
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool)
-    bool? settle_full_balance, // Base
+    createdAt, // Typically INR, required SettlementStatus status, required int created_at, required bool scheduled, // Was it scheduled? (Usually false for instant), // Base Amount requested
+    @JsonKey(
+      name: 'settle_full_balance',
+      toJson: _boolToInt,
+      fromJson: _intToBool,
+    )
+    bool? settleFullBalance, // Base
     String? description, // Base
     IMap<dynamic>? notes, // Base
-    RazorpayOndemandPayouts? ondemand_payouts, // Nullable expanded list
+    @JsonKey(name: 'ondemand_payouts')
+    RazorpayOndemandPayouts? ondemandPayouts, // Nullable expanded list
   }) = _RazorpayInstantSettlement;
 
   factory RazorpayInstantSettlement.fromJson(Map<String, dynamic> json) =>
@@ -205,8 +223,7 @@ abstract class RazorpaySettlementReconBaseRequestBody
 
   factory RazorpaySettlementReconBaseRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpaySettlementReconBaseRequestBodyFromJson(json);
+  ) => _$RazorpaySettlementReconBaseRequestBodyFromJson(json);
 }
 
 @freezed
@@ -214,7 +231,8 @@ abstract class RazorpaySettlementReconItem with _$RazorpaySettlementReconItem {
   // Note: This model represents ONE item within the recon report response.
   @JsonSerializable(includeIfNull: false)
   const factory RazorpaySettlementReconItem({
-    required String entity_id, // ID of the payment/refund/transfer etc.
+    @JsonKey(name: 'entity_id')
+    required String entityId, // ID of the payment/refund/transfer etc.
     required String type, // 'payment', 'refund', 'transfer', etc.
     required int debit,
     required int credit,
@@ -222,21 +240,27 @@ abstract class RazorpaySettlementReconItem with _$RazorpaySettlementReconItem {
     required String currency,
     required int fee,
     required int tax,
-    required bool on_hold,
+    @JsonKey(name: 'on_hold') required bool onHold,
     required bool settled,
-    required int created_at, // Timestamp of original transaction
-    required int settled_at, // Timestamp of settlement inclusion
-    required String settlement_id,
-    required String credit_type,
+    @JsonKey(name: 'created_at')
+    required int createdAt, // Timestamp of original transaction
+    @JsonKey(name: 'settled_at')
+    required int settledAt, // Timestamp of settlement inclusion
+    @JsonKey(name: 'settlement_id') required String settlementId,
+    @JsonKey(name: 'credit_type') required String creditType,
+    @JsonKey(name: 'order_id')
     required String
-        order_id, // e.g., 'default', 'instant', required IMap<dynamic> notes, // Notes of original transaction, required String settlement_utr, required String order_id, required PaymentMethodSettlement method, int? posted_at, // Nullable
+    orderId, // e.g., 'default', 'instant', required IMap<dynamic> notes, // Notes of original transaction, required String settlement_utr, required String order_id, required PaymentMethodSettlement method, int? posted_at, // Nullable
     String? description, // Nullable
-    String? payment_id, // Present for refunds/transfers
-    String? order_receipt, // Nullable
-    CardNetworkSettlement? card_network, // Nullable for non-card
-    String? card_issuer, // Nullable for non-card
-    CardTypeSettlement? card_type, // Nullable for non-card
-    String? dispute_id, // Nullable
+    @JsonKey(name: 'payment_id')
+    String? paymentId, // Present for refunds/transfers
+    @JsonKey(name: 'order_receipt') String? orderReceipt, // Nullable
+    @JsonKey(name: 'card_network')
+    CardNetworkSettlement? cardNetwork, // Nullable for non-card
+    @JsonKey(name: 'card_issuer') String? cardIssuer, // Nullable for non-card
+    @JsonKey(name: 'card_type')
+    CardTypeSettlement? cardType, // Nullable for non-card
+    @JsonKey(name: 'dispute_id') String? disputeId, // Nullable
   }) = _RazorpaySettlementReconItem;
 
   factory RazorpaySettlementReconItem.fromJson(Map<String, dynamic> json) =>
@@ -277,7 +301,7 @@ abstract class RazorpaySettlementListResponse
     required String entity,
     required int count,
     required List<RazorpaySettlement>
-        items, // Use the standard settlement model
+    items, // Use the standard settlement model
   }) = _RazorpaySettlementListResponse;
 
   factory RazorpaySettlementListResponse.fromJson(Map<String, dynamic> json) =>
@@ -293,13 +317,12 @@ abstract class RazorpayInstantSettlementListResponse
     required String entity,
     required int count,
     required List<RazorpayInstantSettlement>
-        items, // Use the instant settlement model
+    items, // Use the instant settlement model
   }) = _RazorpayInstantSettlementListResponse;
 
   factory RazorpayInstantSettlementListResponse.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayInstantSettlementListResponseFromJson(json);
+  ) => _$RazorpayInstantSettlementListResponseFromJson(json);
 }
 
 // Response for Settlement Reports (Recon)

@@ -12,9 +12,9 @@ _RazorpayDocument _$RazorpayDocumentFromJson(Map<String, dynamic> json) =>
       entity: json['entity'] as String,
       purpose: json['purpose'] as String,
       name: json['name'] as String,
-      mime_type: json['mime_type'] as String,
+      mimeType: json['mime_type'] as String,
       size: (json['size'] as num).toInt(),
-      created_at: (json['created_at'] as num).toInt(),
+      createdAt: (json['created_at'] as num).toInt(),
     );
 
 Map<String, dynamic> _$RazorpayDocumentToJson(_RazorpayDocument instance) =>
@@ -23,7 +23,7 @@ Map<String, dynamic> _$RazorpayDocumentToJson(_RazorpayDocument instance) =>
       'entity': instance.entity,
       'purpose': instance.purpose,
       'name': instance.name,
-      'mime_type': instance.mime_type,
+      'mime_type': instance.mimeType,
       'size': instance.size,
-      'created_at': instance.created_at,
+      'created_at': instance.createdAt,
     };

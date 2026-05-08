@@ -9,10 +9,7 @@ part 'stakeholders_model.g.dart';
 @freezed
 abstract class RelationShip with _$RelationShip {
   @JsonSerializable(includeIfNull: false)
-  const factory RelationShip({
-    bool? executive,
-    bool? director,
-  }) = _RelationShip;
+  const factory RelationShip({bool? executive, bool? director}) = _RelationShip;
 
   factory RelationShip.fromJson(Map<String, dynamic> json) =>
       _$RelationShipFromJson(json);
@@ -21,10 +18,7 @@ abstract class RelationShip with _$RelationShip {
 @freezed
 abstract class Phone with _$Phone {
   @JsonSerializable(includeIfNull: false)
-  const factory Phone({
-    String? primary,
-    String? secondary,
-  }) = _Phone;
+  const factory Phone({String? primary, String? secondary}) = _Phone;
 
   factory Phone.fromJson(Map<String, dynamic> json) => _$PhoneFromJson(json);
 }
@@ -32,9 +26,7 @@ abstract class Phone with _$Phone {
 @freezed
 abstract class Kyc with _$Kyc {
   @JsonSerializable(includeIfNull: false)
-  const factory Kyc({
-    required String pan,
-  }) = _Kyc;
+  const factory Kyc({required String pan}) = _Kyc;
 
   factory Kyc.fromJson(Map<String, dynamic> json) => _$KycFromJson(json);
 }
@@ -47,7 +39,8 @@ abstract class StakeholderAddresses with _$StakeholderAddresses {
     required String street, // Combined street address
     required String city,
     required String state,
-    required dynamic postal_code, // number | string
+    @JsonKey(name: 'postal_code')
+    required dynamic postalCode, // number | string
     required String country,
   }) = _StakeholderAddresses;
 
@@ -78,15 +71,14 @@ abstract class RazorpayStakeholderBaseRequestBody
     required String name,
     required String email,
     RelationShip? relationship,
-    int? percentage_ownership,
+    @JsonKey(name: 'percentage_ownership') int? percentageOwnership,
     StakeholderAddressContainer? addresses,
     IMap<dynamic>? notes,
   }) = _RazorpayStakeholderBaseRequestBody;
 
   factory RazorpayStakeholderBaseRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayStakeholderBaseRequestBodyFromJson(json);
+  ) => _$RazorpayStakeholderBaseRequestBodyFromJson(json);
 }
 
 // --- Create Request Body ---
@@ -101,15 +93,14 @@ abstract class RazorpayStakeholderCreateRequestBody
     required String name,
     required String email,
     RelationShip? relationship,
-    int? percentage_ownership,
+    @JsonKey(name: 'percentage_ownership') int? percentageOwnership,
     StakeholderAddressContainer? addresses,
     IMap<dynamic>? notes,
   }) = _RazorpayStakeholderCreateRequestBody;
 
   factory RazorpayStakeholderCreateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayStakeholderCreateRequestBodyFromJson(json);
+  ) => _$RazorpayStakeholderCreateRequestBodyFromJson(json);
 }
 
 // --- Update Request Body ---
@@ -123,15 +114,14 @@ abstract class RazorpayStakeholderUpdateRequestBody
     Phone? phone,
     Kyc? kyc,
     String? name,
-    int? percentage_ownership,
+    @JsonKey(name: 'percentage_ownership') int? percentageOwnership,
     StakeholderAddressContainer? addresses,
     IMap<dynamic>? notes,
   }) = _RazorpayStakeholderUpdateRequestBody;
 
   factory RazorpayStakeholderUpdateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayStakeholderUpdateRequestBodyFromJson(json);
+  ) => _$RazorpayStakeholderUpdateRequestBodyFromJson(json);
 }
 
 // --- Response Body ---
@@ -147,7 +137,7 @@ abstract class RazorpayStakeholder with _$RazorpayStakeholder {
     required String name,
     required String email, // Base fields
     RelationShip? relationship,
-    int? percentage_ownership,
+    @JsonKey(name: 'percentage_ownership') int? percentageOwnership,
     StakeholderAddressContainer? addresses,
     IMap<dynamic>? notes,
   }) = _RazorpayStakeholder;
@@ -177,7 +167,9 @@ abstract class RazorpayStakeholderDocuments
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayStakeholderDocuments({
     // Key name needs confirmation from actual API response, d.ts shows tuple `[...]`
-    List<RazorpayStakeholderDocument>? individual_proof_of_address,
+    @JsonKey(name: 'individual_proof_of_address')
+    List<RazorpayStakeholderDocument>? individualProofOfAddress,
+
     // Add other document types if applicable
   }) = _RazorpayStakeholderDocuments;
 

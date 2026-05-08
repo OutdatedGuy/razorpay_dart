@@ -178,15 +178,10 @@ String _encryptAesGcm(String dataToEncrypt, String secret) {
     // You'll need to add pointycastle: ^3.7.4 (or latest) to pubspec.yaml
     // import 'package:pointycastle/export.dart';
 
-    final cipher = GCMBlockCipher(AESFastEngine())
+    final cipher = GCMBlockCipher(AESEngine())
       ..init(
         true,
-        AEADParameters(
-          KeyParameter(keyBytes),
-          128,
-          iv,
-          Uint8List(0),
-        ),
+        AEADParameters(KeyParameter(keyBytes), 128, iv, Uint8List(0)),
       ); // 128 bit tag size
 
     final inputBytes = utf8.encode(dataToEncrypt);

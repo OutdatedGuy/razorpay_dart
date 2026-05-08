@@ -9,8 +9,8 @@ import 'package:razorpay_dart/utils.dart'; // For normalizeDate
 class Subscriptions {
   Subscriptions(this.api);
   final API api;
-  static const String BASE_URL = '/subscriptions';
-  static const String MISSING_ID_ERROR = 'Subscription ID is mandatory';
+  static const String baseUrl = '/subscriptions';
+  static const String missingIdError = 'Subscription ID is mandatory';
 
   /// Creates a Subscription or Registration Link
   ///
@@ -20,18 +20,18 @@ class Subscriptions {
     required dynamic params, // Use dynamic for union type
     void Function(RazorpayApiException?, Response<dynamic>?)? callback,
   }) async {
-    var url = BASE_URL;
+    var url = baseUrl;
     Map<String, dynamic> requestData;
     FromJsonFactory<dynamic> fromJsonFactory;
 
     if (params is RazorpaySubscriptionCreateRequestBody ||
         params is RazorpaySubscriptionLinkCreateRequestBody) {
-      url = BASE_URL;
+      url = baseUrl;
       requestData = params is RazorpaySubscriptionCreateRequestBody
           ? params.toJson()
           : params is RazorpaySubscriptionLinkCreateRequestBody
-              ? params.toJson()
-              : {};
+          ? params.toJson()
+          : {};
 
       fromJsonFactory = RazorpaySubscription.fromJson;
     } else if (params is RazorpayRegistrationLinkBaseRequestBody) {
@@ -46,10 +46,7 @@ class Subscriptions {
 
     // The actual type T will be determined by the fromJsonFactory passed.
     return api.post<dynamic>(
-      {
-        'url': url,
-        'data': requestData,
-      },
+      {'url': url, 'data': requestData},
       fromJsonFactory: fromJsonFactory,
       callback: callback,
     );
@@ -61,12 +58,12 @@ class Subscriptions {
   Future<Response<RazorpaySubscription>> fetch({
     required String subscriptionId,
     void Function(RazorpayApiException?, Response<RazorpaySubscription>?)?
-        callback,
+    callback,
   }) async {
     if (subscriptionId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$subscriptionId';
+    final url = '$baseUrl/$subscriptionId';
     return api.get<RazorpaySubscription>(
       {'url': url},
       fromJsonFactory: RazorpaySubscription.fromJson,
@@ -82,17 +79,14 @@ class Subscriptions {
     required String subscriptionId,
     required RazorpaySubscriptionUpdateRequestBody params,
     void Function(RazorpayApiException?, Response<RazorpaySubscription>?)?
-        callback,
+    callback,
   }) async {
     if (subscriptionId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$subscriptionId';
+    final url = '$baseUrl/$subscriptionId';
     return api.patch<RazorpaySubscription>(
-      {
-        'url': url,
-        'data': params.toJson(),
-      },
+      {'url': url, 'data': params.toJson()},
       fromJsonFactory: RazorpaySubscription.fromJson,
       callback: callback,
     );
@@ -104,12 +98,12 @@ class Subscriptions {
   Future<Response<RazorpaySubscription>> pendingUpdate({
     required String subscriptionId,
     void Function(RazorpayApiException?, Response<RazorpaySubscription>?)?
-        callback,
+    callback,
   }) async {
     if (subscriptionId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$subscriptionId/retrieve_scheduled_changes';
+    final url = '$baseUrl/$subscriptionId/retrieve_scheduled_changes';
     return api.get<RazorpaySubscription>(
       // Assuming it returns the subscription object
       {'url': url},
@@ -124,12 +118,12 @@ class Subscriptions {
   Future<Response<RazorpaySubscription>> cancelScheduledChanges({
     required String subscriptionId,
     void Function(RazorpayApiException?, Response<RazorpaySubscription>?)?
-        callback,
+    callback,
   }) async {
     if (subscriptionId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$subscriptionId/cancel_scheduled_changes';
+    final url = '$baseUrl/$subscriptionId/cancel_scheduled_changes';
     return api.post<RazorpaySubscription>(
       // Assuming it returns the subscription object
       {'url': url},
@@ -146,19 +140,16 @@ class Subscriptions {
     required String subscriptionId,
     bool pauseAtNow = false, // Use bool for clarity
     void Function(RazorpayApiException?, Response<RazorpaySubscription>?)?
-        callback,
+    callback,
   }) async {
     if (subscriptionId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$subscriptionId/pause';
+    final url = '$baseUrl/$subscriptionId/pause';
     final data = pauseAtNow ? {'pause_at': 'now'} : null;
 
     return api.post<RazorpaySubscription>(
-      {
-        'url': url,
-        if (data != null) 'data': data,
-      },
+      {'url': url, 'data': ?data},
       fromJsonFactory: RazorpaySubscription.fromJson,
       callback: callback,
     );
@@ -172,19 +163,16 @@ class Subscriptions {
     required String subscriptionId,
     bool resumeAtNow = false, // Use bool for clarity
     void Function(RazorpayApiException?, Response<RazorpaySubscription>?)?
-        callback,
+    callback,
   }) async {
     if (subscriptionId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$subscriptionId/resume';
+    final url = '$baseUrl/$subscriptionId/resume';
     final data = resumeAtNow ? {'resume_at': 'now'} : null;
 
     return api.post<RazorpaySubscription>(
-      {
-        'url': url,
-        if (data != null) 'data': data,
-      },
+      {'url': url, 'data': ?data},
       fromJsonFactory: RazorpaySubscription.fromJson,
       callback: callback,
     );
@@ -199,16 +187,15 @@ class Subscriptions {
     required String subscriptionId,
     required String offerId,
     void Function(RazorpayApiException?, Response<RazorpaySubscription>?)?
-        callback,
+    callback,
   }) async {
     if (subscriptionId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
     if (offerId.isEmpty) {
       throw ArgumentError('offerId is mandatory');
     }
-    final url =
-        '$BASE_URL/$subscriptionId/$offerId'; // Check endpoint structure
+    final url = '$baseUrl/$subscriptionId/$offerId'; // Check endpoint structure
     return api.delete<RazorpaySubscription>(
       // Assuming it returns updated subscription
       {'url': url},
@@ -226,9 +213,10 @@ class Subscriptions {
     void Function(
       RazorpayApiException?,
       Response<RazorpayApiResponse<RazorpaySubscription>>?,
-    )? callback,
+    )?
+    callback,
   }) async {
-    const url = BASE_URL;
+    const url = baseUrl;
     var from = params?.from;
     var to = params?.to;
     final count = params?.count ?? 10;
@@ -246,23 +234,20 @@ class Subscriptions {
       'to': to,
       'count': count,
       'skip': skip,
-      'plan_id': params?.plan_id,
+      'plan_id': params?.planId,
     };
     queryParams.removeWhere((key, value) => value == null);
 
     return api.get<RazorpayApiResponse<RazorpaySubscription>>(
-      {
-        'url': url,
-        'data': queryParams,
-      },
+      {'url': url, 'data': queryParams},
       callback: callback,
       fromJsonFactory: (json) =>
           RazorpayApiResponse<RazorpaySubscription>.fromJson(
-        json,
-        (itemJson) => RazorpaySubscription.fromJson(
-          itemJson! as Map<String, dynamic>,
-        ),
-      ),
+            json,
+            (itemJson) => RazorpaySubscription.fromJson(
+              itemJson! as Map<String, dynamic>,
+            ),
+          ),
     );
   }
 
@@ -274,19 +259,16 @@ class Subscriptions {
     required String subscriptionId,
     bool cancelAtCycleEnd = false,
     void Function(RazorpayApiException?, Response<RazorpaySubscription>?)?
-        callback,
+    callback,
   }) async {
     if (subscriptionId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$subscriptionId/cancel';
+    final url = '$baseUrl/$subscriptionId/cancel';
     final data = cancelAtCycleEnd ? {'cancel_at_cycle_end': 1} : null;
 
     return api.post<RazorpaySubscription>(
-      {
-        'url': url,
-        if (data != null) 'data': data,
-      },
+      {'url': url, 'data': ?data},
       fromJsonFactory: RazorpaySubscription.fromJson,
       callback: callback,
     );
@@ -302,14 +284,11 @@ class Subscriptions {
     void Function(RazorpayApiException?, Response<RazorpayAddon>?)? callback,
   }) async {
     if (subscriptionId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$subscriptionId/addons';
+    final url = '$baseUrl/$subscriptionId/addons';
     return api.post<RazorpayAddon>(
-      {
-        'url': url,
-        'data': params.toJson(),
-      },
+      {'url': url, 'data': params.toJson()},
       fromJsonFactory: RazorpayAddon.fromJson,
       callback: callback,
     );
@@ -320,10 +299,11 @@ class Subscriptions {
   Future<Response<RazorpayRegistrationLink>> createRegistrationLink({
     required RazorpayRegistrationLinkBaseRequestBody params,
     void Function(RazorpayApiException?, Response<RazorpayRegistrationLink>?)?
-        callback,
+    callback,
   }) async {
-    final response =
-        await create(params: params); // Call the dynamic create method
+    final response = await create(
+      params: params,
+    ); // Call the dynamic create method
     // Cast the dynamic response data if successful
     if (response.data is RazorpayRegistrationLink) {
       final typedResponse = Response<RazorpayRegistrationLink>(

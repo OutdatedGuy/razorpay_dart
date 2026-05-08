@@ -12,14 +12,14 @@ abstract class RazorpayBankAccountBaseRequestBody
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayBankAccountBaseRequestBody({
     required String name,
-    required dynamic account_number, // string | number
+    @JsonKey(name: 'account_number')
+    required dynamic accountNumber, // string | number
     required String ifsc,
   }) = _RazorpayBankAccountBaseRequestBody;
 
   factory RazorpayBankAccountBaseRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayBankAccountBaseRequestBodyFromJson(json);
+  ) => _$RazorpayBankAccountBaseRequestBodyFromJson(json);
 }
 
 @freezed
@@ -28,9 +28,10 @@ abstract class RazorpayBankAccount with _$RazorpayBankAccount {
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayBankAccount({
     required String name,
-    required dynamic account_number, // string | number
+    @JsonKey(name: 'account_number')
+    required dynamic accountNumber, // string | number
     required String ifsc,
-    required String bank_name,
+    @JsonKey(name: 'bank_name') required String bankName,
     @Default({})
     IMap<dynamic>? notes, // IMap<string | number> | [] -> Default to empty map
   }) = _RazorpayBankAccount;
@@ -45,16 +46,17 @@ abstract class RazorpayFundAccountBaseRequestBody
     with _$RazorpayFundAccountBaseRequestBody {
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayFundAccountBaseRequestBody({
-    required String customer_id,
-    required String account_type, // Typically 'bank_account'
+    @JsonKey(name: 'customer_id') required String customerId,
+    @JsonKey(name: 'account_type')
+    required String accountType, // Typically 'bank_account'
+    @JsonKey(name: 'bank_account')
     required RazorpayBankAccountBaseRequestBody
-        bank_account, // Use the base request for creation
+    bankAccount, // Use the base request for creation
   }) = _RazorpayFundAccountBaseRequestBody;
 
   factory RazorpayFundAccountBaseRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayFundAccountBaseRequestBodyFromJson(json);
+  ) => _$RazorpayFundAccountBaseRequestBodyFromJson(json);
 }
 
 // --- Create Request Body ---
@@ -64,15 +66,16 @@ abstract class RazorpayFundAccountCreateRequestBody
   // Inherits structure from Base
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayFundAccountCreateRequestBody({
-    required String customer_id,
-    required String account_type, // Typically 'bank_account'
-    required RazorpayBankAccountBaseRequestBody bank_account,
+    @JsonKey(name: 'customer_id') required String customerId,
+    @JsonKey(name: 'account_type')
+    required String accountType, // Typically 'bank_account'
+    @JsonKey(name: 'bank_account')
+    required RazorpayBankAccountBaseRequestBody bankAccount,
   }) = _RazorpayFundAccountCreateRequestBody;
 
   factory RazorpayFundAccountCreateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayFundAccountCreateRequestBodyFromJson(json);
+  ) => _$RazorpayFundAccountCreateRequestBodyFromJson(json);
 }
 
 // --- Response Body ---
@@ -83,11 +86,12 @@ abstract class RazorpayFundAccount with _$RazorpayFundAccount {
   const factory RazorpayFundAccount({
     required String id,
     required String entity,
-    required String customer_id,
-    required String account_type,
+    @JsonKey(name: 'customer_id') required String customerId,
+    @JsonKey(name: 'account_type') required String accountType,
+    @JsonKey(name: 'bank_account')
     required RazorpayBankAccount
-        bank_account, // Use the response BankAccount type, required bool active, required int created_at, String? batch_id, // Nullable batch_id
-    required int created_at,
+    bankAccount, // Use the response BankAccount type, required bool active, required int created_at, String? batch_id, // Nullable batch_id
+    @JsonKey(name: 'created_at') required int createdAt,
   }) = _RazorpayFundAccount;
 
   factory RazorpayFundAccount.fromJson(Map<String, dynamic> json) =>
@@ -107,6 +111,5 @@ abstract class RazorpayFundAccountFetchResponse
 
   factory RazorpayFundAccountFetchResponse.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayFundAccountFetchResponseFromJson(json);
+  ) => _$RazorpayFundAccountFetchResponseFromJson(json);
 }

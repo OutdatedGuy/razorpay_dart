@@ -20,7 +20,8 @@ class DateTimeConverter implements JsonConverter<DateTime, dynamic> {
     }
     // Handle unexpected type
     throw FormatException(
-        'Invalid date format: expected int (Unix timestamp) or String (ISO 8601), got ${json.runtimeType}');
+      'Invalid date format: expected int (Unix timestamp) or String (ISO 8601), got ${json.runtimeType}',
+    );
   }
 
   @override
@@ -90,18 +91,20 @@ abstract class RazorpayItem with _$RazorpayItem {
     required int amount, // number | string
     required String currency,
     // Response specific fields
-    required int unit_amount,
+    @JsonKey(name: 'unit_amount') required int unitAmount,
     required String type,
-    @DateTimeConverter() required DateTime created_at, // Typically 'invoice',
-    required bool tax_inclusive,
+    @DateTimeConverter()
+    @JsonKey(name: 'created_at')
+    required DateTime createdAt, // Typically 'invoice',
+    @JsonKey(name: 'tax_inclusive') required bool taxInclusive,
     required bool active,
     String? description,
     int? unit, // Nullable number
-    int? hsn_code, // Nullable number
-    int? sac_code, // Nullable number
-    int? tax_rate, // Nullable number
-    String? tax_id, // Nullable string
-    String? tax_group_id, // Nullable string
+    @JsonKey(name: 'hsn_code') int? hsnCode, // Nullable number
+    @JsonKey(name: 'sac_code') int? sacCode, // Nullable number
+    @JsonKey(name: 'tax_rate') int? taxRate, // Nullable number
+    @JsonKey(name: 'tax_id') String? taxId, // Nullable string
+    @JsonKey(name: 'tax_group_id') String? taxGroupId, // Nullable string
   }) = _RazorpayItem;
 
   factory RazorpayItem.fromJson(Map<String, dynamic> json) =>
@@ -119,7 +122,7 @@ abstract class RazorpayItemQuery with _$RazorpayItemQuery {
     int? count,
     int? skip,
     int?
-        active, // 0 or 1 ? Or bool? Check API docs. Assuming int based on d.ts name.
+    active, // 0 or 1 ? Or bool? Check API docs. Assuming int based on d.ts name.
   }) = _RazorpayItemQuery;
 
   factory RazorpayItemQuery.fromJson(Map<String, dynamic> json) =>

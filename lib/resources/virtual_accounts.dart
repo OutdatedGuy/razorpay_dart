@@ -8,8 +8,8 @@ import 'package:razorpay_dart/utils.dart'; // For normalizeDate
 class VirtualAccounts {
   VirtualAccounts(this.api);
   final API api;
-  static const String BASE_URL = '/virtual_accounts';
-  static const String ID_REQUIRED_MSG = '`virtual_account_id` is mandatory';
+  static const String baseUrl = '/virtual_accounts';
+  static const String idRequiredMsg = '`virtual_account_id` is mandatory';
 
   /// Fetch all virtual accounts
   ///
@@ -19,9 +19,10 @@ class VirtualAccounts {
     void Function(
       RazorpayApiException?,
       Response<RazorpayApiResponse<RazorpayVirtualAccount>>?,
-    )? callback,
+    )?
+    callback,
   }) async {
-    const url = BASE_URL;
+    const url = baseUrl;
     var from = params?.from;
     var to = params?.to;
     final count = params?.count ?? 10;
@@ -45,17 +46,15 @@ class VirtualAccounts {
     queryParams.removeWhere((key, value) => value == null);
 
     return api.get<RazorpayApiResponse<RazorpayVirtualAccount>>(
-      {
-        'url': url,
-        'data': queryParams,
-      },
+      {'url': url, 'data': queryParams},
       callback: callback,
       fromJsonFactory: (json) =>
           RazorpayApiResponse<RazorpayVirtualAccount>.fromJson(
-        json,
-        (itemJson) =>
-            RazorpayVirtualAccount.fromJson(itemJson! as Map<String, dynamic>),
-      ),
+            json,
+            (itemJson) => RazorpayVirtualAccount.fromJson(
+              itemJson! as Map<String, dynamic>,
+            ),
+          ),
     );
   }
 
@@ -65,12 +64,12 @@ class VirtualAccounts {
   Future<Response<RazorpayVirtualAccount>> fetch({
     required String virtualAccountId,
     void Function(RazorpayApiException?, Response<RazorpayVirtualAccount>?)?
-        callback,
+    callback,
   }) async {
     if (virtualAccountId.isEmpty) {
-      throw ArgumentError(ID_REQUIRED_MSG);
+      throw ArgumentError(idRequiredMsg);
     }
-    final url = '$BASE_URL/$virtualAccountId';
+    final url = '$baseUrl/$virtualAccountId';
     return api.get<RazorpayVirtualAccount>(
       {'url': url},
       fromJsonFactory: RazorpayVirtualAccount.fromJson,
@@ -84,7 +83,7 @@ class VirtualAccounts {
   Future<Response<RazorpayVirtualAccount>> create({
     required dynamic params, // Use dynamic for union type
     void Function(RazorpayApiException?, Response<RazorpayVirtualAccount>?)?
-        callback,
+    callback,
   }) async {
     Map<String, dynamic> requestData;
     if (params is RazorpayVirtualAccountCreateRequestBody ||
@@ -92,17 +91,14 @@ class VirtualAccounts {
       requestData = params is RazorpayVirtualAccountCreateRequestBody
           ? params.toJson()
           : params is RazorpayVirtualAccountTPVCreateRequestBody
-              ? params.toJson()
-              : {};
+          ? params.toJson()
+          : {};
     } else {
       throw ArgumentError('Invalid params type for Virtual Account creation.');
     }
 
     return api.post<RazorpayVirtualAccount>(
-      {
-        'url': BASE_URL,
-        'data': requestData,
-      },
+      {'url': baseUrl, 'data': requestData},
       fromJsonFactory: RazorpayVirtualAccount.fromJson,
       callback: callback,
     );
@@ -117,14 +113,15 @@ class VirtualAccounts {
     void Function(
       RazorpayApiException?,
       Response<RazorpayVirtualAccountCloseResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (virtualAccountId.isEmpty) {
-      throw ArgumentError(ID_REQUIRED_MSG);
+      throw ArgumentError(idRequiredMsg);
     }
     // JS returns 'any', assuming it returns the closed VA object.
     return api.post<RazorpayVirtualAccountCloseResponse>(
-      {'url': '$BASE_URL/$virtualAccountId/close'},
+      {'url': '$baseUrl/$virtualAccountId/close'},
       fromJsonFactory: RazorpayVirtualAccountCloseResponse
           .fromJson, // Adjust if response is different
       callback: callback,
@@ -141,12 +138,13 @@ class VirtualAccounts {
     void Function(
       RazorpayApiException?,
       Response<RazorpayVirtualAccountPaymentsResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (virtualAccountId.isEmpty) {
-      throw ArgumentError(ID_REQUIRED_MSG);
+      throw ArgumentError(idRequiredMsg);
     }
-    final url = '$BASE_URL/$virtualAccountId/payments';
+    final url = '$baseUrl/$virtualAccountId/payments';
 
     var from = params?.from; // Added pagination based on likely API behavior
     var to = params?.to;
@@ -170,10 +168,7 @@ class VirtualAccounts {
     queryParams.removeWhere((key, value) => value == null);
 
     return api.get<RazorpayVirtualAccountPaymentsResponse>(
-      {
-        'url': url,
-        'data': queryParams,
-      },
+      {'url': url, 'data': queryParams},
       fromJsonFactory: RazorpayVirtualAccountPaymentsResponse.fromJson,
       callback: callback,
     );
@@ -187,16 +182,13 @@ class VirtualAccounts {
     required String virtualAccountId,
     required RazorpayVirtualAccountReceiverBaseRequestBody params,
     void Function(RazorpayApiException?, Response<RazorpayVirtualAccount>?)?
-        callback,
+    callback,
   }) async {
     if (virtualAccountId.isEmpty) {
-      throw ArgumentError(ID_REQUIRED_MSG);
+      throw ArgumentError(idRequiredMsg);
     }
     return api.post<RazorpayVirtualAccount>(
-      {
-        'url': '$BASE_URL/$virtualAccountId/receivers',
-        'data': params.toJson(),
-      },
+      {'url': '$baseUrl/$virtualAccountId/receivers', 'data': params.toJson()},
       fromJsonFactory: RazorpayVirtualAccount.fromJson,
       callback: callback,
     );
@@ -211,14 +203,14 @@ class VirtualAccounts {
     required String virtualAccountId,
     required RazorpayAllowedPayerBaseRequestBody params,
     void Function(RazorpayApiException?, Response<RazorpayVirtualAccount>?)?
-        callback,
+    callback,
   }) async {
     if (virtualAccountId.isEmpty) {
-      throw ArgumentError(ID_REQUIRED_MSG);
+      throw ArgumentError(idRequiredMsg);
     }
     return api.post<RazorpayVirtualAccount>(
       {
-        'url': '$BASE_URL/$virtualAccountId/allowed_payers',
+        'url': '$baseUrl/$virtualAccountId/allowed_payers',
         'data': params.toJson(),
       },
       fromJsonFactory: RazorpayVirtualAccount.fromJson,
@@ -235,17 +227,17 @@ class VirtualAccounts {
     required String virtualAccountId,
     required String allowedPayerId,
     void Function(RazorpayApiException?, Response<DeleteAllowedPayerResponse>?)?
-        callback,
+    callback,
   }) async {
     if (virtualAccountId.isEmpty) {
-      throw ArgumentError(ID_REQUIRED_MSG);
+      throw ArgumentError(idRequiredMsg);
     }
     if (allowedPayerId.isEmpty) {
       throw ArgumentError('allowedPayerId is mandatory');
     }
     // JS API returns null, map to empty response model
     return api.delete<DeleteAllowedPayerResponse>(
-      {'url': '$BASE_URL/$virtualAccountId/allowed_payers/$allowedPayerId'},
+      {'url': '$baseUrl/$virtualAccountId/allowed_payers/$allowedPayerId'},
       fromJsonFactory: DeleteAllowedPayerResponse.fromJson,
       callback: callback,
     );

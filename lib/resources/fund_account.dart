@@ -13,13 +13,10 @@ class FundAccount {
   Future<Response<RazorpayFundAccount>> create({
     required RazorpayFundAccountCreateRequestBody params,
     void Function(RazorpayApiException?, Response<RazorpayFundAccount>?)?
-        callback,
+    callback,
   }) async {
     return api.post<RazorpayFundAccount>(
-      {
-        'url': '/fund_accounts',
-        'data': params.toJson(),
-      },
+      {'url': '/fund_accounts', 'data': params.toJson()},
       fromJsonFactory: RazorpayFundAccount.fromJson,
       callback: callback,
     );
@@ -33,7 +30,8 @@ class FundAccount {
     void Function(
       RazorpayApiException?,
       Response<RazorpayFundAccountFetchResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (customerId.isEmpty) {
       throw ArgumentError('Customer Id is mandatory');

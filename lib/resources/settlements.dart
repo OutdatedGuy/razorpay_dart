@@ -7,7 +7,7 @@ import 'package:razorpay_dart/models/settlements_model.dart';
 class Settlements {
   Settlements(this.api);
   final API api;
-  static const String BASE_URL = '/settlements';
+  static const String baseUrl = '/settlements';
 
   /// Create on-demand settlement
   ///
@@ -15,14 +15,11 @@ class Settlements {
   Future<Response<RazorpayInstantSettlement>> createOndemandSettlement({
     required RazorpayInstantSettlementCreateRequestBody params,
     void Function(RazorpayApiException?, Response<RazorpayInstantSettlement>?)?
-        callback,
+    callback,
   }) async {
-    const url = '$BASE_URL/ondemand';
+    const url = '$baseUrl/ondemand';
     return api.post<RazorpayInstantSettlement>(
-      {
-        'url': url,
-        'data': params.toJson(),
-      },
+      {'url': url, 'data': params.toJson()},
       fromJsonFactory: RazorpayInstantSettlement.fromJson,
       callback: callback,
     );
@@ -36,9 +33,10 @@ class Settlements {
     void Function(
       RazorpayApiException?,
       Response<RazorpaySettlementListResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
-    const url = BASE_URL;
+    const url = baseUrl;
     final from = params?.from;
     final to = params?.to;
     final count = params?.count ?? 10;
@@ -57,10 +55,7 @@ class Settlements {
 
     // Use the specific list response model
     return api.get<RazorpaySettlementListResponse>(
-      {
-        'url': url,
-        'data': queryParams,
-      },
+      {'url': url, 'data': queryParams},
       callback: callback,
       fromJsonFactory: RazorpaySettlementListResponse.fromJson,
     );
@@ -72,13 +67,13 @@ class Settlements {
   Future<Response<RazorpaySettlement>> fetch({
     required String settlementId,
     void Function(RazorpayApiException?, Response<RazorpaySettlement>?)?
-        callback,
+    callback,
   }) async {
     if (settlementId.isEmpty) {
       throw ArgumentError('settlementId is mandatory');
     }
     return api.get<RazorpaySettlement>(
-      {'url': '$BASE_URL/$settlementId'},
+      {'url': '$baseUrl/$settlementId'},
       fromJsonFactory: RazorpaySettlement.fromJson,
       callback: callback,
     );
@@ -88,14 +83,15 @@ class Settlements {
   ///
   /// @param params - Check [doc](https://razorpay.com/docs/api/settlements/instant#fetch-all-instant-settlements) for required params
   Future<Response<RazorpayInstantSettlementListResponse>>
-      fetchAllOndemandSettlement({
+  fetchAllOndemandSettlement({
     RazorpayOndemandSettlementQuery? params,
     void Function(
       RazorpayApiException?,
       Response<RazorpayInstantSettlementListResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
-    const url = '$BASE_URL/ondemand';
+    const url = '$baseUrl/ondemand';
     final from = params?.from;
     final to = params?.to;
     final count = params?.count ?? 10;
@@ -111,10 +107,7 @@ class Settlements {
     queryParams.removeWhere((key, value) => value == null);
 
     return api.get<RazorpayInstantSettlementListResponse>(
-      {
-        'url': url,
-        'data': queryParams,
-      },
+      {'url': url, 'data': queryParams},
       callback: callback,
       fromJsonFactory: RazorpayInstantSettlementListResponse.fromJson,
     );
@@ -128,19 +121,17 @@ class Settlements {
     required String settlementId,
     List<String>? expand, // Use List<String>
     void Function(RazorpayApiException?, Response<RazorpayInstantSettlement>?)?
-        callback,
+    callback,
   }) async {
     if (settlementId.isEmpty) {
       throw ArgumentError('settlementId is mandatory');
     }
 
-    final queryParams = {
-      if (expand != null) 'expand[]': expand,
-    };
+    final queryParams = {'expand[]': ?expand};
 
     return api.get<RazorpayInstantSettlement>(
       {
-        'url': '$BASE_URL/ondemand/$settlementId',
+        'url': '$baseUrl/ondemand/$settlementId',
         'data': queryParams.isNotEmpty ? queryParams : null,
       },
       fromJsonFactory: RazorpayInstantSettlement.fromJson,
@@ -156,9 +147,10 @@ class Settlements {
     void Function(
       RazorpayApiException?,
       Response<RazorpaySettlementReconResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
-    const url = '$BASE_URL/recon/combined';
+    const url = '$baseUrl/recon/combined';
 
     final queryParams = {
       ...params.toJson(), // Spread request body fields as query params
@@ -166,10 +158,7 @@ class Settlements {
     queryParams.removeWhere((key, value) => value == null);
 
     return api.get<RazorpaySettlementReconResponse>(
-      {
-        'url': url,
-        'data': queryParams,
-      },
+      {'url': url, 'data': queryParams},
       callback: callback,
       fromJsonFactory: RazorpaySettlementReconResponse.fromJson,
     );

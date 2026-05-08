@@ -1,6 +1,5 @@
-// dart format width=80
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -15,50 +14,47 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$OthersEvidence {
-  String get type;
-  List<String> get document_ids;
 
-  /// Create a copy of OthersEvidence
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $OthersEvidenceCopyWith<OthersEvidence> get copyWith =>
-      _$OthersEvidenceCopyWithImpl<OthersEvidence>(
-          this as OthersEvidence, _$identity);
+ String get type;@JsonKey(name: 'document_ids') List<String> get documentIds;
+/// Create a copy of OthersEvidence
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$OthersEvidenceCopyWith<OthersEvidence> get copyWith => _$OthersEvidenceCopyWithImpl<OthersEvidence>(this as OthersEvidence, _$identity);
 
   /// Serializes this OthersEvidence to a JSON map.
   Map<String, dynamic> toJson();
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is OthersEvidence &&
-            (identical(other.type, type) || other.type == type) &&
-            const DeepCollectionEquality()
-                .equals(other.document_ids, document_ids));
-  }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, type, const DeepCollectionEquality().hash(document_ids));
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OthersEvidence&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other.documentIds, documentIds));
+}
 
-  @override
-  String toString() {
-    return 'OthersEvidence(type: $type, document_ids: $document_ids)';
-  }
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,type,const DeepCollectionEquality().hash(documentIds));
+
+@override
+String toString() {
+  return 'OthersEvidence(type: $type, documentIds: $documentIds)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class $OthersEvidenceCopyWith<$Res> {
-  factory $OthersEvidenceCopyWith(
-          OthersEvidence value, $Res Function(OthersEvidence) _then) =
-      _$OthersEvidenceCopyWithImpl;
-  @useResult
-  $Res call({String type, List<String> document_ids});
-}
+abstract mixin class $OthersEvidenceCopyWith<$Res>  {
+  factory $OthersEvidenceCopyWith(OthersEvidence value, $Res Function(OthersEvidence) _then) = _$OthersEvidenceCopyWithImpl;
+@useResult
+$Res call({
+ String type,@JsonKey(name: 'document_ids') List<String> documentIds
+});
 
+
+
+
+}
 /// @nodoc
 class _$OthersEvidenceCopyWithImpl<$Res>
     implements $OthersEvidenceCopyWith<$Res> {
@@ -67,94 +63,205 @@ class _$OthersEvidenceCopyWithImpl<$Res>
   final OthersEvidence _self;
   final $Res Function(OthersEvidence) _then;
 
-  /// Create a copy of OthersEvidence
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? type = null,
-    Object? document_ids = null,
-  }) {
-    return _then(_self.copyWith(
-      type: null == type
-          ? _self.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      document_ids: null == document_ids
-          ? _self.document_ids
-          : document_ids // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-    ));
-  }
+/// Create a copy of OthersEvidence
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? documentIds = null,}) {
+  return _then(_self.copyWith(
+type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as String,documentIds: null == documentIds ? _self.documentIds : documentIds // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [OthersEvidence].
+extension OthersEvidencePatterns on OthersEvidence {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _OthersEvidence value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _OthersEvidence() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _OthersEvidence value)  $default,){
+final _that = this;
+switch (_that) {
+case _OthersEvidence():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _OthersEvidence value)?  $default,){
+final _that = this;
+switch (_that) {
+case _OthersEvidence() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String type, @JsonKey(name: 'document_ids')  List<String> documentIds)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _OthersEvidence() when $default != null:
+return $default(_that.type,_that.documentIds);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String type, @JsonKey(name: 'document_ids')  List<String> documentIds)  $default,) {final _that = this;
+switch (_that) {
+case _OthersEvidence():
+return $default(_that.type,_that.documentIds);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String type, @JsonKey(name: 'document_ids')  List<String> documentIds)?  $default,) {final _that = this;
+switch (_that) {
+case _OthersEvidence() when $default != null:
+return $default(_that.type,_that.documentIds);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 
 @JsonSerializable(includeIfNull: false)
 class _OthersEvidence implements OthersEvidence {
-  const _OthersEvidence(
-      {required this.type, required final List<String> document_ids})
-      : _document_ids = document_ids;
-  factory _OthersEvidence.fromJson(Map<String, dynamic> json) =>
-      _$OthersEvidenceFromJson(json);
+  const _OthersEvidence({required this.type, @JsonKey(name: 'document_ids') required final  List<String> documentIds}): _documentIds = documentIds;
+  factory _OthersEvidence.fromJson(Map<String, dynamic> json) => _$OthersEvidenceFromJson(json);
 
-  @override
-  final String type;
-  final List<String> _document_ids;
-  @override
-  List<String> get document_ids {
-    if (_document_ids is EqualUnmodifiableListView) return _document_ids;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_document_ids);
-  }
+@override final  String type;
+ final  List<String> _documentIds;
+@override@JsonKey(name: 'document_ids') List<String> get documentIds {
+  if (_documentIds is EqualUnmodifiableListView) return _documentIds;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_documentIds);
+}
 
-  /// Create a copy of OthersEvidence
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$OthersEvidenceCopyWith<_OthersEvidence> get copyWith =>
-      __$OthersEvidenceCopyWithImpl<_OthersEvidence>(this, _$identity);
 
-  @override
-  Map<String, dynamic> toJson() {
-    return _$OthersEvidenceToJson(
-      this,
-    );
-  }
+/// Create a copy of OthersEvidence
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$OthersEvidenceCopyWith<_OthersEvidence> get copyWith => __$OthersEvidenceCopyWithImpl<_OthersEvidence>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _OthersEvidence &&
-            (identical(other.type, type) || other.type == type) &&
-            const DeepCollectionEquality()
-                .equals(other._document_ids, _document_ids));
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$OthersEvidenceToJson(this, );
+}
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, type, const DeepCollectionEquality().hash(_document_ids));
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OthersEvidence&&(identical(other.type, type) || other.type == type)&&const DeepCollectionEquality().equals(other._documentIds, _documentIds));
+}
 
-  @override
-  String toString() {
-    return 'OthersEvidence(type: $type, document_ids: $document_ids)';
-  }
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,type,const DeepCollectionEquality().hash(_documentIds));
+
+@override
+String toString() {
+  return 'OthersEvidence(type: $type, documentIds: $documentIds)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class _$OthersEvidenceCopyWith<$Res>
-    implements $OthersEvidenceCopyWith<$Res> {
-  factory _$OthersEvidenceCopyWith(
-          _OthersEvidence value, $Res Function(_OthersEvidence) _then) =
-      __$OthersEvidenceCopyWithImpl;
-  @override
-  @useResult
-  $Res call({String type, List<String> document_ids});
-}
+abstract mixin class _$OthersEvidenceCopyWith<$Res> implements $OthersEvidenceCopyWith<$Res> {
+  factory _$OthersEvidenceCopyWith(_OthersEvidence value, $Res Function(_OthersEvidence) _then) = __$OthersEvidenceCopyWithImpl;
+@override @useResult
+$Res call({
+ String type,@JsonKey(name: 'document_ids') List<String> documentIds
+});
 
+
+
+
+}
 /// @nodoc
 class __$OthersEvidenceCopyWithImpl<$Res>
     implements _$OthersEvidenceCopyWith<$Res> {
@@ -163,144 +270,66 @@ class __$OthersEvidenceCopyWithImpl<$Res>
   final _OthersEvidence _self;
   final $Res Function(_OthersEvidence) _then;
 
-  /// Create a copy of OthersEvidence
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? type = null,
-    Object? document_ids = null,
-  }) {
-    return _then(_OthersEvidence(
-      type: null == type
-          ? _self.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      document_ids: null == document_ids
-          ? _self._document_ids
-          : document_ids // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-    ));
-  }
+/// Create a copy of OthersEvidence
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? documentIds = null,}) {
+  return _then(_OthersEvidence(
+type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as String,documentIds: null == documentIds ? _self._documentIds : documentIds // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
 }
+
+
+}
+
 
 /// @nodoc
 mixin _$RazorpayDisputesContestBaseRequestBody {
-// Fields for submitting evidence
-  int?
-      get amount; // Make contest fields optional as they form 'evidence' in response
-  String? get summary;
-  List<String>? get shipping_proof;
-  List<String>? get billing_proof;
-  List<String>? get cancellation_proof;
-  List<String>? get customer_communication;
-  List<String>? get proof_of_service;
-  List<String>? get explanation_letter;
-  List<String>? get refund_confirmation;
-  List<String>? get access_activity_log;
-  List<String>? get refund_cancellation_policy;
-  List<String>? get term_and_conditions;
-  List<OthersEvidence>? get others;
-  String? get action; // 'draft' or 'submit' when contesting
-  dynamic get submitted_at;
 
-  /// Create a copy of RazorpayDisputesContestBaseRequestBody
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $RazorpayDisputesContestBaseRequestBodyCopyWith<
-          RazorpayDisputesContestBaseRequestBody>
-      get copyWith => _$RazorpayDisputesContestBaseRequestBodyCopyWithImpl<
-              RazorpayDisputesContestBaseRequestBody>(
-          this as RazorpayDisputesContestBaseRequestBody, _$identity);
+// Fields for submitting evidence
+ int? get amount;// Make contest fields optional as they form 'evidence' in response
+ String? get summary;@JsonKey(name: 'shipping_proof') List<String>? get shippingProof;@JsonKey(name: 'billing_proof') List<String>? get billingProof;@JsonKey(name: 'cancellation_proof') List<String>? get cancellationProof;@JsonKey(name: 'customer_communication') List<String>? get customerCommunication;@JsonKey(name: 'proof_of_service') List<String>? get proofOfService;@JsonKey(name: 'explanation_letter') List<String>? get explanationLetter;@JsonKey(name: 'refund_confirmation') List<String>? get refundConfirmation;@JsonKey(name: 'access_activity_log') List<String>? get accessActivityLog;@JsonKey(name: 'refund_cancellation_policy') List<String>? get refundCancellationPolicy;@JsonKey(name: 'term_and_conditions') List<String>? get termAndConditions; List<OthersEvidence>? get others; String? get action;// 'draft' or 'submit' when contesting
+@JsonKey(name: 'submitted_at') dynamic get submittedAt;
+/// Create a copy of RazorpayDisputesContestBaseRequestBody
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RazorpayDisputesContestBaseRequestBodyCopyWith<RazorpayDisputesContestBaseRequestBody> get copyWith => _$RazorpayDisputesContestBaseRequestBodyCopyWithImpl<RazorpayDisputesContestBaseRequestBody>(this as RazorpayDisputesContestBaseRequestBody, _$identity);
 
   /// Serializes this RazorpayDisputesContestBaseRequestBody to a JSON map.
   Map<String, dynamic> toJson();
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is RazorpayDisputesContestBaseRequestBody &&
-            (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.summary, summary) || other.summary == summary) &&
-            const DeepCollectionEquality()
-                .equals(other.shipping_proof, shipping_proof) &&
-            const DeepCollectionEquality()
-                .equals(other.billing_proof, billing_proof) &&
-            const DeepCollectionEquality()
-                .equals(other.cancellation_proof, cancellation_proof) &&
-            const DeepCollectionEquality()
-                .equals(other.customer_communication, customer_communication) &&
-            const DeepCollectionEquality()
-                .equals(other.proof_of_service, proof_of_service) &&
-            const DeepCollectionEquality()
-                .equals(other.explanation_letter, explanation_letter) &&
-            const DeepCollectionEquality()
-                .equals(other.refund_confirmation, refund_confirmation) &&
-            const DeepCollectionEquality()
-                .equals(other.access_activity_log, access_activity_log) &&
-            const DeepCollectionEquality().equals(
-                other.refund_cancellation_policy, refund_cancellation_policy) &&
-            const DeepCollectionEquality()
-                .equals(other.term_and_conditions, term_and_conditions) &&
-            const DeepCollectionEquality().equals(other.others, others) &&
-            (identical(other.action, action) || other.action == action) &&
-            const DeepCollectionEquality()
-                .equals(other.submitted_at, submitted_at));
-  }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      amount,
-      summary,
-      const DeepCollectionEquality().hash(shipping_proof),
-      const DeepCollectionEquality().hash(billing_proof),
-      const DeepCollectionEquality().hash(cancellation_proof),
-      const DeepCollectionEquality().hash(customer_communication),
-      const DeepCollectionEquality().hash(proof_of_service),
-      const DeepCollectionEquality().hash(explanation_letter),
-      const DeepCollectionEquality().hash(refund_confirmation),
-      const DeepCollectionEquality().hash(access_activity_log),
-      const DeepCollectionEquality().hash(refund_cancellation_policy),
-      const DeepCollectionEquality().hash(term_and_conditions),
-      const DeepCollectionEquality().hash(others),
-      action,
-      const DeepCollectionEquality().hash(submitted_at));
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RazorpayDisputesContestBaseRequestBody&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.summary, summary) || other.summary == summary)&&const DeepCollectionEquality().equals(other.shippingProof, shippingProof)&&const DeepCollectionEquality().equals(other.billingProof, billingProof)&&const DeepCollectionEquality().equals(other.cancellationProof, cancellationProof)&&const DeepCollectionEquality().equals(other.customerCommunication, customerCommunication)&&const DeepCollectionEquality().equals(other.proofOfService, proofOfService)&&const DeepCollectionEquality().equals(other.explanationLetter, explanationLetter)&&const DeepCollectionEquality().equals(other.refundConfirmation, refundConfirmation)&&const DeepCollectionEquality().equals(other.accessActivityLog, accessActivityLog)&&const DeepCollectionEquality().equals(other.refundCancellationPolicy, refundCancellationPolicy)&&const DeepCollectionEquality().equals(other.termAndConditions, termAndConditions)&&const DeepCollectionEquality().equals(other.others, others)&&(identical(other.action, action) || other.action == action)&&const DeepCollectionEquality().equals(other.submittedAt, submittedAt));
+}
 
-  @override
-  String toString() {
-    return 'RazorpayDisputesContestBaseRequestBody(amount: $amount, summary: $summary, shipping_proof: $shipping_proof, billing_proof: $billing_proof, cancellation_proof: $cancellation_proof, customer_communication: $customer_communication, proof_of_service: $proof_of_service, explanation_letter: $explanation_letter, refund_confirmation: $refund_confirmation, access_activity_log: $access_activity_log, refund_cancellation_policy: $refund_cancellation_policy, term_and_conditions: $term_and_conditions, others: $others, action: $action, submitted_at: $submitted_at)';
-  }
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,amount,summary,const DeepCollectionEquality().hash(shippingProof),const DeepCollectionEquality().hash(billingProof),const DeepCollectionEquality().hash(cancellationProof),const DeepCollectionEquality().hash(customerCommunication),const DeepCollectionEquality().hash(proofOfService),const DeepCollectionEquality().hash(explanationLetter),const DeepCollectionEquality().hash(refundConfirmation),const DeepCollectionEquality().hash(accessActivityLog),const DeepCollectionEquality().hash(refundCancellationPolicy),const DeepCollectionEquality().hash(termAndConditions),const DeepCollectionEquality().hash(others),action,const DeepCollectionEquality().hash(submittedAt));
+
+@override
+String toString() {
+  return 'RazorpayDisputesContestBaseRequestBody(amount: $amount, summary: $summary, shippingProof: $shippingProof, billingProof: $billingProof, cancellationProof: $cancellationProof, customerCommunication: $customerCommunication, proofOfService: $proofOfService, explanationLetter: $explanationLetter, refundConfirmation: $refundConfirmation, accessActivityLog: $accessActivityLog, refundCancellationPolicy: $refundCancellationPolicy, termAndConditions: $termAndConditions, others: $others, action: $action, submittedAt: $submittedAt)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class $RazorpayDisputesContestBaseRequestBodyCopyWith<$Res> {
-  factory $RazorpayDisputesContestBaseRequestBodyCopyWith(
-          RazorpayDisputesContestBaseRequestBody value,
-          $Res Function(RazorpayDisputesContestBaseRequestBody) _then) =
-      _$RazorpayDisputesContestBaseRequestBodyCopyWithImpl;
-  @useResult
-  $Res call(
-      {int? amount,
-      String? summary,
-      List<String>? shipping_proof,
-      List<String>? billing_proof,
-      List<String>? cancellation_proof,
-      List<String>? customer_communication,
-      List<String>? proof_of_service,
-      List<String>? explanation_letter,
-      List<String>? refund_confirmation,
-      List<String>? access_activity_log,
-      List<String>? refund_cancellation_policy,
-      List<String>? term_and_conditions,
-      List<OthersEvidence>? others,
-      String? action,
-      dynamic submitted_at});
-}
+abstract mixin class $RazorpayDisputesContestBaseRequestBodyCopyWith<$Res>  {
+  factory $RazorpayDisputesContestBaseRequestBodyCopyWith(RazorpayDisputesContestBaseRequestBody value, $Res Function(RazorpayDisputesContestBaseRequestBody) _then) = _$RazorpayDisputesContestBaseRequestBodyCopyWithImpl;
+@useResult
+$Res call({
+ int? amount, String? summary,@JsonKey(name: 'shipping_proof') List<String>? shippingProof,@JsonKey(name: 'billing_proof') List<String>? billingProof,@JsonKey(name: 'cancellation_proof') List<String>? cancellationProof,@JsonKey(name: 'customer_communication') List<String>? customerCommunication,@JsonKey(name: 'proof_of_service') List<String>? proofOfService,@JsonKey(name: 'explanation_letter') List<String>? explanationLetter,@JsonKey(name: 'refund_confirmation') List<String>? refundConfirmation,@JsonKey(name: 'access_activity_log') List<String>? accessActivityLog,@JsonKey(name: 'refund_cancellation_policy') List<String>? refundCancellationPolicy,@JsonKey(name: 'term_and_conditions') List<String>? termAndConditions, List<OthersEvidence>? others, String? action,@JsonKey(name: 'submitted_at') dynamic submittedAt
+});
 
+
+
+
+}
 /// @nodoc
 class _$RazorpayDisputesContestBaseRequestBodyCopyWithImpl<$Res>
     implements $RazorpayDisputesContestBaseRequestBodyCopyWith<$Res> {
@@ -309,362 +338,316 @@ class _$RazorpayDisputesContestBaseRequestBodyCopyWithImpl<$Res>
   final RazorpayDisputesContestBaseRequestBody _self;
   final $Res Function(RazorpayDisputesContestBaseRequestBody) _then;
 
-  /// Create a copy of RazorpayDisputesContestBaseRequestBody
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? amount = freezed,
-    Object? summary = freezed,
-    Object? shipping_proof = freezed,
-    Object? billing_proof = freezed,
-    Object? cancellation_proof = freezed,
-    Object? customer_communication = freezed,
-    Object? proof_of_service = freezed,
-    Object? explanation_letter = freezed,
-    Object? refund_confirmation = freezed,
-    Object? access_activity_log = freezed,
-    Object? refund_cancellation_policy = freezed,
-    Object? term_and_conditions = freezed,
-    Object? others = freezed,
-    Object? action = freezed,
-    Object? submitted_at = freezed,
-  }) {
-    return _then(_self.copyWith(
-      amount: freezed == amount
-          ? _self.amount
-          : amount // ignore: cast_nullable_to_non_nullable
-              as int?,
-      summary: freezed == summary
-          ? _self.summary
-          : summary // ignore: cast_nullable_to_non_nullable
-              as String?,
-      shipping_proof: freezed == shipping_proof
-          ? _self.shipping_proof
-          : shipping_proof // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      billing_proof: freezed == billing_proof
-          ? _self.billing_proof
-          : billing_proof // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      cancellation_proof: freezed == cancellation_proof
-          ? _self.cancellation_proof
-          : cancellation_proof // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      customer_communication: freezed == customer_communication
-          ? _self.customer_communication
-          : customer_communication // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      proof_of_service: freezed == proof_of_service
-          ? _self.proof_of_service
-          : proof_of_service // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      explanation_letter: freezed == explanation_letter
-          ? _self.explanation_letter
-          : explanation_letter // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      refund_confirmation: freezed == refund_confirmation
-          ? _self.refund_confirmation
-          : refund_confirmation // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      access_activity_log: freezed == access_activity_log
-          ? _self.access_activity_log
-          : access_activity_log // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      refund_cancellation_policy: freezed == refund_cancellation_policy
-          ? _self.refund_cancellation_policy
-          : refund_cancellation_policy // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      term_and_conditions: freezed == term_and_conditions
-          ? _self.term_and_conditions
-          : term_and_conditions // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      others: freezed == others
-          ? _self.others
-          : others // ignore: cast_nullable_to_non_nullable
-              as List<OthersEvidence>?,
-      action: freezed == action
-          ? _self.action
-          : action // ignore: cast_nullable_to_non_nullable
-              as String?,
-      submitted_at: freezed == submitted_at
-          ? _self.submitted_at
-          : submitted_at // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ));
-  }
+/// Create a copy of RazorpayDisputesContestBaseRequestBody
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? amount = freezed,Object? summary = freezed,Object? shippingProof = freezed,Object? billingProof = freezed,Object? cancellationProof = freezed,Object? customerCommunication = freezed,Object? proofOfService = freezed,Object? explanationLetter = freezed,Object? refundConfirmation = freezed,Object? accessActivityLog = freezed,Object? refundCancellationPolicy = freezed,Object? termAndConditions = freezed,Object? others = freezed,Object? action = freezed,Object? submittedAt = freezed,}) {
+  return _then(_self.copyWith(
+amount: freezed == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
+as int?,summary: freezed == summary ? _self.summary : summary // ignore: cast_nullable_to_non_nullable
+as String?,shippingProof: freezed == shippingProof ? _self.shippingProof : shippingProof // ignore: cast_nullable_to_non_nullable
+as List<String>?,billingProof: freezed == billingProof ? _self.billingProof : billingProof // ignore: cast_nullable_to_non_nullable
+as List<String>?,cancellationProof: freezed == cancellationProof ? _self.cancellationProof : cancellationProof // ignore: cast_nullable_to_non_nullable
+as List<String>?,customerCommunication: freezed == customerCommunication ? _self.customerCommunication : customerCommunication // ignore: cast_nullable_to_non_nullable
+as List<String>?,proofOfService: freezed == proofOfService ? _self.proofOfService : proofOfService // ignore: cast_nullable_to_non_nullable
+as List<String>?,explanationLetter: freezed == explanationLetter ? _self.explanationLetter : explanationLetter // ignore: cast_nullable_to_non_nullable
+as List<String>?,refundConfirmation: freezed == refundConfirmation ? _self.refundConfirmation : refundConfirmation // ignore: cast_nullable_to_non_nullable
+as List<String>?,accessActivityLog: freezed == accessActivityLog ? _self.accessActivityLog : accessActivityLog // ignore: cast_nullable_to_non_nullable
+as List<String>?,refundCancellationPolicy: freezed == refundCancellationPolicy ? _self.refundCancellationPolicy : refundCancellationPolicy // ignore: cast_nullable_to_non_nullable
+as List<String>?,termAndConditions: freezed == termAndConditions ? _self.termAndConditions : termAndConditions // ignore: cast_nullable_to_non_nullable
+as List<String>?,others: freezed == others ? _self.others : others // ignore: cast_nullable_to_non_nullable
+as List<OthersEvidence>?,action: freezed == action ? _self.action : action // ignore: cast_nullable_to_non_nullable
+as String?,submittedAt: freezed == submittedAt ? _self.submittedAt : submittedAt // ignore: cast_nullable_to_non_nullable
+as dynamic,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [RazorpayDisputesContestBaseRequestBody].
+extension RazorpayDisputesContestBaseRequestBodyPatterns on RazorpayDisputesContestBaseRequestBody {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _RazorpayDisputesContestBaseRequestBody value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _RazorpayDisputesContestBaseRequestBody() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _RazorpayDisputesContestBaseRequestBody value)  $default,){
+final _that = this;
+switch (_that) {
+case _RazorpayDisputesContestBaseRequestBody():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _RazorpayDisputesContestBaseRequestBody value)?  $default,){
+final _that = this;
+switch (_that) {
+case _RazorpayDisputesContestBaseRequestBody() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? amount,  String? summary, @JsonKey(name: 'shipping_proof')  List<String>? shippingProof, @JsonKey(name: 'billing_proof')  List<String>? billingProof, @JsonKey(name: 'cancellation_proof')  List<String>? cancellationProof, @JsonKey(name: 'customer_communication')  List<String>? customerCommunication, @JsonKey(name: 'proof_of_service')  List<String>? proofOfService, @JsonKey(name: 'explanation_letter')  List<String>? explanationLetter, @JsonKey(name: 'refund_confirmation')  List<String>? refundConfirmation, @JsonKey(name: 'access_activity_log')  List<String>? accessActivityLog, @JsonKey(name: 'refund_cancellation_policy')  List<String>? refundCancellationPolicy, @JsonKey(name: 'term_and_conditions')  List<String>? termAndConditions,  List<OthersEvidence>? others,  String? action, @JsonKey(name: 'submitted_at')  dynamic submittedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _RazorpayDisputesContestBaseRequestBody() when $default != null:
+return $default(_that.amount,_that.summary,_that.shippingProof,_that.billingProof,_that.cancellationProof,_that.customerCommunication,_that.proofOfService,_that.explanationLetter,_that.refundConfirmation,_that.accessActivityLog,_that.refundCancellationPolicy,_that.termAndConditions,_that.others,_that.action,_that.submittedAt);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? amount,  String? summary, @JsonKey(name: 'shipping_proof')  List<String>? shippingProof, @JsonKey(name: 'billing_proof')  List<String>? billingProof, @JsonKey(name: 'cancellation_proof')  List<String>? cancellationProof, @JsonKey(name: 'customer_communication')  List<String>? customerCommunication, @JsonKey(name: 'proof_of_service')  List<String>? proofOfService, @JsonKey(name: 'explanation_letter')  List<String>? explanationLetter, @JsonKey(name: 'refund_confirmation')  List<String>? refundConfirmation, @JsonKey(name: 'access_activity_log')  List<String>? accessActivityLog, @JsonKey(name: 'refund_cancellation_policy')  List<String>? refundCancellationPolicy, @JsonKey(name: 'term_and_conditions')  List<String>? termAndConditions,  List<OthersEvidence>? others,  String? action, @JsonKey(name: 'submitted_at')  dynamic submittedAt)  $default,) {final _that = this;
+switch (_that) {
+case _RazorpayDisputesContestBaseRequestBody():
+return $default(_that.amount,_that.summary,_that.shippingProof,_that.billingProof,_that.cancellationProof,_that.customerCommunication,_that.proofOfService,_that.explanationLetter,_that.refundConfirmation,_that.accessActivityLog,_that.refundCancellationPolicy,_that.termAndConditions,_that.others,_that.action,_that.submittedAt);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? amount,  String? summary, @JsonKey(name: 'shipping_proof')  List<String>? shippingProof, @JsonKey(name: 'billing_proof')  List<String>? billingProof, @JsonKey(name: 'cancellation_proof')  List<String>? cancellationProof, @JsonKey(name: 'customer_communication')  List<String>? customerCommunication, @JsonKey(name: 'proof_of_service')  List<String>? proofOfService, @JsonKey(name: 'explanation_letter')  List<String>? explanationLetter, @JsonKey(name: 'refund_confirmation')  List<String>? refundConfirmation, @JsonKey(name: 'access_activity_log')  List<String>? accessActivityLog, @JsonKey(name: 'refund_cancellation_policy')  List<String>? refundCancellationPolicy, @JsonKey(name: 'term_and_conditions')  List<String>? termAndConditions,  List<OthersEvidence>? others,  String? action, @JsonKey(name: 'submitted_at')  dynamic submittedAt)?  $default,) {final _that = this;
+switch (_that) {
+case _RazorpayDisputesContestBaseRequestBody() when $default != null:
+return $default(_that.amount,_that.summary,_that.shippingProof,_that.billingProof,_that.cancellationProof,_that.customerCommunication,_that.proofOfService,_that.explanationLetter,_that.refundConfirmation,_that.accessActivityLog,_that.refundCancellationPolicy,_that.termAndConditions,_that.others,_that.action,_that.submittedAt);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 
 @JsonSerializable(includeIfNull: false)
-class _RazorpayDisputesContestBaseRequestBody
-    implements RazorpayDisputesContestBaseRequestBody {
-  const _RazorpayDisputesContestBaseRequestBody(
-      {this.amount,
-      this.summary,
-      final List<String>? shipping_proof,
-      final List<String>? billing_proof,
-      final List<String>? cancellation_proof,
-      final List<String>? customer_communication,
-      final List<String>? proof_of_service,
-      final List<String>? explanation_letter,
-      final List<String>? refund_confirmation,
-      final List<String>? access_activity_log,
-      final List<String>? refund_cancellation_policy,
-      final List<String>? term_and_conditions,
-      final List<OthersEvidence>? others,
-      this.action,
-      this.submitted_at})
-      : _shipping_proof = shipping_proof,
-        _billing_proof = billing_proof,
-        _cancellation_proof = cancellation_proof,
-        _customer_communication = customer_communication,
-        _proof_of_service = proof_of_service,
-        _explanation_letter = explanation_letter,
-        _refund_confirmation = refund_confirmation,
-        _access_activity_log = access_activity_log,
-        _refund_cancellation_policy = refund_cancellation_policy,
-        _term_and_conditions = term_and_conditions,
-        _others = others;
-  factory _RazorpayDisputesContestBaseRequestBody.fromJson(
-          Map<String, dynamic> json) =>
-      _$RazorpayDisputesContestBaseRequestBodyFromJson(json);
+class _RazorpayDisputesContestBaseRequestBody implements RazorpayDisputesContestBaseRequestBody {
+  const _RazorpayDisputesContestBaseRequestBody({this.amount, this.summary, @JsonKey(name: 'shipping_proof') final  List<String>? shippingProof, @JsonKey(name: 'billing_proof') final  List<String>? billingProof, @JsonKey(name: 'cancellation_proof') final  List<String>? cancellationProof, @JsonKey(name: 'customer_communication') final  List<String>? customerCommunication, @JsonKey(name: 'proof_of_service') final  List<String>? proofOfService, @JsonKey(name: 'explanation_letter') final  List<String>? explanationLetter, @JsonKey(name: 'refund_confirmation') final  List<String>? refundConfirmation, @JsonKey(name: 'access_activity_log') final  List<String>? accessActivityLog, @JsonKey(name: 'refund_cancellation_policy') final  List<String>? refundCancellationPolicy, @JsonKey(name: 'term_and_conditions') final  List<String>? termAndConditions, final  List<OthersEvidence>? others, this.action, @JsonKey(name: 'submitted_at') this.submittedAt}): _shippingProof = shippingProof,_billingProof = billingProof,_cancellationProof = cancellationProof,_customerCommunication = customerCommunication,_proofOfService = proofOfService,_explanationLetter = explanationLetter,_refundConfirmation = refundConfirmation,_accessActivityLog = accessActivityLog,_refundCancellationPolicy = refundCancellationPolicy,_termAndConditions = termAndConditions,_others = others;
+  factory _RazorpayDisputesContestBaseRequestBody.fromJson(Map<String, dynamic> json) => _$RazorpayDisputesContestBaseRequestBodyFromJson(json);
 
 // Fields for submitting evidence
-  @override
-  final int? amount;
+@override final  int? amount;
 // Make contest fields optional as they form 'evidence' in response
-  @override
-  final String? summary;
-  final List<String>? _shipping_proof;
-  @override
-  List<String>? get shipping_proof {
-    final value = _shipping_proof;
-    if (value == null) return null;
-    if (_shipping_proof is EqualUnmodifiableListView) return _shipping_proof;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+@override final  String? summary;
+ final  List<String>? _shippingProof;
+@override@JsonKey(name: 'shipping_proof') List<String>? get shippingProof {
+  final value = _shippingProof;
+  if (value == null) return null;
+  if (_shippingProof is EqualUnmodifiableListView) return _shippingProof;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
 
-  final List<String>? _billing_proof;
-  @override
-  List<String>? get billing_proof {
-    final value = _billing_proof;
-    if (value == null) return null;
-    if (_billing_proof is EqualUnmodifiableListView) return _billing_proof;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+ final  List<String>? _billingProof;
+@override@JsonKey(name: 'billing_proof') List<String>? get billingProof {
+  final value = _billingProof;
+  if (value == null) return null;
+  if (_billingProof is EqualUnmodifiableListView) return _billingProof;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
 
-  final List<String>? _cancellation_proof;
-  @override
-  List<String>? get cancellation_proof {
-    final value = _cancellation_proof;
-    if (value == null) return null;
-    if (_cancellation_proof is EqualUnmodifiableListView)
-      return _cancellation_proof;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+ final  List<String>? _cancellationProof;
+@override@JsonKey(name: 'cancellation_proof') List<String>? get cancellationProof {
+  final value = _cancellationProof;
+  if (value == null) return null;
+  if (_cancellationProof is EqualUnmodifiableListView) return _cancellationProof;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
 
-  final List<String>? _customer_communication;
-  @override
-  List<String>? get customer_communication {
-    final value = _customer_communication;
-    if (value == null) return null;
-    if (_customer_communication is EqualUnmodifiableListView)
-      return _customer_communication;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+ final  List<String>? _customerCommunication;
+@override@JsonKey(name: 'customer_communication') List<String>? get customerCommunication {
+  final value = _customerCommunication;
+  if (value == null) return null;
+  if (_customerCommunication is EqualUnmodifiableListView) return _customerCommunication;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
 
-  final List<String>? _proof_of_service;
-  @override
-  List<String>? get proof_of_service {
-    final value = _proof_of_service;
-    if (value == null) return null;
-    if (_proof_of_service is EqualUnmodifiableListView)
-      return _proof_of_service;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+ final  List<String>? _proofOfService;
+@override@JsonKey(name: 'proof_of_service') List<String>? get proofOfService {
+  final value = _proofOfService;
+  if (value == null) return null;
+  if (_proofOfService is EqualUnmodifiableListView) return _proofOfService;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
 
-  final List<String>? _explanation_letter;
-  @override
-  List<String>? get explanation_letter {
-    final value = _explanation_letter;
-    if (value == null) return null;
-    if (_explanation_letter is EqualUnmodifiableListView)
-      return _explanation_letter;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+ final  List<String>? _explanationLetter;
+@override@JsonKey(name: 'explanation_letter') List<String>? get explanationLetter {
+  final value = _explanationLetter;
+  if (value == null) return null;
+  if (_explanationLetter is EqualUnmodifiableListView) return _explanationLetter;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
 
-  final List<String>? _refund_confirmation;
-  @override
-  List<String>? get refund_confirmation {
-    final value = _refund_confirmation;
-    if (value == null) return null;
-    if (_refund_confirmation is EqualUnmodifiableListView)
-      return _refund_confirmation;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+ final  List<String>? _refundConfirmation;
+@override@JsonKey(name: 'refund_confirmation') List<String>? get refundConfirmation {
+  final value = _refundConfirmation;
+  if (value == null) return null;
+  if (_refundConfirmation is EqualUnmodifiableListView) return _refundConfirmation;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
 
-  final List<String>? _access_activity_log;
-  @override
-  List<String>? get access_activity_log {
-    final value = _access_activity_log;
-    if (value == null) return null;
-    if (_access_activity_log is EqualUnmodifiableListView)
-      return _access_activity_log;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+ final  List<String>? _accessActivityLog;
+@override@JsonKey(name: 'access_activity_log') List<String>? get accessActivityLog {
+  final value = _accessActivityLog;
+  if (value == null) return null;
+  if (_accessActivityLog is EqualUnmodifiableListView) return _accessActivityLog;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
 
-  final List<String>? _refund_cancellation_policy;
-  @override
-  List<String>? get refund_cancellation_policy {
-    final value = _refund_cancellation_policy;
-    if (value == null) return null;
-    if (_refund_cancellation_policy is EqualUnmodifiableListView)
-      return _refund_cancellation_policy;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+ final  List<String>? _refundCancellationPolicy;
+@override@JsonKey(name: 'refund_cancellation_policy') List<String>? get refundCancellationPolicy {
+  final value = _refundCancellationPolicy;
+  if (value == null) return null;
+  if (_refundCancellationPolicy is EqualUnmodifiableListView) return _refundCancellationPolicy;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
 
-  final List<String>? _term_and_conditions;
-  @override
-  List<String>? get term_and_conditions {
-    final value = _term_and_conditions;
-    if (value == null) return null;
-    if (_term_and_conditions is EqualUnmodifiableListView)
-      return _term_and_conditions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+ final  List<String>? _termAndConditions;
+@override@JsonKey(name: 'term_and_conditions') List<String>? get termAndConditions {
+  final value = _termAndConditions;
+  if (value == null) return null;
+  if (_termAndConditions is EqualUnmodifiableListView) return _termAndConditions;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
 
-  final List<OthersEvidence>? _others;
-  @override
-  List<OthersEvidence>? get others {
-    final value = _others;
-    if (value == null) return null;
-    if (_others is EqualUnmodifiableListView) return _others;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
+ final  List<OthersEvidence>? _others;
+@override List<OthersEvidence>? get others {
+  final value = _others;
+  if (value == null) return null;
+  if (_others is EqualUnmodifiableListView) return _others;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
 
-  @override
-  final String? action;
+@override final  String? action;
 // 'draft' or 'submit' when contesting
-  @override
-  final dynamic submitted_at;
+@override@JsonKey(name: 'submitted_at') final  dynamic submittedAt;
 
-  /// Create a copy of RazorpayDisputesContestBaseRequestBody
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$RazorpayDisputesContestBaseRequestBodyCopyWith<
-          _RazorpayDisputesContestBaseRequestBody>
-      get copyWith => __$RazorpayDisputesContestBaseRequestBodyCopyWithImpl<
-          _RazorpayDisputesContestBaseRequestBody>(this, _$identity);
+/// Create a copy of RazorpayDisputesContestBaseRequestBody
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$RazorpayDisputesContestBaseRequestBodyCopyWith<_RazorpayDisputesContestBaseRequestBody> get copyWith => __$RazorpayDisputesContestBaseRequestBodyCopyWithImpl<_RazorpayDisputesContestBaseRequestBody>(this, _$identity);
 
-  @override
-  Map<String, dynamic> toJson() {
-    return _$RazorpayDisputesContestBaseRequestBodyToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$RazorpayDisputesContestBaseRequestBodyToJson(this, );
+}
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _RazorpayDisputesContestBaseRequestBody &&
-            (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.summary, summary) || other.summary == summary) &&
-            const DeepCollectionEquality()
-                .equals(other._shipping_proof, _shipping_proof) &&
-            const DeepCollectionEquality()
-                .equals(other._billing_proof, _billing_proof) &&
-            const DeepCollectionEquality()
-                .equals(other._cancellation_proof, _cancellation_proof) &&
-            const DeepCollectionEquality().equals(
-                other._customer_communication, _customer_communication) &&
-            const DeepCollectionEquality()
-                .equals(other._proof_of_service, _proof_of_service) &&
-            const DeepCollectionEquality()
-                .equals(other._explanation_letter, _explanation_letter) &&
-            const DeepCollectionEquality()
-                .equals(other._refund_confirmation, _refund_confirmation) &&
-            const DeepCollectionEquality()
-                .equals(other._access_activity_log, _access_activity_log) &&
-            const DeepCollectionEquality().equals(
-                other._refund_cancellation_policy,
-                _refund_cancellation_policy) &&
-            const DeepCollectionEquality()
-                .equals(other._term_and_conditions, _term_and_conditions) &&
-            const DeepCollectionEquality().equals(other._others, _others) &&
-            (identical(other.action, action) || other.action == action) &&
-            const DeepCollectionEquality()
-                .equals(other.submitted_at, submitted_at));
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RazorpayDisputesContestBaseRequestBody&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.summary, summary) || other.summary == summary)&&const DeepCollectionEquality().equals(other._shippingProof, _shippingProof)&&const DeepCollectionEquality().equals(other._billingProof, _billingProof)&&const DeepCollectionEquality().equals(other._cancellationProof, _cancellationProof)&&const DeepCollectionEquality().equals(other._customerCommunication, _customerCommunication)&&const DeepCollectionEquality().equals(other._proofOfService, _proofOfService)&&const DeepCollectionEquality().equals(other._explanationLetter, _explanationLetter)&&const DeepCollectionEquality().equals(other._refundConfirmation, _refundConfirmation)&&const DeepCollectionEquality().equals(other._accessActivityLog, _accessActivityLog)&&const DeepCollectionEquality().equals(other._refundCancellationPolicy, _refundCancellationPolicy)&&const DeepCollectionEquality().equals(other._termAndConditions, _termAndConditions)&&const DeepCollectionEquality().equals(other._others, _others)&&(identical(other.action, action) || other.action == action)&&const DeepCollectionEquality().equals(other.submittedAt, submittedAt));
+}
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      amount,
-      summary,
-      const DeepCollectionEquality().hash(_shipping_proof),
-      const DeepCollectionEquality().hash(_billing_proof),
-      const DeepCollectionEquality().hash(_cancellation_proof),
-      const DeepCollectionEquality().hash(_customer_communication),
-      const DeepCollectionEquality().hash(_proof_of_service),
-      const DeepCollectionEquality().hash(_explanation_letter),
-      const DeepCollectionEquality().hash(_refund_confirmation),
-      const DeepCollectionEquality().hash(_access_activity_log),
-      const DeepCollectionEquality().hash(_refund_cancellation_policy),
-      const DeepCollectionEquality().hash(_term_and_conditions),
-      const DeepCollectionEquality().hash(_others),
-      action,
-      const DeepCollectionEquality().hash(submitted_at));
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,amount,summary,const DeepCollectionEquality().hash(_shippingProof),const DeepCollectionEquality().hash(_billingProof),const DeepCollectionEquality().hash(_cancellationProof),const DeepCollectionEquality().hash(_customerCommunication),const DeepCollectionEquality().hash(_proofOfService),const DeepCollectionEquality().hash(_explanationLetter),const DeepCollectionEquality().hash(_refundConfirmation),const DeepCollectionEquality().hash(_accessActivityLog),const DeepCollectionEquality().hash(_refundCancellationPolicy),const DeepCollectionEquality().hash(_termAndConditions),const DeepCollectionEquality().hash(_others),action,const DeepCollectionEquality().hash(submittedAt));
 
-  @override
-  String toString() {
-    return 'RazorpayDisputesContestBaseRequestBody(amount: $amount, summary: $summary, shipping_proof: $shipping_proof, billing_proof: $billing_proof, cancellation_proof: $cancellation_proof, customer_communication: $customer_communication, proof_of_service: $proof_of_service, explanation_letter: $explanation_letter, refund_confirmation: $refund_confirmation, access_activity_log: $access_activity_log, refund_cancellation_policy: $refund_cancellation_policy, term_and_conditions: $term_and_conditions, others: $others, action: $action, submitted_at: $submitted_at)';
-  }
+@override
+String toString() {
+  return 'RazorpayDisputesContestBaseRequestBody(amount: $amount, summary: $summary, shippingProof: $shippingProof, billingProof: $billingProof, cancellationProof: $cancellationProof, customerCommunication: $customerCommunication, proofOfService: $proofOfService, explanationLetter: $explanationLetter, refundConfirmation: $refundConfirmation, accessActivityLog: $accessActivityLog, refundCancellationPolicy: $refundCancellationPolicy, termAndConditions: $termAndConditions, others: $others, action: $action, submittedAt: $submittedAt)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class _$RazorpayDisputesContestBaseRequestBodyCopyWith<$Res>
-    implements $RazorpayDisputesContestBaseRequestBodyCopyWith<$Res> {
-  factory _$RazorpayDisputesContestBaseRequestBodyCopyWith(
-          _RazorpayDisputesContestBaseRequestBody value,
-          $Res Function(_RazorpayDisputesContestBaseRequestBody) _then) =
-      __$RazorpayDisputesContestBaseRequestBodyCopyWithImpl;
-  @override
-  @useResult
-  $Res call(
-      {int? amount,
-      String? summary,
-      List<String>? shipping_proof,
-      List<String>? billing_proof,
-      List<String>? cancellation_proof,
-      List<String>? customer_communication,
-      List<String>? proof_of_service,
-      List<String>? explanation_letter,
-      List<String>? refund_confirmation,
-      List<String>? access_activity_log,
-      List<String>? refund_cancellation_policy,
-      List<String>? term_and_conditions,
-      List<OthersEvidence>? others,
-      String? action,
-      dynamic submitted_at});
-}
+abstract mixin class _$RazorpayDisputesContestBaseRequestBodyCopyWith<$Res> implements $RazorpayDisputesContestBaseRequestBodyCopyWith<$Res> {
+  factory _$RazorpayDisputesContestBaseRequestBodyCopyWith(_RazorpayDisputesContestBaseRequestBody value, $Res Function(_RazorpayDisputesContestBaseRequestBody) _then) = __$RazorpayDisputesContestBaseRequestBodyCopyWithImpl;
+@override @useResult
+$Res call({
+ int? amount, String? summary,@JsonKey(name: 'shipping_proof') List<String>? shippingProof,@JsonKey(name: 'billing_proof') List<String>? billingProof,@JsonKey(name: 'cancellation_proof') List<String>? cancellationProof,@JsonKey(name: 'customer_communication') List<String>? customerCommunication,@JsonKey(name: 'proof_of_service') List<String>? proofOfService,@JsonKey(name: 'explanation_letter') List<String>? explanationLetter,@JsonKey(name: 'refund_confirmation') List<String>? refundConfirmation,@JsonKey(name: 'access_activity_log') List<String>? accessActivityLog,@JsonKey(name: 'refund_cancellation_policy') List<String>? refundCancellationPolicy,@JsonKey(name: 'term_and_conditions') List<String>? termAndConditions, List<OthersEvidence>? others, String? action,@JsonKey(name: 'submitted_at') dynamic submittedAt
+});
 
+
+
+
+}
 /// @nodoc
 class __$RazorpayDisputesContestBaseRequestBodyCopyWithImpl<$Res>
     implements _$RazorpayDisputesContestBaseRequestBodyCopyWith<$Res> {
@@ -673,190 +656,79 @@ class __$RazorpayDisputesContestBaseRequestBodyCopyWithImpl<$Res>
   final _RazorpayDisputesContestBaseRequestBody _self;
   final $Res Function(_RazorpayDisputesContestBaseRequestBody) _then;
 
-  /// Create a copy of RazorpayDisputesContestBaseRequestBody
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? amount = freezed,
-    Object? summary = freezed,
-    Object? shipping_proof = freezed,
-    Object? billing_proof = freezed,
-    Object? cancellation_proof = freezed,
-    Object? customer_communication = freezed,
-    Object? proof_of_service = freezed,
-    Object? explanation_letter = freezed,
-    Object? refund_confirmation = freezed,
-    Object? access_activity_log = freezed,
-    Object? refund_cancellation_policy = freezed,
-    Object? term_and_conditions = freezed,
-    Object? others = freezed,
-    Object? action = freezed,
-    Object? submitted_at = freezed,
-  }) {
-    return _then(_RazorpayDisputesContestBaseRequestBody(
-      amount: freezed == amount
-          ? _self.amount
-          : amount // ignore: cast_nullable_to_non_nullable
-              as int?,
-      summary: freezed == summary
-          ? _self.summary
-          : summary // ignore: cast_nullable_to_non_nullable
-              as String?,
-      shipping_proof: freezed == shipping_proof
-          ? _self._shipping_proof
-          : shipping_proof // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      billing_proof: freezed == billing_proof
-          ? _self._billing_proof
-          : billing_proof // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      cancellation_proof: freezed == cancellation_proof
-          ? _self._cancellation_proof
-          : cancellation_proof // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      customer_communication: freezed == customer_communication
-          ? _self._customer_communication
-          : customer_communication // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      proof_of_service: freezed == proof_of_service
-          ? _self._proof_of_service
-          : proof_of_service // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      explanation_letter: freezed == explanation_letter
-          ? _self._explanation_letter
-          : explanation_letter // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      refund_confirmation: freezed == refund_confirmation
-          ? _self._refund_confirmation
-          : refund_confirmation // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      access_activity_log: freezed == access_activity_log
-          ? _self._access_activity_log
-          : access_activity_log // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      refund_cancellation_policy: freezed == refund_cancellation_policy
-          ? _self._refund_cancellation_policy
-          : refund_cancellation_policy // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      term_and_conditions: freezed == term_and_conditions
-          ? _self._term_and_conditions
-          : term_and_conditions // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      others: freezed == others
-          ? _self._others
-          : others // ignore: cast_nullable_to_non_nullable
-              as List<OthersEvidence>?,
-      action: freezed == action
-          ? _self.action
-          : action // ignore: cast_nullable_to_non_nullable
-              as String?,
-      submitted_at: freezed == submitted_at
-          ? _self.submitted_at
-          : submitted_at // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ));
-  }
+/// Create a copy of RazorpayDisputesContestBaseRequestBody
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? amount = freezed,Object? summary = freezed,Object? shippingProof = freezed,Object? billingProof = freezed,Object? cancellationProof = freezed,Object? customerCommunication = freezed,Object? proofOfService = freezed,Object? explanationLetter = freezed,Object? refundConfirmation = freezed,Object? accessActivityLog = freezed,Object? refundCancellationPolicy = freezed,Object? termAndConditions = freezed,Object? others = freezed,Object? action = freezed,Object? submittedAt = freezed,}) {
+  return _then(_RazorpayDisputesContestBaseRequestBody(
+amount: freezed == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
+as int?,summary: freezed == summary ? _self.summary : summary // ignore: cast_nullable_to_non_nullable
+as String?,shippingProof: freezed == shippingProof ? _self._shippingProof : shippingProof // ignore: cast_nullable_to_non_nullable
+as List<String>?,billingProof: freezed == billingProof ? _self._billingProof : billingProof // ignore: cast_nullable_to_non_nullable
+as List<String>?,cancellationProof: freezed == cancellationProof ? _self._cancellationProof : cancellationProof // ignore: cast_nullable_to_non_nullable
+as List<String>?,customerCommunication: freezed == customerCommunication ? _self._customerCommunication : customerCommunication // ignore: cast_nullable_to_non_nullable
+as List<String>?,proofOfService: freezed == proofOfService ? _self._proofOfService : proofOfService // ignore: cast_nullable_to_non_nullable
+as List<String>?,explanationLetter: freezed == explanationLetter ? _self._explanationLetter : explanationLetter // ignore: cast_nullable_to_non_nullable
+as List<String>?,refundConfirmation: freezed == refundConfirmation ? _self._refundConfirmation : refundConfirmation // ignore: cast_nullable_to_non_nullable
+as List<String>?,accessActivityLog: freezed == accessActivityLog ? _self._accessActivityLog : accessActivityLog // ignore: cast_nullable_to_non_nullable
+as List<String>?,refundCancellationPolicy: freezed == refundCancellationPolicy ? _self._refundCancellationPolicy : refundCancellationPolicy // ignore: cast_nullable_to_non_nullable
+as List<String>?,termAndConditions: freezed == termAndConditions ? _self._termAndConditions : termAndConditions // ignore: cast_nullable_to_non_nullable
+as List<String>?,others: freezed == others ? _self._others : others // ignore: cast_nullable_to_non_nullable
+as List<OthersEvidence>?,action: freezed == action ? _self.action : action // ignore: cast_nullable_to_non_nullable
+as String?,submittedAt: freezed == submittedAt ? _self.submittedAt : submittedAt // ignore: cast_nullable_to_non_nullable
+as dynamic,
+  ));
 }
+
+
+}
+
 
 /// @nodoc
 mixin _$RazorpayDispute {
-  String get id;
-  String get entity;
-  String get payment_id;
-  int get amount;
-  String get currency;
-  int get amount_deducted;
-  String get reason_code; // Consider mapping to an enum if codes are fixed
-  int get respond_by;
-  String get status; // Consider mapping to an enum
-  String get phase; // Consider mapping to an enum
-  int get created_at;
-  RazorpayDisputesContestBaseRequestBody get evidence;
 
-  /// Create a copy of RazorpayDispute
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $RazorpayDisputeCopyWith<RazorpayDispute> get copyWith =>
-      _$RazorpayDisputeCopyWithImpl<RazorpayDispute>(
-          this as RazorpayDispute, _$identity);
+ String get id; String get entity;@JsonKey(name: 'payment_id') String get paymentId; int get amount; String get currency;@JsonKey(name: 'amount_deducted') int get amountDeducted;@JsonKey(name: 'reason_code') String get reasonCode;// Consider mapping to an enum if codes are fixed
+@JsonKey(name: 'respond_by') int get respondBy; String get status;// Consider mapping to an enum
+ String get phase;// Consider mapping to an enum
+@JsonKey(name: 'created_at') int get createdAt; RazorpayDisputesContestBaseRequestBody get evidence;
+/// Create a copy of RazorpayDispute
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RazorpayDisputeCopyWith<RazorpayDispute> get copyWith => _$RazorpayDisputeCopyWithImpl<RazorpayDispute>(this as RazorpayDispute, _$identity);
 
   /// Serializes this RazorpayDispute to a JSON map.
   Map<String, dynamic> toJson();
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is RazorpayDispute &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.entity, entity) || other.entity == entity) &&
-            (identical(other.payment_id, payment_id) ||
-                other.payment_id == payment_id) &&
-            (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.currency, currency) ||
-                other.currency == currency) &&
-            (identical(other.amount_deducted, amount_deducted) ||
-                other.amount_deducted == amount_deducted) &&
-            (identical(other.reason_code, reason_code) ||
-                other.reason_code == reason_code) &&
-            (identical(other.respond_by, respond_by) ||
-                other.respond_by == respond_by) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.phase, phase) || other.phase == phase) &&
-            (identical(other.created_at, created_at) ||
-                other.created_at == created_at) &&
-            (identical(other.evidence, evidence) ||
-                other.evidence == evidence));
-  }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      entity,
-      payment_id,
-      amount,
-      currency,
-      amount_deducted,
-      reason_code,
-      respond_by,
-      status,
-      phase,
-      created_at,
-      evidence);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RazorpayDispute&&(identical(other.id, id) || other.id == id)&&(identical(other.entity, entity) || other.entity == entity)&&(identical(other.paymentId, paymentId) || other.paymentId == paymentId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.amountDeducted, amountDeducted) || other.amountDeducted == amountDeducted)&&(identical(other.reasonCode, reasonCode) || other.reasonCode == reasonCode)&&(identical(other.respondBy, respondBy) || other.respondBy == respondBy)&&(identical(other.status, status) || other.status == status)&&(identical(other.phase, phase) || other.phase == phase)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.evidence, evidence) || other.evidence == evidence));
+}
 
-  @override
-  String toString() {
-    return 'RazorpayDispute(id: $id, entity: $entity, payment_id: $payment_id, amount: $amount, currency: $currency, amount_deducted: $amount_deducted, reason_code: $reason_code, respond_by: $respond_by, status: $status, phase: $phase, created_at: $created_at, evidence: $evidence)';
-  }
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,entity,paymentId,amount,currency,amountDeducted,reasonCode,respondBy,status,phase,createdAt,evidence);
+
+@override
+String toString() {
+  return 'RazorpayDispute(id: $id, entity: $entity, paymentId: $paymentId, amount: $amount, currency: $currency, amountDeducted: $amountDeducted, reasonCode: $reasonCode, respondBy: $respondBy, status: $status, phase: $phase, createdAt: $createdAt, evidence: $evidence)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class $RazorpayDisputeCopyWith<$Res> {
-  factory $RazorpayDisputeCopyWith(
-          RazorpayDispute value, $Res Function(RazorpayDispute) _then) =
-      _$RazorpayDisputeCopyWithImpl;
-  @useResult
-  $Res call(
-      {String id,
-      String entity,
-      String payment_id,
-      int amount,
-      String currency,
-      int amount_deducted,
-      String reason_code,
-      int respond_by,
-      String status,
-      String phase,
-      int created_at,
-      RazorpayDisputesContestBaseRequestBody evidence});
+abstract mixin class $RazorpayDisputeCopyWith<$Res>  {
+  factory $RazorpayDisputeCopyWith(RazorpayDispute value, $Res Function(RazorpayDispute) _then) = _$RazorpayDisputeCopyWithImpl;
+@useResult
+$Res call({
+ String id, String entity,@JsonKey(name: 'payment_id') String paymentId, int amount, String currency,@JsonKey(name: 'amount_deducted') int amountDeducted,@JsonKey(name: 'reason_code') String reasonCode,@JsonKey(name: 'respond_by') int respondBy, String status, String phase,@JsonKey(name: 'created_at') int createdAt, RazorpayDisputesContestBaseRequestBody evidence
+});
 
-  $RazorpayDisputesContestBaseRequestBodyCopyWith<$Res> get evidence;
+
+$RazorpayDisputesContestBaseRequestBodyCopyWith<$Res> get evidence;
+
 }
-
 /// @nodoc
 class _$RazorpayDisputeCopyWithImpl<$Res>
     implements $RazorpayDisputeCopyWith<$Res> {
@@ -865,226 +737,231 @@ class _$RazorpayDisputeCopyWithImpl<$Res>
   final RazorpayDispute _self;
   final $Res Function(RazorpayDispute) _then;
 
-  /// Create a copy of RazorpayDispute
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? entity = null,
-    Object? payment_id = null,
-    Object? amount = null,
-    Object? currency = null,
-    Object? amount_deducted = null,
-    Object? reason_code = null,
-    Object? respond_by = null,
-    Object? status = null,
-    Object? phase = null,
-    Object? created_at = null,
-    Object? evidence = null,
-  }) {
-    return _then(_self.copyWith(
-      id: null == id
-          ? _self.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      entity: null == entity
-          ? _self.entity
-          : entity // ignore: cast_nullable_to_non_nullable
-              as String,
-      payment_id: null == payment_id
-          ? _self.payment_id
-          : payment_id // ignore: cast_nullable_to_non_nullable
-              as String,
-      amount: null == amount
-          ? _self.amount
-          : amount // ignore: cast_nullable_to_non_nullable
-              as int,
-      currency: null == currency
-          ? _self.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      amount_deducted: null == amount_deducted
-          ? _self.amount_deducted
-          : amount_deducted // ignore: cast_nullable_to_non_nullable
-              as int,
-      reason_code: null == reason_code
-          ? _self.reason_code
-          : reason_code // ignore: cast_nullable_to_non_nullable
-              as String,
-      respond_by: null == respond_by
-          ? _self.respond_by
-          : respond_by // ignore: cast_nullable_to_non_nullable
-              as int,
-      status: null == status
-          ? _self.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      phase: null == phase
-          ? _self.phase
-          : phase // ignore: cast_nullable_to_non_nullable
-              as String,
-      created_at: null == created_at
-          ? _self.created_at
-          : created_at // ignore: cast_nullable_to_non_nullable
-              as int,
-      evidence: null == evidence
-          ? _self.evidence
-          : evidence // ignore: cast_nullable_to_non_nullable
-              as RazorpayDisputesContestBaseRequestBody,
-    ));
-  }
+/// Create a copy of RazorpayDispute
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? entity = null,Object? paymentId = null,Object? amount = null,Object? currency = null,Object? amountDeducted = null,Object? reasonCode = null,Object? respondBy = null,Object? status = null,Object? phase = null,Object? createdAt = null,Object? evidence = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,entity: null == entity ? _self.entity : entity // ignore: cast_nullable_to_non_nullable
+as String,paymentId: null == paymentId ? _self.paymentId : paymentId // ignore: cast_nullable_to_non_nullable
+as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
+as int,currency: null == currency ? _self.currency : currency // ignore: cast_nullable_to_non_nullable
+as String,amountDeducted: null == amountDeducted ? _self.amountDeducted : amountDeducted // ignore: cast_nullable_to_non_nullable
+as int,reasonCode: null == reasonCode ? _self.reasonCode : reasonCode // ignore: cast_nullable_to_non_nullable
+as String,respondBy: null == respondBy ? _self.respondBy : respondBy // ignore: cast_nullable_to_non_nullable
+as int,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String,phase: null == phase ? _self.phase : phase // ignore: cast_nullable_to_non_nullable
+as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as int,evidence: null == evidence ? _self.evidence : evidence // ignore: cast_nullable_to_non_nullable
+as RazorpayDisputesContestBaseRequestBody,
+  ));
+}
+/// Create a copy of RazorpayDispute
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$RazorpayDisputesContestBaseRequestBodyCopyWith<$Res> get evidence {
+  
+  return $RazorpayDisputesContestBaseRequestBodyCopyWith<$Res>(_self.evidence, (value) {
+    return _then(_self.copyWith(evidence: value));
+  });
+}
+}
 
-  /// Create a copy of RazorpayDispute
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $RazorpayDisputesContestBaseRequestBodyCopyWith<$Res> get evidence {
-    return $RazorpayDisputesContestBaseRequestBodyCopyWith<$Res>(_self.evidence,
-        (value) {
-      return _then(_self.copyWith(evidence: value));
-    });
-  }
+
+/// Adds pattern-matching-related methods to [RazorpayDispute].
+extension RazorpayDisputePatterns on RazorpayDispute {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _RazorpayDispute value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _RazorpayDispute() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _RazorpayDispute value)  $default,){
+final _that = this;
+switch (_that) {
+case _RazorpayDispute():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _RazorpayDispute value)?  $default,){
+final _that = this;
+switch (_that) {
+case _RazorpayDispute() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String entity, @JsonKey(name: 'payment_id')  String paymentId,  int amount,  String currency, @JsonKey(name: 'amount_deducted')  int amountDeducted, @JsonKey(name: 'reason_code')  String reasonCode, @JsonKey(name: 'respond_by')  int respondBy,  String status,  String phase, @JsonKey(name: 'created_at')  int createdAt,  RazorpayDisputesContestBaseRequestBody evidence)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _RazorpayDispute() when $default != null:
+return $default(_that.id,_that.entity,_that.paymentId,_that.amount,_that.currency,_that.amountDeducted,_that.reasonCode,_that.respondBy,_that.status,_that.phase,_that.createdAt,_that.evidence);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String entity, @JsonKey(name: 'payment_id')  String paymentId,  int amount,  String currency, @JsonKey(name: 'amount_deducted')  int amountDeducted, @JsonKey(name: 'reason_code')  String reasonCode, @JsonKey(name: 'respond_by')  int respondBy,  String status,  String phase, @JsonKey(name: 'created_at')  int createdAt,  RazorpayDisputesContestBaseRequestBody evidence)  $default,) {final _that = this;
+switch (_that) {
+case _RazorpayDispute():
+return $default(_that.id,_that.entity,_that.paymentId,_that.amount,_that.currency,_that.amountDeducted,_that.reasonCode,_that.respondBy,_that.status,_that.phase,_that.createdAt,_that.evidence);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String entity, @JsonKey(name: 'payment_id')  String paymentId,  int amount,  String currency, @JsonKey(name: 'amount_deducted')  int amountDeducted, @JsonKey(name: 'reason_code')  String reasonCode, @JsonKey(name: 'respond_by')  int respondBy,  String status,  String phase, @JsonKey(name: 'created_at')  int createdAt,  RazorpayDisputesContestBaseRequestBody evidence)?  $default,) {final _that = this;
+switch (_that) {
+case _RazorpayDispute() when $default != null:
+return $default(_that.id,_that.entity,_that.paymentId,_that.amount,_that.currency,_that.amountDeducted,_that.reasonCode,_that.respondBy,_that.status,_that.phase,_that.createdAt,_that.evidence);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 
 @JsonSerializable(includeIfNull: false)
 class _RazorpayDispute implements RazorpayDispute {
-  const _RazorpayDispute(
-      {required this.id,
-      required this.entity,
-      required this.payment_id,
-      required this.amount,
-      required this.currency,
-      required this.amount_deducted,
-      required this.reason_code,
-      required this.respond_by,
-      required this.status,
-      required this.phase,
-      required this.created_at,
-      required this.evidence});
-  factory _RazorpayDispute.fromJson(Map<String, dynamic> json) =>
-      _$RazorpayDisputeFromJson(json);
+  const _RazorpayDispute({required this.id, required this.entity, @JsonKey(name: 'payment_id') required this.paymentId, required this.amount, required this.currency, @JsonKey(name: 'amount_deducted') required this.amountDeducted, @JsonKey(name: 'reason_code') required this.reasonCode, @JsonKey(name: 'respond_by') required this.respondBy, required this.status, required this.phase, @JsonKey(name: 'created_at') required this.createdAt, required this.evidence});
+  factory _RazorpayDispute.fromJson(Map<String, dynamic> json) => _$RazorpayDisputeFromJson(json);
 
-  @override
-  final String id;
-  @override
-  final String entity;
-  @override
-  final String payment_id;
-  @override
-  final int amount;
-  @override
-  final String currency;
-  @override
-  final int amount_deducted;
-  @override
-  final String reason_code;
+@override final  String id;
+@override final  String entity;
+@override@JsonKey(name: 'payment_id') final  String paymentId;
+@override final  int amount;
+@override final  String currency;
+@override@JsonKey(name: 'amount_deducted') final  int amountDeducted;
+@override@JsonKey(name: 'reason_code') final  String reasonCode;
 // Consider mapping to an enum if codes are fixed
-  @override
-  final int respond_by;
-  @override
-  final String status;
+@override@JsonKey(name: 'respond_by') final  int respondBy;
+@override final  String status;
 // Consider mapping to an enum
-  @override
-  final String phase;
+@override final  String phase;
 // Consider mapping to an enum
-  @override
-  final int created_at;
-  @override
-  final RazorpayDisputesContestBaseRequestBody evidence;
+@override@JsonKey(name: 'created_at') final  int createdAt;
+@override final  RazorpayDisputesContestBaseRequestBody evidence;
 
-  /// Create a copy of RazorpayDispute
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$RazorpayDisputeCopyWith<_RazorpayDispute> get copyWith =>
-      __$RazorpayDisputeCopyWithImpl<_RazorpayDispute>(this, _$identity);
+/// Create a copy of RazorpayDispute
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$RazorpayDisputeCopyWith<_RazorpayDispute> get copyWith => __$RazorpayDisputeCopyWithImpl<_RazorpayDispute>(this, _$identity);
 
-  @override
-  Map<String, dynamic> toJson() {
-    return _$RazorpayDisputeToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$RazorpayDisputeToJson(this, );
+}
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _RazorpayDispute &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.entity, entity) || other.entity == entity) &&
-            (identical(other.payment_id, payment_id) ||
-                other.payment_id == payment_id) &&
-            (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.currency, currency) ||
-                other.currency == currency) &&
-            (identical(other.amount_deducted, amount_deducted) ||
-                other.amount_deducted == amount_deducted) &&
-            (identical(other.reason_code, reason_code) ||
-                other.reason_code == reason_code) &&
-            (identical(other.respond_by, respond_by) ||
-                other.respond_by == respond_by) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.phase, phase) || other.phase == phase) &&
-            (identical(other.created_at, created_at) ||
-                other.created_at == created_at) &&
-            (identical(other.evidence, evidence) ||
-                other.evidence == evidence));
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RazorpayDispute&&(identical(other.id, id) || other.id == id)&&(identical(other.entity, entity) || other.entity == entity)&&(identical(other.paymentId, paymentId) || other.paymentId == paymentId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.currency, currency) || other.currency == currency)&&(identical(other.amountDeducted, amountDeducted) || other.amountDeducted == amountDeducted)&&(identical(other.reasonCode, reasonCode) || other.reasonCode == reasonCode)&&(identical(other.respondBy, respondBy) || other.respondBy == respondBy)&&(identical(other.status, status) || other.status == status)&&(identical(other.phase, phase) || other.phase == phase)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.evidence, evidence) || other.evidence == evidence));
+}
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      entity,
-      payment_id,
-      amount,
-      currency,
-      amount_deducted,
-      reason_code,
-      respond_by,
-      status,
-      phase,
-      created_at,
-      evidence);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,entity,paymentId,amount,currency,amountDeducted,reasonCode,respondBy,status,phase,createdAt,evidence);
 
-  @override
-  String toString() {
-    return 'RazorpayDispute(id: $id, entity: $entity, payment_id: $payment_id, amount: $amount, currency: $currency, amount_deducted: $amount_deducted, reason_code: $reason_code, respond_by: $respond_by, status: $status, phase: $phase, created_at: $created_at, evidence: $evidence)';
-  }
+@override
+String toString() {
+  return 'RazorpayDispute(id: $id, entity: $entity, paymentId: $paymentId, amount: $amount, currency: $currency, amountDeducted: $amountDeducted, reasonCode: $reasonCode, respondBy: $respondBy, status: $status, phase: $phase, createdAt: $createdAt, evidence: $evidence)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class _$RazorpayDisputeCopyWith<$Res>
-    implements $RazorpayDisputeCopyWith<$Res> {
-  factory _$RazorpayDisputeCopyWith(
-          _RazorpayDispute value, $Res Function(_RazorpayDispute) _then) =
-      __$RazorpayDisputeCopyWithImpl;
-  @override
-  @useResult
-  $Res call(
-      {String id,
-      String entity,
-      String payment_id,
-      int amount,
-      String currency,
-      int amount_deducted,
-      String reason_code,
-      int respond_by,
-      String status,
-      String phase,
-      int created_at,
-      RazorpayDisputesContestBaseRequestBody evidence});
+abstract mixin class _$RazorpayDisputeCopyWith<$Res> implements $RazorpayDisputeCopyWith<$Res> {
+  factory _$RazorpayDisputeCopyWith(_RazorpayDispute value, $Res Function(_RazorpayDispute) _then) = __$RazorpayDisputeCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, String entity,@JsonKey(name: 'payment_id') String paymentId, int amount, String currency,@JsonKey(name: 'amount_deducted') int amountDeducted,@JsonKey(name: 'reason_code') String reasonCode,@JsonKey(name: 'respond_by') int respondBy, String status, String phase,@JsonKey(name: 'created_at') int createdAt, RazorpayDisputesContestBaseRequestBody evidence
+});
 
-  @override
-  $RazorpayDisputesContestBaseRequestBodyCopyWith<$Res> get evidence;
+
+@override $RazorpayDisputesContestBaseRequestBodyCopyWith<$Res> get evidence;
+
 }
-
 /// @nodoc
 class __$RazorpayDisputeCopyWithImpl<$Res>
     implements _$RazorpayDisputeCopyWith<$Res> {
@@ -1093,86 +970,36 @@ class __$RazorpayDisputeCopyWithImpl<$Res>
   final _RazorpayDispute _self;
   final $Res Function(_RazorpayDispute) _then;
 
-  /// Create a copy of RazorpayDispute
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? id = null,
-    Object? entity = null,
-    Object? payment_id = null,
-    Object? amount = null,
-    Object? currency = null,
-    Object? amount_deducted = null,
-    Object? reason_code = null,
-    Object? respond_by = null,
-    Object? status = null,
-    Object? phase = null,
-    Object? created_at = null,
-    Object? evidence = null,
-  }) {
-    return _then(_RazorpayDispute(
-      id: null == id
-          ? _self.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      entity: null == entity
-          ? _self.entity
-          : entity // ignore: cast_nullable_to_non_nullable
-              as String,
-      payment_id: null == payment_id
-          ? _self.payment_id
-          : payment_id // ignore: cast_nullable_to_non_nullable
-              as String,
-      amount: null == amount
-          ? _self.amount
-          : amount // ignore: cast_nullable_to_non_nullable
-              as int,
-      currency: null == currency
-          ? _self.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      amount_deducted: null == amount_deducted
-          ? _self.amount_deducted
-          : amount_deducted // ignore: cast_nullable_to_non_nullable
-              as int,
-      reason_code: null == reason_code
-          ? _self.reason_code
-          : reason_code // ignore: cast_nullable_to_non_nullable
-              as String,
-      respond_by: null == respond_by
-          ? _self.respond_by
-          : respond_by // ignore: cast_nullable_to_non_nullable
-              as int,
-      status: null == status
-          ? _self.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      phase: null == phase
-          ? _self.phase
-          : phase // ignore: cast_nullable_to_non_nullable
-              as String,
-      created_at: null == created_at
-          ? _self.created_at
-          : created_at // ignore: cast_nullable_to_non_nullable
-              as int,
-      evidence: null == evidence
-          ? _self.evidence
-          : evidence // ignore: cast_nullable_to_non_nullable
-              as RazorpayDisputesContestBaseRequestBody,
-    ));
-  }
+/// Create a copy of RazorpayDispute
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? entity = null,Object? paymentId = null,Object? amount = null,Object? currency = null,Object? amountDeducted = null,Object? reasonCode = null,Object? respondBy = null,Object? status = null,Object? phase = null,Object? createdAt = null,Object? evidence = null,}) {
+  return _then(_RazorpayDispute(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,entity: null == entity ? _self.entity : entity // ignore: cast_nullable_to_non_nullable
+as String,paymentId: null == paymentId ? _self.paymentId : paymentId // ignore: cast_nullable_to_non_nullable
+as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
+as int,currency: null == currency ? _self.currency : currency // ignore: cast_nullable_to_non_nullable
+as String,amountDeducted: null == amountDeducted ? _self.amountDeducted : amountDeducted // ignore: cast_nullable_to_non_nullable
+as int,reasonCode: null == reasonCode ? _self.reasonCode : reasonCode // ignore: cast_nullable_to_non_nullable
+as String,respondBy: null == respondBy ? _self.respondBy : respondBy // ignore: cast_nullable_to_non_nullable
+as int,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String,phase: null == phase ? _self.phase : phase // ignore: cast_nullable_to_non_nullable
+as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as int,evidence: null == evidence ? _self.evidence : evidence // ignore: cast_nullable_to_non_nullable
+as RazorpayDisputesContestBaseRequestBody,
+  ));
+}
 
-  /// Create a copy of RazorpayDispute
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $RazorpayDisputesContestBaseRequestBodyCopyWith<$Res> get evidence {
-    return $RazorpayDisputesContestBaseRequestBodyCopyWith<$Res>(_self.evidence,
-        (value) {
-      return _then(_self.copyWith(evidence: value));
-    });
-  }
+/// Create a copy of RazorpayDispute
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$RazorpayDisputesContestBaseRequestBodyCopyWith<$Res> get evidence {
+  
+  return $RazorpayDisputesContestBaseRequestBodyCopyWith<$Res>(_self.evidence, (value) {
+    return _then(_self.copyWith(evidence: value));
+  });
+}
 }
 
 // dart format on

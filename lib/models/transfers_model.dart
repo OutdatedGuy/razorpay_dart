@@ -12,13 +12,15 @@ enum TransferStatus {
   processed,
   failed,
   reversed,
-  partially_reversed
+  @JsonValue('partially_reversed')
+  partiallyReversed,
 }
 
 enum SettlementStatusTransfer {
   pending,
-  on_hold,
-  settled
+  @JsonValue('on_hold')
+  onHold,
+  settled,
 } // 'null' represented by null
 
 // --- Nested Error ---
@@ -71,8 +73,7 @@ abstract class RazorpayTransferCreateRequestBody
 
   factory RazorpayTransferCreateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayTransferCreateRequestBodyFromJson(json);
+  ) => _$RazorpayTransferCreateRequestBodyFromJson(json);
 }
 
 // --- Update Request Body ---
@@ -81,14 +82,14 @@ abstract class RazorpayTransferUpdateRequestBody
     with _$RazorpayTransferUpdateRequestBody {
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayTransferUpdateRequestBody({
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool) bool? on_hold, // 0 | 1
-    int? on_hold_until, // Unix timestamp
+    @JsonKey(name: 'on_hold_until', toJson: _boolToInt, fromJson: _intToBool)
+    bool? onHold, // 0 | 1
+    int? onHoldUntil, // Unix timestamp
   }) = _RazorpayTransferUpdateRequestBody;
 
   factory RazorpayTransferUpdateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayTransferUpdateRequestBodyFromJson(json);
+  ) => _$RazorpayTransferUpdateRequestBodyFromJson(json);
 }
 
 // Helper functions for bool <-> int conversion
@@ -108,21 +109,23 @@ abstract class RazorpayOrderCreateTransferRequestBody
     required String currency,
     IMap<dynamic>? notes,
     // Update fields
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool) bool? on_hold,
-    int? on_hold_until,
+    @JsonKey(name: 'on_hold_until', toJson: _boolToInt, fromJson: _intToBool)
+    bool? onHold,
+    int? onHoldUntil,
+
     // Order specific field
-    List<String>? linked_account_notes, // Use List<String> for notes array
+    @JsonKey(name: 'linked_account_notes')
+    List<String>? linkedAccountNotes, // Use List<String> for notes array
   }) = _RazorpayOrderCreateTransferRequestBody;
 
   factory RazorpayOrderCreateTransferRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayOrderCreateTransferRequestBodyFromJson(json);
+  ) => _$RazorpayOrderCreateTransferRequestBodyFromJson(json);
 }
 
 // Alias for Payment context (same structure as Order context)
-typedef RazorpayPaymentCreateTransferRequestBody
-    = RazorpayOrderCreateTransferRequestBody;
+typedef RazorpayPaymentCreateTransferRequestBody =
+    RazorpayOrderCreateTransferRequestBody;
 
 // --- Response Body ---
 @freezed
@@ -134,19 +137,21 @@ abstract class RazorpayTransfer with _$RazorpayTransfer {
     required String entity, // 'transfer'
     required TransferStatus status,
     required String
-        source, // payment_id or order_id, required String recipient, // Linked account ID (aliased from 'account'), required dynamic amount, // number | string, required int amount_reversed, required String currency, required int fees, // Nullable? d.ts says number. Assume required., required int created_at, SettlementStatusTransfer? settlement_status, // Nullable enum
+    source, // payment_id or order_id, required String recipient, // Linked account ID (aliased from 'account'), required dynamic amount, // number | string, required int amount_reversed, required String currency, required int fees, // Nullable? d.ts says number. Assume required., required int created_at, SettlementStatusTransfer? settlement_status, // Nullable enum
     required String currency,
     IMap<dynamic>? notes,
     int? tax, // Nullable int
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool)
-    bool? on_hold, // From update request
-    int? on_hold_until, // From update request
-    List<String>? linked_account_notes, // From order request
-
+    @JsonKey(name: 'on_hold', toJson: _boolToInt, fromJson: _intToBool)
+    bool? onHold, // From update request
+    @JsonKey(name: 'on_hold_until') int? onHoldUntil, // From update request
+    @JsonKey(name: 'linked_account_notes')
+    List<String>? linkedAccountNotes, // From order request
     // Response specific fields
-    String? recipient_settlement_id, // Nullable
-    String? recipient_settlement, // Nullable (deprecated? check docs)
-    int? processed_at, // Nullable timestamp
+    @JsonKey(name: 'recipient_settlement_id')
+    String? recipientSettlementId, // Nullable
+    @JsonKey(name: 'recipient_settlement')
+    String? recipientSettlement, // Nullable (deprecated? check docs)
+    @JsonKey(name: 'processed_at') int? processedAt, // Nullable timestamp
     TransferError? error, // Nullable error object
   }) = _RazorpayTransfer;
 
@@ -161,13 +166,13 @@ abstract class RazorpayReversal with _$RazorpayReversal {
   const factory RazorpayReversal({
     required String id,
     required String entity, // 'reversal'
-    required String transfer_id,
+    @JsonKey(name: 'transfer_id') required String transferId,
     required int amount,
     required String
-        currency, // INR, required IMap<dynamic> notes, // Notes from reversal request?, required int created_at, int? fee, // Nullable
+    currency, // INR, required IMap<dynamic> notes, // Notes from reversal request?, required int created_at, int? fee, // Nullable
     int? tax, // Nullable
-    String? initiator_id, // Nullable
-    String? customer_refund_id, // Nullable
+    @JsonKey(name: 'initiator_id') String? initiatorId, // Nullable
+    @JsonKey(name: 'customer_refund_id') String? customerRefundId, // Nullable
   }) = _RazorpayReversal;
 
   factory RazorpayReversal.fromJson(Map<String, dynamic> json) =>
@@ -184,8 +189,9 @@ abstract class RazorpayTransferQuery with _$RazorpayTransferQuery {
     int? to,
     int? count,
     int? skip,
-    String? recipient_settlement_id,
-    String? payment_id, // Added for context when fetching payment transfers
+    @JsonKey(name: 'recipient_settlement_id') String? recipientSettlementId,
+    @JsonKey(name: 'payment_id')
+    String? paymentId, // Added for context when fetching payment transfers
   }) = _RazorpayTransferQuery;
 
   factory RazorpayTransferQuery.fromJson(Map<String, dynamic> json) =>

@@ -15,9 +15,7 @@ Future<void> _demonstratePlans(Razorpay razorpay) async {
           currency: 'INR',
         ),
         period: PlanPeriod.monthly,
-        notes: {
-          'key': 'value',
-        },
+        notes: {'key': 'value'},
       ),
     );
     print('Created Plan: ${plan.toJson()}');
@@ -31,7 +29,8 @@ Future<void> _demonstratePlans(Razorpay razorpay) async {
     print('\nFetching All Plans...');
     final getAllPlans = await razorpay.plans.all();
     print(
-        'Fetched All Plans: ${getAllPlans.toJson((value) => value.toJson())}');
+      'Fetched All Plans: ${getAllPlans.toJson((value) => value.toJson())}',
+    );
   } catch (e, s) {
     print('Error during Plan operations: $e\n$s');
   }
@@ -63,7 +62,8 @@ Future<void> _demonstrateItems(Razorpay razorpay) async {
     print('\nFetching All Items...');
     final getAllItems = await razorpay.items.all();
     print(
-        'Fetched All Items: ${getAllItems.toJson((value) => value.toJson())}');
+      'Fetched All Items: ${getAllItems.toJson((value) => value.toJson())}',
+    );
 
     // Edit an item
     print('\nEditing Item ${item.id}...');
@@ -76,25 +76,25 @@ Future<void> _demonstrateItems(Razorpay razorpay) async {
     print('Edited Item: ${editedItem.toJson()}');
 
     // Delete an item
-    if (createdItemId != null) {
-      print('\nDeleting Item ${createdItemId}...');
-      final _ = await razorpay.items.delete(itemId: createdItemId);
-      print('Deleted Item');
-      // Reset ID after deletion
-      createdItemId = null;
-    }
+    print('\nDeleting Item $createdItemId...');
+    final _ = await razorpay.items.delete(itemId: createdItemId);
+    print('Deleted Item');
+    // Reset ID after deletion
+    createdItemId = null;
   } catch (e, s) {
     print('Error during Item operations: $e\n$s');
     // Attempt cleanup if an item was created but deletion failed later
     if (createdItemId != null) {
       try {
         print(
-            '\nAttempting cleanup: Deleting Item ${createdItemId} after error...');
+          '\nAttempting cleanup: Deleting Item $createdItemId after error...',
+        );
         await razorpay.items.delete(itemId: createdItemId);
         print('Cleanup successful.');
       } catch (cleanupError) {
         print(
-            'Cleanup failed: Could not delete item $createdItemId. Error: $cleanupError');
+          'Cleanup failed: Could not delete item $createdItemId. Error: $cleanupError',
+        );
       }
     }
   }
@@ -107,14 +107,12 @@ Future<void> _demonstrateCards(Razorpay razorpay) async {
     // Create a card
     print('Requesting Card Reference...');
     final card = await razorpay.cards.requestCardReference(
-      params: const RazorpayCardReferenceRequest(
-        number: '1234567890123456',
-      ),
+      params: const RazorpayCardReferenceRequest(number: '1234567890123456'),
     );
     print('Fetched Card Reference: ${card.toJson()}');
 
     // Get a card
-    print('\nFetching Card ${card.card_reference_number}...');
+    print('\nFetching Card ${card.cardReferenceNumber}...');
     final singleCard = await razorpay.cards.fetch(cardId: '1234567890123456');
     print('Fetched Card: ${singleCard.toJson()}');
   } catch (e, s) {
@@ -127,15 +125,17 @@ Future<void> _demonstrateAddons(Razorpay razorpay) async {
   print('\n--- Demonstrating Addons ---');
   try {
     // Get an addon
-    final singleAddon =
-        await razorpay.addons.fetch(addonId: 'addon_1234567890');
+    final singleAddon = await razorpay.addons.fetch(
+      addonId: 'addon_1234567890',
+    );
     print('Fetched Addon: ${singleAddon.toJson()}');
 
     // Get all addons
     print('\nFetching All Addons...');
     final getAllAddons = await razorpay.addons.all();
     print(
-        'Fetched All Addons: ${getAllAddons.toJson((value) => value.toJson())}');
+      'Fetched All Addons: ${getAllAddons.toJson((value) => value.toJson())}',
+    );
 
     // Delete an addon
     print('\nDeleting Addon ${singleAddon.id}...');
@@ -154,7 +154,8 @@ void main() async {
 
   if (keyId.isEmpty || keySecret.isEmpty) {
     print(
-        'Error: RAZORPAY_KEY_ID or RAZORPAY_KEY_SECRET not set. Ensure .env file exists and is passed via --dart-define-from-file=.env');
+      'Error: RAZORPAY_KEY_ID or RAZORPAY_KEY_SECRET not set. Ensure .env file exists and is passed via --dart-define-from-file=.env',
+    );
     return;
   }
 

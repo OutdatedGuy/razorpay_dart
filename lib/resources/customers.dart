@@ -17,10 +17,7 @@ class Customers {
     void Function(RazorpayApiException?, Response<RazorpayCustomer>?)? callback,
   }) async {
     return api.post<RazorpayCustomer>(
-      {
-        'url': '/customers',
-        'data': params.toJson(),
-      },
+      {'url': '/customers', 'data': params.toJson()},
       fromJsonFactory: RazorpayCustomer.fromJson,
       callback: callback,
     );
@@ -34,7 +31,8 @@ class Customers {
     void Function(
       RazorpayApiException?,
       Response<RazorpayApiResponse<RazorpayCustomer>>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     final count = params?.count ?? 10;
     final skip = params?.skip ?? 0;
@@ -48,10 +46,7 @@ class Customers {
     queryParams.removeWhere((key, value) => value == null);
 
     return api.get<RazorpayApiResponse<RazorpayCustomer>>(
-      {
-        'url': '/customers',
-        'data': queryParams,
-      },
+      {'url': '/customers', 'data': queryParams},
       callback: callback,
       fromJsonFactory: (json) => RazorpayApiResponse<RazorpayCustomer>.fromJson(
         json,
@@ -92,10 +87,7 @@ class Customers {
     }
     return api.put<RazorpayCustomer>(
       // PUT method used in JS
-      {
-        'url': '/customers/$customerId',
-        'data': params.toJson(),
-      },
+      {'url': '/customers/$customerId', 'data': params.toJson()},
       fromJsonFactory: RazorpayCustomer.fromJson,
       callback: callback,
     );
@@ -109,7 +101,8 @@ class Customers {
     void Function(
       RazorpayApiException?,
       Response<RazorpayCustomerTokensResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (customerId.isEmpty) {
       throw ArgumentError('customerId is required');
@@ -153,7 +146,8 @@ class Customers {
     void Function(
       RazorpayApiException?,
       Response<RazorpayDeleteTokenResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (customerId.isEmpty) {
       throw ArgumentError('customerId is required');
@@ -178,16 +172,14 @@ class Customers {
     void Function(
       RazorpayApiException?,
       Response<RazorpayCustomerBankAccount>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (customerId.isEmpty) {
       throw ArgumentError('customerId is required');
     }
     return api.post<RazorpayCustomerBankAccount>(
-      {
-        'url': '/customers/$customerId/bank_account',
-        'data': params.toJson(),
-      },
+      {'url': '/customers/$customerId/bank_account', 'data': params.toJson()},
       fromJsonFactory: RazorpayCustomerBankAccount.fromJson,
       callback: callback,
     );
@@ -204,7 +196,8 @@ class Customers {
     void Function(
       RazorpayApiException?,
       Response<RazorpayCustomerBankAccount>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (customerId.isEmpty) {
       throw ArgumentError('customerId is required');
@@ -230,13 +223,11 @@ class Customers {
     void Function(
       RazorpayApiException?,
       Response<RazorpayCustomerEligibility>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     return api.post<RazorpayCustomerEligibility>(
-      {
-        'url': '/customers/eligibility',
-        'data': params.toJson(),
-      },
+      {'url': '/customers/eligibility', 'data': params.toJson()},
       fromJsonFactory: RazorpayCustomerEligibility.fromJson,
       callback: callback,
     );
@@ -251,7 +242,8 @@ class Customers {
     void Function(
       RazorpayApiException?,
       Response<RazorpayCustomerEligibility>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (eligibilityId.isEmpty) {
       throw ArgumentError('eligibilityId is required');

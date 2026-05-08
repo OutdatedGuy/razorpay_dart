@@ -7,40 +7,39 @@ import 'package:razorpay_dart/utils.dart'; // For normalizeDate
 class Addons {
   Addons(this.api);
   final API api;
-  static const String BASE_URL = '/addons';
-  static const String MISSING_ID_ERROR = 'Addon ID is mandatory';
+  static const String baseUrl = '/addons';
+  static const String missingIdError = 'Addon ID is mandatory';
 
   /// Fetches an addon given Addon ID
   ///
   /// @param addonId - addon id to be fetched
-  Future<RazorpayAddon> fetch({
-    required String addonId,
-  }) async {
+  Future<RazorpayAddon> fetch({required String addonId}) async {
     if (addonId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$addonId';
-    return api.get<RazorpayAddon>(
-      {'url': url},
-      fromJsonFactory: RazorpayAddon.fromJson,
-    ).then((value) => value.data!);
+    final url = '$baseUrl/$addonId';
+    return api
+        .get<RazorpayAddon>({
+          'url': url,
+        }, fromJsonFactory: RazorpayAddon.fromJson)
+        .then((value) => value.data!);
   }
 
   /// Delete an addon given Addon ID
   ///
   /// @param addonId - addon id to be deleted
-  Future<void> delete({
-    required String addonId,
-  }) async {
+  Future<void> delete({required String addonId}) async {
     if (addonId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$addonId';
+    final url = '$baseUrl/$addonId';
     // Expecting an empty list [] as response based on d.ts
-    return api.delete<void>(
-      {'url': url},
-      fromJsonFactory: (json) {}, // Factory returns empty list
-    ).then((value) {});
+    return api
+        .delete<void>(
+          {'url': url},
+          fromJsonFactory: (json) {}, // Factory returns empty list
+        )
+        .then((value) {});
   }
 
   /// Get all addons
@@ -49,7 +48,7 @@ class Addons {
   Future<RazorpayApiResponse<RazorpayAddon>> all({
     RazorpayPaginationOptions? params,
   }) async {
-    const url = BASE_URL;
+    const url = baseUrl;
     var from = params?.from;
     var to = params?.to;
     final count = params?.count ?? 10;
@@ -71,16 +70,17 @@ class Addons {
       ...?params?.toJson(), // Spread the rest of params if toJson is available
     };
 
-    return api.get<RazorpayApiResponse<RazorpayAddon>>(
-      {
-        'url': url,
-        'data': queryParams,
-      },
-      // Provide the factory for the generic response and the inner item type
-      fromJsonFactory: (json) => RazorpayApiResponse<RazorpayAddon>.fromJson(
-        json,
-        (itemJson) => RazorpayAddon.fromJson(itemJson! as Map<String, dynamic>),
-      ),
-    ).then((value) => value.data!);
+    return api
+        .get<RazorpayApiResponse<RazorpayAddon>>(
+          {'url': url, 'data': queryParams},
+          // Provide the factory for the generic response and the inner item type
+          fromJsonFactory: (json) =>
+              RazorpayApiResponse<RazorpayAddon>.fromJson(
+                json,
+                (itemJson) =>
+                    RazorpayAddon.fromJson(itemJson! as Map<String, dynamic>),
+              ),
+        )
+        .then((value) => value.data!);
   }
 }

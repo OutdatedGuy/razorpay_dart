@@ -42,8 +42,7 @@ class RazorpayApiResponse<T> {
   factory RazorpayApiResponse.fromJson(
     Map<String, dynamic> json,
     T Function(Object? json) fromJsonT,
-  ) =>
-      _$RazorpayApiResponseFromJson(json, fromJsonT);
+  ) => _$RazorpayApiResponseFromJson(json, fromJsonT);
 
   final String entity;
   final int count;

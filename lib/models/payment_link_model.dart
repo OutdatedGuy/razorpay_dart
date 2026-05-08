@@ -38,9 +38,8 @@ abstract class RazorpayPaymentLinkNotify with _$RazorpayPaymentLinkNotify {
 @freezed
 abstract class RazorpayPaymentLinkReminder with _$RazorpayPaymentLinkReminder {
   @JsonSerializable(includeIfNull: false)
-  const factory RazorpayPaymentLinkReminder({
-    required String status,
-  }) = _RazorpayPaymentLinkReminder;
+  const factory RazorpayPaymentLinkReminder({required String status}) =
+      _RazorpayPaymentLinkReminder;
 
   factory RazorpayPaymentLinkReminder.fromJson(Map<String, dynamic> json) =>
       _$RazorpayPaymentLinkReminderFromJson(json);
@@ -52,13 +51,15 @@ abstract class RazorpayPaymentLinkPayment with _$RazorpayPaymentLinkPayment {
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayPaymentLinkPayment({
     required String amount, // Assuming string based on d.ts, might be int
-    required String created_at, // Assuming string timestamp, might be int
+    @JsonKey(name: 'created_at')
+    required String createdAt, // Assuming string timestamp, might be int
     required String
-        method, // 'card' | 'netbanking' | 'wallet' | 'emi' | 'upi' | 'bank_transfer'
-    required String payment_id,
-    required String plink_id, // Alias for payment_link_id?
+    method, // 'card' | 'netbanking' | 'wallet' | 'emi' | 'upi' | 'bank_transfer'
+    @JsonKey(name: 'payment_id') required String paymentId,
+    @JsonKey(name: 'plink_id')
+    required String plinkId, // Alias for payment_link_id?
     required String status, // 'captured' | 'failed'
-    required int updated_at, // Unix timestamp
+    @JsonKey(name: 'updated_at') required int updatedAt, // Unix timestamp
   }) = _RazorpayPaymentLinkPayment;
 
   factory RazorpayPaymentLinkPayment.fromJson(Map<String, dynamic> json) =>
@@ -72,24 +73,23 @@ abstract class RazorpayPaymentLinkBaseRequestBody
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayPaymentLinkBaseRequestBody({
     required dynamic
-        amount, // number | string, required RazorpayPaymentLinkCustomer customer, bool? upi_link,
+    amount, // number | string, required RazorpayPaymentLinkCustomer customer, bool? upi_link,
     String? currency, // Default INR
-    bool? accept_partial,
-    int? expire_by, // Unix timestamp
-    String? reference_id,
-    int? first_min_partial_amount,
+    @JsonKey(name: 'accept_partial') bool? acceptPartial,
+    @JsonKey(name: 'expire_by') int? expireBy, // Unix timestamp
+    @JsonKey(name: 'reference_id') String? referenceId,
+    @JsonKey(name: 'first_min_partial_amount') int? firstMinPartialAmount,
     String? description,
     RazorpayPaymentLinkNotify? notify,
-    bool? reminder_enable,
+    @JsonKey(name: 'reminder_enable') bool? reminderEnable,
     IMap<dynamic>? notes,
-    String? callback_url,
-    String? callback_method, // 'get'
+    @JsonKey(name: 'callback_url') String? callbackUrl,
+    @JsonKey(name: 'callback_method') String? callbackMethod, // 'get'
   }) = _RazorpayPaymentLinkBaseRequestBody;
 
   factory RazorpayPaymentLinkBaseRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayPaymentLinkBaseRequestBodyFromJson(json);
+  ) => _$RazorpayPaymentLinkBaseRequestBodyFromJson(json);
 }
 
 // --- Create Request Body ---
@@ -100,24 +100,23 @@ abstract class RazorpayPaymentLinkCreateRequestBody
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayPaymentLinkCreateRequestBody({
     required dynamic
-        amount, // number | string, required RazorpayPaymentLinkCustomer customer, bool? upi_link,
+    amount, // number | string, required RazorpayPaymentLinkCustomer customer, bool? upi_link,
     String? currency, // Default INR
-    bool? accept_partial,
-    int? expire_by, // Unix timestamp
-    String? reference_id,
-    int? first_min_partial_amount,
+    @JsonKey(name: 'accept_partial') bool? acceptPartial,
+    @JsonKey(name: 'expire_by') int? expireBy, // Unix timestamp
+    @JsonKey(name: 'reference_id') String? referenceId,
+    @JsonKey(name: 'first_min_partial_amount') int? firstMinPartialAmount,
     String? description,
     RazorpayPaymentLinkNotify? notify,
-    bool? reminder_enable,
+    @JsonKey(name: 'reminder_enable') bool? reminderEnable,
     IMap<dynamic>? notes,
-    String? callback_url,
-    String? callback_method, // 'get'
+    @JsonKey(name: 'callback_url') String? callbackUrl,
+    @JsonKey(name: 'callback_method') String? callbackMethod, // 'get'
   }) = _RazorpayPaymentLinkCreateRequestBody;
 
   factory RazorpayPaymentLinkCreateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayPaymentLinkCreateRequestBodyFromJson(json);
+  ) => _$RazorpayPaymentLinkCreateRequestBodyFromJson(json);
 }
 
 // --- Update Request Body ---
@@ -127,17 +126,16 @@ abstract class RazorpayPaymentLinkUpdateRequestBody
   // Pick<Base, 'accept_partial' | 'reference_id' | 'expire_by' | 'notes' | 'reminder_enable'>
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayPaymentLinkUpdateRequestBody({
-    bool? accept_partial,
-    String? reference_id,
-    int? expire_by,
+    @JsonKey(name: 'accept_partial') bool? acceptPartial,
+    @JsonKey(name: 'reference_id') String? referenceId,
+    @JsonKey(name: 'expire_by') int? expireBy,
     IMap<dynamic>? notes,
-    bool? reminder_enable,
+    @JsonKey(name: 'reminder_enable') bool? reminderEnable,
   }) = _RazorpayPaymentLinkUpdateRequestBody;
 
   factory RazorpayPaymentLinkUpdateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayPaymentLinkUpdateRequestBodyFromJson(json);
+  ) => _$RazorpayPaymentLinkUpdateRequestBodyFromJson(json);
 }
 
 // --- Response Body ---
@@ -148,24 +146,24 @@ abstract class RazorpayPaymentLink with _$RazorpayPaymentLink {
   const factory RazorpayPaymentLink({
     required String id,
     required dynamic
-        amount, // number | string, required int amount_paid, required int expired_at, // Unix timestamp, required int cancelled_at, // Unix timestamp, required RazorpayPaymentLinkCustomer customer, required RazorpayPaymentLinkReminder reminders, // Use Reminder model, // Response specific fields
+    amount, // number | string, required int amount_paid, required int expired_at, // Unix timestamp, required int cancelled_at, // Unix timestamp, required RazorpayPaymentLinkCustomer customer, required RazorpayPaymentLinkReminder reminders, // Use Reminder model, // Response specific fields
     required List<RazorpayPaymentLinkPayment>?
-        payments, // Nullable list, required String short_url, required String
+    payments, // Nullable list, required String short_url, required String
     required String
-        status, // 'created' | 'partially_paid' | 'expired' | 'cancelled' | 'paid', required int updated_at, // Unix timestamp, required String user_id, required String created_at, // String timestamp? Or int? d.ts says string., bool? upi_link,
+    status, // 'created' | 'partially_paid' | 'expired' | 'cancelled' | 'paid', required int updated_at, // Unix timestamp, required String user_id, required String created_at, // String timestamp? Or int? d.ts says string., bool? upi_link,
     String? currency,
-    bool? accept_partial,
-    int? expire_by,
-    String? reference_id,
-    int? first_min_partial_amount,
+    @JsonKey(name: 'accept_partial') bool? acceptPartial,
+    @JsonKey(name: 'expire_by') int? expireBy,
+    @JsonKey(name: 'reference_id') String? referenceId,
+    @JsonKey(name: 'first_min_partial_amount') int? firstMinPartialAmount,
     String? description,
     RazorpayPaymentLinkNotify? notify,
-    bool? reminder_enable,
+    @JsonKey(name: 'reminder_enable') bool? reminderEnable,
     IMap<dynamic>? notes,
-    String? callback_url,
-    String? callback_method,
+    @JsonKey(name: 'callback_url') String? callbackUrl,
+    @JsonKey(name: 'callback_method') String? callbackMethod,
     String? source,
-    String? source_id,
+    @JsonKey(name: 'source_id') String? sourceId,
   }) = _RazorpayPaymentLink;
 
   factory RazorpayPaymentLink.fromJson(Map<String, dynamic> json) =>
@@ -220,7 +218,8 @@ abstract class RazorpayPaymentLinkListResponse
     with _$RazorpayPaymentLinkListResponse {
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayPaymentLinkListResponse({
-    required List<RazorpayPaymentLink> payment_links,
+    @JsonKey(name: 'payment_links')
+    required List<RazorpayPaymentLink> paymentLinks,
   }) = _RazorpayPaymentLinkListResponse;
 
   factory RazorpayPaymentLinkListResponse.fromJson(Map<String, dynamic> json) =>

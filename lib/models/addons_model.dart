@@ -12,11 +12,11 @@ abstract class RazorpayAddon with _$RazorpayAddon {
     required String id,
     required String entity,
     required RazorpayItem
-        item, // Assuming RazorpayItem is defined in items_model.dart
+    item, // Assuming RazorpayItem is defined in items_model.dart
     required int quantity,
-    required int created_at,
-    required String subscription_id,
-    String? invoice_id, // Nullable as per .d.ts
+    @JsonKey(name: 'created_at') required int createdAt,
+    @JsonKey(name: 'subscription_id') required String subscriptionId,
+    @JsonKey(name: 'invoice_id') String? invoiceId, // Nullable as per .d.ts
   }) = _RazorpayAddon;
 
   factory RazorpayAddon.fromJson(Map<String, dynamic> json) =>

@@ -6,7 +6,7 @@ import 'package:razorpay_dart/models/documents_model.dart';
 class Documents {
   Documents(this.api);
   final API api;
-  static const String BASE_URL = '/documents';
+  static const String baseUrl = '/documents';
 
   /// Create a Document
   ///
@@ -23,15 +23,11 @@ class Documents {
       throw ArgumentError('purpose is required');
     }
 
-    final formDataMap = {
-      'purpose': purpose,
-      'file': file,
-      ...?otherParams,
-    };
+    final formDataMap = {'purpose': purpose, 'file': file, ...?otherParams};
 
     return api.postFormData<RazorpayDocument>(
       {
-        'url': BASE_URL,
+        'url': baseUrl,
         // 'formData' key removed, pass FormData directly
       },
       formData: FormData.fromMap(formDataMap),
@@ -51,7 +47,7 @@ class Documents {
       throw ArgumentError('documentId is required');
     }
     return api.get<RazorpayDocument>(
-      {'url': '$BASE_URL/$documentId'},
+      {'url': '$baseUrl/$documentId'},
       fromJsonFactory: RazorpayDocument.fromJson,
       callback: callback,
     );

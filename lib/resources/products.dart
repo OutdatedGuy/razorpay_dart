@@ -8,8 +8,8 @@ class Products {
 
   Products(this.api);
   final API api;
-  static const String BASE_URL = '/accounts';
-  static const String PRODUCTS_URL_V2 = '/products';
+  static const String baseUrl = '/accounts';
+  static const String productsUrlV2 = '/products';
 
   /// Request a Product Configuration
   ///
@@ -26,7 +26,7 @@ class Products {
     return api.post<RazorpayProduct>(
       {
         'version': 'v2',
-        'url': '$BASE_URL/$accountId/products',
+        'url': '$baseUrl/$accountId/products',
         'data': params.toJson(),
       },
       fromJsonFactory: RazorpayProduct.fromJson,
@@ -54,7 +54,7 @@ class Products {
     return api.patch<RazorpayProduct>(
       {
         'version': 'v2',
-        'url': '$BASE_URL/$accountId/products/$productId',
+        'url': '$baseUrl/$accountId/products/$productId',
         'data': params.toJson(),
       },
       fromJsonFactory: RazorpayProduct.fromJson,
@@ -78,10 +78,7 @@ class Products {
       throw ArgumentError('productId is required');
     }
     return api.get<RazorpayProduct>(
-      {
-        'version': 'v2',
-        'url': '$BASE_URL/$accountId/products/$productId',
-      },
+      {'version': 'v2', 'url': '$baseUrl/$accountId/products/$productId'},
       fromJsonFactory: RazorpayProduct.fromJson,
       callback: callback,
     );
@@ -93,16 +90,13 @@ class Products {
   Future<Response<RazorpayProductTnc>> fetchTnc({
     required String productName,
     void Function(RazorpayApiException?, Response<RazorpayProductTnc>?)?
-        callback,
+    callback,
   }) async {
     if (productName.isEmpty) {
       throw ArgumentError('productName is required');
     }
     return api.get<RazorpayProductTnc>(
-      {
-        'version': 'v2',
-        'url': '$PRODUCTS_URL_V2/$productName/tnc',
-      },
+      {'version': 'v2', 'url': '$productsUrlV2/$productName/tnc'},
       fromJsonFactory: RazorpayProductTnc.fromJson,
       callback: callback,
     );

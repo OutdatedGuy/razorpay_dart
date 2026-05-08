@@ -19,10 +19,14 @@ enum SubscriptionStatus {
   halted,
   cancelled,
   completed,
-  expired
+  expired,
 }
 
-enum ScheduleChangeAt { now, cycle_end }
+enum ScheduleChangeAt {
+  now,
+  @JsonValue('cycle_end')
+  cycleEnd,
+}
 
 enum AuthorizationMethod { card, emandate, nach, upi }
 
@@ -56,8 +60,7 @@ abstract class RazorpaySubscriptionAddonsBaseRequestBody
 
   factory RazorpaySubscriptionAddonsBaseRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpaySubscriptionAddonsBaseRequestBodyFromJson(json);
+  ) => _$RazorpaySubscriptionAddonsBaseRequestBodyFromJson(json);
 }
 
 @freezed
@@ -65,8 +68,8 @@ abstract class RazorpaySubscriptionNotifyInfo
     with _$RazorpaySubscriptionNotifyInfo {
   @JsonSerializable(includeIfNull: false)
   const factory RazorpaySubscriptionNotifyInfo({
-    dynamic notify_phone, // string | number
-    String? notify_email,
+    @JsonKey(name: 'notify_phone') dynamic notifyPhone, // string | number
+    @JsonKey(name: 'notify_email') String? notifyEmail,
   }) = _RazorpaySubscriptionNotifyInfo;
 
   factory RazorpaySubscriptionNotifyInfo.fromJson(Map<String, dynamic> json) =>
@@ -79,23 +82,22 @@ abstract class RazorpaySubscriptionBaseRequestBody
     with _$RazorpaySubscriptionBaseRequestBody {
   @JsonSerializable(includeIfNull: false)
   const factory RazorpaySubscriptionBaseRequestBody({
-    required String plan_id,
-    required int total_count,
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool)
-    bool? customer_notify, // 0 | 1
+    @JsonKey(name: 'plan_id') required String planId,
+    @JsonKey(name: 'total_count') required int totalCount,
+    @JsonKey(name: 'customer_notify', toJson: _boolToInt, fromJson: _intToBool)
+    bool? customerNotify, // 0 | 1
     int? quantity,
-    String? offer_id,
-    int? start_at, // Unix timestamp
-    int? expire_by, // Unix timestamp
+    @JsonKey(name: 'offer_id') String? offerId,
+    @JsonKey(name: 'start_at') int? startAt, // Unix timestamp
+    @JsonKey(name: 'expire_by') int? expireBy, // Unix timestamp
     List<RazorpaySubscriptionAddonsItem>? addons, // List of items for addon
     IMap<dynamic>? notes,
-    ScheduleChangeAt? schedule_change_at,
+    @JsonKey(name: 'schedule_change_at') ScheduleChangeAt? scheduleChangeAt,
   }) = _RazorpaySubscriptionBaseRequestBody;
 
   factory RazorpaySubscriptionBaseRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpaySubscriptionBaseRequestBodyFromJson(json);
+  ) => _$RazorpaySubscriptionBaseRequestBodyFromJson(json);
 }
 
 // Helper functions for bool <-> int conversion
@@ -109,23 +111,24 @@ abstract class RazorpaySubscriptionCreateRequestBody
   // Inherits Base
   @JsonSerializable(includeIfNull: false)
   const factory RazorpaySubscriptionCreateRequestBody({
-    required String plan_id,
-    required int total_count,
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool) bool? customer_notify,
+    @JsonKey(name: 'plan_id') required String planId,
+    @JsonKey(name: 'total_count') required int totalCount,
+    @JsonKey(name: 'customer_notify', toJson: _boolToInt, fromJson: _intToBool)
+    bool? customerNotify,
     int? quantity,
-    String? offer_id,
-    int? start_at,
-    int? expire_by,
+    @JsonKey(name: 'offer_id') String? offerId,
+    @JsonKey(name: 'start_at') int? startAt,
+    @JsonKey(name: 'expire_by') int? expireBy,
     List<RazorpaySubscriptionAddonsItem>? addons,
     IMap<dynamic>? notes,
+    @JsonKey(name: 'schedule_change_at')
     ScheduleChangeAt?
-        schedule_change_at, // Although usually for update, d.ts includes it here
+    scheduleChangeAt, // Although usually for update, d.ts includes it here
   }) = _RazorpaySubscriptionCreateRequestBody;
 
   factory RazorpaySubscriptionCreateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpaySubscriptionCreateRequestBodyFromJson(json);
+  ) => _$RazorpaySubscriptionCreateRequestBodyFromJson(json);
 }
 
 // Request Body for creating a subscription link (auth link)
@@ -135,23 +138,24 @@ abstract class RazorpaySubscriptionLinkCreateRequestBody
   // Extends Base + notify_info
   @JsonSerializable(includeIfNull: false)
   const factory RazorpaySubscriptionLinkCreateRequestBody({
-    required String plan_id,
-    required int total_count,
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool) bool? customer_notify,
+    @JsonKey(name: 'plan_id') required String planId,
+    @JsonKey(name: 'total_count') required int totalCount,
+    @JsonKey(name: 'customer_notify', toJson: _boolToInt, fromJson: _intToBool)
+    bool? customerNotify,
     int? quantity,
-    String? offer_id,
-    int? start_at,
-    int? expire_by,
+    @JsonKey(name: 'offer_id') String? offerId,
+    @JsonKey(name: 'start_at') int? startAt,
+    @JsonKey(name: 'expire_by') int? expireBy,
     List<RazorpaySubscriptionAddonsItem>? addons,
     IMap<dynamic>? notes,
     // Not typically used on link creation: ScheduleChangeAt? schedule_change_at,
-    RazorpaySubscriptionNotifyInfo? notify_info, // Specific to link creation
+    @JsonKey(name: 'notify_info')
+    RazorpaySubscriptionNotifyInfo? notifyInfo, // Specific to link creation
   }) = _RazorpaySubscriptionLinkCreateRequestBody;
 
   factory RazorpaySubscriptionLinkCreateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpaySubscriptionLinkCreateRequestBodyFromJson(json);
+  ) => _$RazorpaySubscriptionLinkCreateRequestBodyFromJson(json);
 }
 
 // --- Update Request Body ---
@@ -161,23 +165,23 @@ abstract class RazorpaySubscriptionUpdateRequestBody
   // PartialOptional<Base, 'plan_id' | 'total_count'> + remaining_count
   @JsonSerializable(includeIfNull: false)
   const factory RazorpaySubscriptionUpdateRequestBody({
-    String? plan_id, // Optional
-    int? total_count, // Optional
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool) bool? customer_notify,
+    @JsonKey(name: 'plan_id') String? planId, // Optional
+    @JsonKey(name: 'total_count') int? totalCount, // Optional
+    @JsonKey(name: 'customer_notify', toJson: _boolToInt, fromJson: _intToBool)
+    bool? customerNotify,
     int? quantity,
-    String? offer_id,
-    int? start_at,
-    int? expire_by,
+    @JsonKey(name: 'offer_id') String? offerId,
+    @JsonKey(name: 'start_at') int? startAt,
+    @JsonKey(name: 'expire_by') int? expireBy,
     List<RazorpaySubscriptionAddonsItem>? addons,
     IMap<dynamic>? notes,
-    ScheduleChangeAt? schedule_change_at,
-    int? remaining_count, // Specific to update
+    @JsonKey(name: 'schedule_change_at') ScheduleChangeAt? scheduleChangeAt,
+    @JsonKey(name: 'remaining_count') int? remainingCount, // Specific to update
   }) = _RazorpaySubscriptionUpdateRequestBody;
 
   factory RazorpaySubscriptionUpdateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpaySubscriptionUpdateRequestBodyFromJson(json);
+  ) => _$RazorpaySubscriptionUpdateRequestBodyFromJson(json);
 }
 
 // --- Response Body ---
@@ -188,30 +192,36 @@ abstract class RazorpaySubscription with _$RazorpaySubscription {
   const factory RazorpaySubscription({
     required String id,
     required String entity,
-    required String plan_id,
+    @JsonKey(name: 'plan_id') required String planId,
     required SubscriptionStatus status,
-    required int total_count,
+    @JsonKey(name: 'total_count') required int totalCount,
     required int quantity,
-    required int paid_count,
+    @JsonKey(name: 'paid_count') required int paidCount,
+    @JsonKey(name: 'has_scheduled_changes')
     required bool
-        has_scheduled_changes, // d.ts shows quantity as optional in base, but required here? Assume required., required int start_at, // Non-nullable in response, required int charge_at, // Unix timestamp, required int end_at, // Unix timestamp (calculated end), required int auth_attempts, required int paid_count, required int created_at, // Unix timestamp, required String short_url, required bool has_scheduled_changes, required String source, // e.g., 'api', 'dashboard', required String
+    hasScheduledChanges, // d.ts shows quantity as optional in base, but required here? Assume required., required int start_at, // Non-nullable in response, required int charge_at, // Unix timestamp, required int end_at, // Unix timestamp (calculated end), required int auth_attempts, required int paid_count, required int created_at, // Unix timestamp, required String short_url, required bool has_scheduled_changes, required String source, // e.g., 'api', 'dashboard', required String
+    @JsonKey(name: 'remaining_count')
     required String
-        remaining_count, // String in d.ts? Assume int based on context. Revert if needed.
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool) bool? customer_notify,
-    String? offer_id,
-    int? expire_by, // Still nullable? Or defaults? Assuming nullable.
+    remainingCount, // String in d.ts? Assume int based on context. Revert if needed.
+    @JsonKey(name: 'offer_id', toJson: _boolToInt, fromJson: _intToBool)
+    bool? customerNotify,
+    String? offerId,
+    @JsonKey(name: 'expire_by')
+    int? expireBy, // Still nullable? Or defaults? Assuming nullable.
     List<RazorpaySubscriptionAddonsItem>?
-        addons, // Reflects addons at creation?
+    addons, // Reflects addons at creation?
     IMap<dynamic>? notes,
     // ScheduleChangeAt? schedule_change_at, // Usually not part of the main response
 
     // Response specific fields
-    int? current_start, // Nullable Unix timestamp
-    int? current_end, // Nullable Unix timestamp
-    int? ended_at, // Nullable Unix timestamp
-    int? change_scheduled_at, // Nullable Unix timestamp
-    String? customer_id, // Nullable string
-    String? payment_method, // Nullable string
+    @JsonKey(name: 'current_start')
+    int? currentStart, // Nullable Unix timestamp
+    @JsonKey(name: 'current_end') int? currentEnd, // Nullable Unix timestamp
+    @JsonKey(name: 'ended_at') int? endedAt, // Nullable Unix timestamp
+    @JsonKey(name: 'change_scheduled_at')
+    int? changeScheduledAt, // Nullable Unix timestamp
+    @JsonKey(name: 'customer_id') String? customerId, // Nullable string
+    @JsonKey(name: 'payment_method') String? paymentMethod, // Nullable string
   }) = _RazorpaySubscription;
 
   factory RazorpaySubscription.fromJson(Map<String, dynamic> json) =>
@@ -225,14 +235,13 @@ abstract class RazorpaySubscriptionRegistrationBaseRequestBody
   @JsonSerializable(includeIfNull: false)
   const factory RazorpaySubscriptionRegistrationBaseRequestBody({
     AuthorizationMethod? method,
-    int? max_amount,
-    int? expire_at, // Unix timestamp
+    @JsonKey(name: 'max_amount') int? maxAmount,
+    @JsonKey(name: 'expire_at') int? expireAt, // Unix timestamp
   }) = _RazorpaySubscriptionRegistrationBaseRequestBody;
 
   factory RazorpaySubscriptionRegistrationBaseRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpaySubscriptionRegistrationBaseRequestBodyFromJson(json);
+  ) => _$RazorpaySubscriptionRegistrationBaseRequestBodyFromJson(json);
 }
 
 @freezed
@@ -241,14 +250,13 @@ abstract class RazorpaySubscriptionRegistrationUpi
   @JsonSerializable(includeIfNull: false)
   const factory RazorpaySubscriptionRegistrationUpi({
     AuthorizationMethod? method, // Should be 'upi'
-    int? max_amount,
-    int? expire_at,
+    @JsonKey(name: 'max_amount') int? maxAmount,
+    @JsonKey(name: 'expire_at') int? expireAt,
   }) = _RazorpaySubscriptionRegistrationUpi;
 
   factory RazorpaySubscriptionRegistrationUpi.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpaySubscriptionRegistrationUpiFromJson(json);
+  ) => _$RazorpaySubscriptionRegistrationUpiFromJson(json);
 }
 
 @freezed
@@ -257,25 +265,26 @@ abstract class RazorpaySubscriptionRegistrationUpiTpv
   @JsonSerializable(includeIfNull: false)
   const factory RazorpaySubscriptionRegistrationUpiTpv({
     required String
-        frequency, // e.g., 'monthly', 'as_presented', AuthorizationMethod? method, // Should be 'upi'
-    int? max_amount,
-    int? expire_at,
+    frequency, // e.g., 'monthly', 'as_presented', AuthorizationMethod? method, // Should be 'upi'
+    @JsonKey(name: 'max_amount') int? maxAmount,
+    @JsonKey(name: 'expire_at') int? expireAt,
+
     // Pick<Orders.RazorpayBankAccount, 'account_number' | 'name' | 'ifsc'>
-    RazorpayOrderBankDetailsCreateRequestBody? bank_account,
+    @JsonKey(name: 'bank_account')
+    RazorpayOrderBankDetailsCreateRequestBody? bankAccount,
   }) = _RazorpaySubscriptionRegistrationUpiTpv;
 
   factory RazorpaySubscriptionRegistrationUpiTpv.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpaySubscriptionRegistrationUpiTpvFromJson(json);
+  ) => _$RazorpaySubscriptionRegistrationUpiTpvFromJson(json);
 }
 
 @freezed
 abstract class NachDetails with _$NachDetails {
   @JsonSerializable(includeIfNull: false)
   const factory NachDetails({
-    String? form_reference1,
-    String? form_reference2,
+    @JsonKey(name: 'form_reference1') String? formReference1,
+    @JsonKey(name: 'form_reference2') String? formReference2,
     String? description,
   }) = _NachDetails;
 
@@ -289,16 +298,16 @@ abstract class RazorpaySubscriptionRegistrationNach
   @JsonSerializable(includeIfNull: false)
   const factory RazorpaySubscriptionRegistrationNach({
     AuthorizationMethod? method, // Should be 'nach'
-    int? max_amount,
-    int? expire_at,
-    RazorpayOrderBankDetailsBaseRequestBody? bank_account,
+    @JsonKey(name: 'max_amount') int? maxAmount,
+    @JsonKey(name: 'expire_at') int? expireAt,
+    @JsonKey(name: 'bank_account')
+    RazorpayOrderBankDetailsBaseRequestBody? bankAccount,
     NachDetails? nach,
   }) = _RazorpaySubscriptionRegistrationNach;
 
   factory RazorpaySubscriptionRegistrationNach.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpaySubscriptionRegistrationNachFromJson(json);
+  ) => _$RazorpaySubscriptionRegistrationNachFromJson(json);
 }
 
 @freezed
@@ -306,18 +315,19 @@ abstract class RazorpaySubscriptionRegistrationEmandate
     with _$RazorpaySubscriptionRegistrationEmandate {
   @JsonSerializable(includeIfNull: false)
   const factory RazorpaySubscriptionRegistrationEmandate({
+    @JsonKey(name: 'first_payment_amount')
     required int
-        first_payment_amount, // Required for emandate, AuthorizationMethod? method, // Should be 'emandate'
-    int? max_amount,
-    int? expire_at,
-    EmandateAuthType? auth_type,
-    RazorpayOrderBankDetailsBaseRequestBody? bank_account,
+    firstPaymentAmount, // Required for emandate, AuthorizationMethod? method, // Should be 'emandate'
+    @JsonKey(name: 'max_amount') int? maxAmount,
+    @JsonKey(name: 'expire_at') int? expireAt,
+    @JsonKey(name: 'auth_type') EmandateAuthType? authType,
+    @JsonKey(name: 'bank_account')
+    RazorpayOrderBankDetailsBaseRequestBody? bankAccount,
   }) = _RazorpaySubscriptionRegistrationEmandate;
 
   factory RazorpaySubscriptionRegistrationEmandate.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpaySubscriptionRegistrationEmandateFromJson(json);
+  ) => _$RazorpaySubscriptionRegistrationEmandateFromJson(json);
 }
 
 // Union type for the subscription_registration field
@@ -331,19 +341,23 @@ abstract class RazorpayRegistrationLinkBaseRequestBody
   const factory RazorpayRegistrationLinkBaseRequestBody({
     // Fields from InvoiceBase, excluding some
     required String type, // Registration specific field
+    @JsonKey(name: 'subscription_registration')
     required dynamic
-        subscription_registration, // Union type, use Map<String,dynamic>, // Should be 'link'
+    subscriptionRegistration, // Union type, use Map<String,dynamic>, // Should be 'link'
     String? description,
     // String? draft, // Not applicable
     // int? date, // Not applicable
-    String? customer_id,
+    @JsonKey(name: 'customer_id') String? customerId,
     String? currency,
     RazorpayCustomerDetailsBaseRequestBody? customer,
-    String? order_id, // Typically not used for auth links
+    @JsonKey(name: 'order_id')
+    String? orderId, // Typically not used for auth links
     // required List<RazorpayLineItemsBaseRequestBody> line_items, // Not applicable
-    int? expire_by,
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool) bool? sms_notify,
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool) bool? email_notify,
+    @JsonKey(name: 'expire_by') int? expireBy,
+    @JsonKey(name: 'sms_notify', toJson: _boolToInt, fromJson: _intToBool)
+    bool? smsNotify,
+    @JsonKey(name: 'email_notify', toJson: _boolToInt, fromJson: _intToBool)
+    bool? emailNotify,
     // bool? partial_payment, // Not applicable
     IMap<dynamic>? notes,
     String? receipt,
@@ -352,8 +366,7 @@ abstract class RazorpayRegistrationLinkBaseRequestBody
 
   factory RazorpayRegistrationLinkBaseRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayRegistrationLinkBaseRequestBodyFromJson(json);
+  ) => _$RazorpayRegistrationLinkBaseRequestBodyFromJson(json);
 }
 
 // --- Registration Link Response ---
@@ -366,49 +379,54 @@ abstract class RazorpayRegistrationLink with _$RazorpayRegistrationLink {
     required String id,
     required String entity,
     required String type,
+    @JsonKey(name: 'line_items')
     required List<RazorpayLineItems>
-        line_items, // Might be empty for auth links, required String invoice_number, required String short_url, // The important auth link URL, required int created_at, String? description,
+    lineItems, // Might be empty for auth links, required String invoice_number, required String short_url, // The important auth link URL, required int created_at, String? description,
     String? draft,
     int? date,
-    String? customer_id,
+    @JsonKey(name: 'customer_id') String? customerId,
     String? currency,
-    RazorpayCustomerDetails? customer_details,
-    String? order_id,
-    int? expire_by,
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool) bool? sms_notify,
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool) bool? email_notify,
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool) bool? partial_payment,
+    @JsonKey(name: 'customer_details') RazorpayCustomerDetails? customerDetails,
+    @JsonKey(name: 'order_id') String? orderId,
+    @JsonKey(name: 'expire_by') int? expireBy,
+    @JsonKey(name: 'sms_notify', toJson: _boolToInt, fromJson: _intToBool)
+    bool? smsNotify,
+    @JsonKey(name: 'email_notify', toJson: _boolToInt, fromJson: _intToBool)
+    bool? emailNotify,
+    @JsonKey(name: 'partial_payment', toJson: _boolToInt, fromJson: _intToBool)
+    bool? partialPayment,
     IMap<dynamic>? notes,
     String? receipt,
     dynamic amount,
-    String? payment_id,
-    int? issued_at,
-    int? paid_at,
-    int? cancelled_at,
-    int? expired_at,
-    NotificationStatus? sms_status,
-    NotificationStatus? email_status,
-    int? gross_amount,
-    int? tax_amount,
-    int? taxable_amount,
+    @JsonKey(name: 'payment_id') String? paymentId,
+    @JsonKey(name: 'issued_at') int? issuedAt,
+    @JsonKey(name: 'paid_at') int? paidAt,
+    @JsonKey(name: 'cancelled_at') int? cancelledAt,
+    @JsonKey(name: 'expired_at') int? expiredAt,
+    @JsonKey(name: 'sms_status') NotificationStatus? smsStatus,
+    @JsonKey(name: 'email_status') NotificationStatus? emailStatus,
+    @JsonKey(name: 'gross_amount') int? grossAmount,
+    @JsonKey(name: 'tax_amount') int? taxAmount,
+    @JsonKey(name: 'taxable_amount') int? taxableAmount,
     InvoiceStatus? status,
-    int? amount_paid,
-    int? amount_due,
-    String? currency_symbol,
-    int? billing_start,
-    int? billing_end,
-    bool? group_taxes_discounts,
+    @JsonKey(name: 'amount_paid') int? amountPaid,
+    @JsonKey(name: 'amount_due') int? amountDue,
+    @JsonKey(name: 'currency_symbol') String? currencySymbol,
+    @JsonKey(name: 'billing_start') int? billingStart,
+    @JsonKey(name: 'billing_end') int? billingEnd,
+    @JsonKey(name: 'group_taxes_discounts') bool? groupTaxesDiscounts,
     int? terms,
     int? comment,
-    bool? view_less,
-    dynamic idempotency_key,
-    dynamic ref_num,
+    @JsonKey(name: 'view_less') bool? viewLess,
+    @JsonKey(name: 'idempotency_key') dynamic idempotencyKey,
+    @JsonKey(name: 'ref_num') dynamic refNum,
 
     // Registration specific fields in response
-    String? auth_link_status, // Nullable status
+    @JsonKey(name: 'auth_link_status')
+    String? authLinkStatus, // Nullable status
     RazorpayAuthorizationToken?
-        token, // Use token model defined in tokens_model.dart
-    String? nach_form_url, // Nullable URL
+    token, // Use token model defined in tokens_model.dart
+    @JsonKey(name: 'nach_form_url') String? nachFormUrl, // Nullable URL
   }) = _RazorpayRegistrationLink;
 
   factory RazorpayRegistrationLink.fromJson(Map<String, dynamic> json) =>
@@ -425,7 +443,7 @@ abstract class RazorpaySubscriptionQuery with _$RazorpaySubscriptionQuery {
     int? to,
     int? count,
     int? skip,
-    String? plan_id,
+    @JsonKey(name: 'plan_id') String? planId,
   }) = _RazorpaySubscriptionQuery;
 
   factory RazorpaySubscriptionQuery.fromJson(Map<String, dynamic> json) =>

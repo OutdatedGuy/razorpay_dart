@@ -11,7 +11,7 @@ abstract class OthersEvidence with _$OthersEvidence {
   @JsonSerializable(includeIfNull: false)
   const factory OthersEvidence({
     required String type,
-    required List<String> document_ids,
+    @JsonKey(name: 'document_ids') required List<String> documentIds,
   }) = _OthersEvidence;
 
   factory OthersEvidence.fromJson(Map<String, dynamic> json) =>
@@ -26,28 +26,30 @@ abstract class RazorpayDisputesContestBaseRequestBody
   const factory RazorpayDisputesContestBaseRequestBody({
     // Fields for submitting evidence
     int?
-        amount, // Make contest fields optional as they form 'evidence' in response
+    amount, // Make contest fields optional as they form 'evidence' in response
     String? summary,
-    List<String>? shipping_proof,
-    List<String>? billing_proof,
-    List<String>? cancellation_proof,
-    List<String>? customer_communication,
-    List<String>? proof_of_service,
-    List<String>? explanation_letter,
-    List<String>? refund_confirmation,
-    List<String>? access_activity_log,
-    List<String>? refund_cancellation_policy,
-    List<String>? term_and_conditions,
+    @JsonKey(name: 'shipping_proof') List<String>? shippingProof,
+    @JsonKey(name: 'billing_proof') List<String>? billingProof,
+    @JsonKey(name: 'cancellation_proof') List<String>? cancellationProof,
+    @JsonKey(name: 'customer_communication')
+    List<String>? customerCommunication,
+    @JsonKey(name: 'proof_of_service') List<String>? proofOfService,
+    @JsonKey(name: 'explanation_letter') List<String>? explanationLetter,
+    @JsonKey(name: 'refund_confirmation') List<String>? refundConfirmation,
+    @JsonKey(name: 'access_activity_log') List<String>? accessActivityLog,
+    @JsonKey(name: 'refund_cancellation_policy')
+    List<String>? refundCancellationPolicy,
+    @JsonKey(name: 'term_and_conditions') List<String>? termAndConditions,
     List<OthersEvidence>? others,
     String? action, // 'draft' or 'submit' when contesting
+    @JsonKey(name: 'submitted_at')
     dynamic
-        submitted_at, // Keep as dynamic or use int? for nullable Unix timestamp
+    submittedAt, // Keep as dynamic or use int? for nullable Unix timestamp
   }) = _RazorpayDisputesContestBaseRequestBody;
 
   factory RazorpayDisputesContestBaseRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayDisputesContestBaseRequestBodyFromJson(json);
+  ) => _$RazorpayDisputesContestBaseRequestBodyFromJson(json);
 }
 
 // --- Main Dispute Response Body ---
@@ -57,18 +59,19 @@ abstract class RazorpayDispute with _$RazorpayDispute {
   const factory RazorpayDispute({
     required String id,
     required String entity,
-    required String payment_id,
+    @JsonKey(name: 'payment_id') required String paymentId,
     required int amount,
     required String currency,
-    required int amount_deducted,
+    @JsonKey(name: 'amount_deducted') required int amountDeducted,
+    @JsonKey(name: 'reason_code')
     required String
-        reason_code, // Consider mapping to an enum if codes are fixed
-    required int respond_by,
+    reasonCode, // Consider mapping to an enum if codes are fixed
+    @JsonKey(name: 'respond_by') required int respondBy,
     required String status, // Consider mapping to an enum
     required String phase, // Consider mapping to an enum
-    required int created_at,
+    @JsonKey(name: 'created_at') required int createdAt,
     required RazorpayDisputesContestBaseRequestBody
-        evidence, // Evidence structure matches the contest request
+    evidence, // Evidence structure matches the contest request
   }) = _RazorpayDispute;
 
   factory RazorpayDispute.fromJson(Map<String, dynamic> json) =>

@@ -18,7 +18,8 @@ class Orders {
     void Function(
       RazorpayApiException?,
       Response<RazorpayApiResponse<RazorpayOrder>>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     var from = params?.from;
     var to = params?.to;
@@ -41,10 +42,7 @@ class Orders {
     queryParams.removeWhere((key, value) => value == null);
 
     return api.get<RazorpayApiResponse<RazorpayOrder>>(
-      {
-        'url': '/orders',
-        'data': queryParams,
-      },
+      {'url': '/orders', 'data': queryParams},
       callback: callback,
       fromJsonFactory: (json) => RazorpayApiResponse<RazorpayOrder>.fromJson(
         json,
@@ -85,10 +83,10 @@ class Orders {
       requestData = params is RazorpayOrderCreateRequestBody
           ? params.toJson()
           : params is RazorpayTransferOrderCreateRequestBody
-              ? params.toJson()
-              : params is RazorpayAuthorizationOrderCreateRequestBody
-                  ? params.toJson()
-                  : {};
+          ? params.toJson()
+          : params is RazorpayAuthorizationOrderCreateRequestBody
+          ? params.toJson()
+          : {};
     } else {
       throw ArgumentError('Invalid params type for order creation.');
     }
@@ -100,10 +98,7 @@ class Orders {
     }
 
     return api.post<RazorpayOrder>(
-      {
-        'url': '/orders',
-        'data': requestData,
-      },
+      {'url': '/orders', 'data': requestData},
       fromJsonFactory: RazorpayOrder.fromJson,
       callback: callback,
     );
@@ -122,10 +117,7 @@ class Orders {
       throw ArgumentError('`order_id` is mandatory');
     }
     return api.patch<RazorpayOrder>(
-      {
-        'url': '/orders/$orderId',
-        'data': params.toJson(),
-      },
+      {'url': '/orders/$orderId', 'data': params.toJson()},
       fromJsonFactory: RazorpayOrder.fromJson,
       callback: callback,
     );
@@ -139,7 +131,8 @@ class Orders {
     void Function(
       RazorpayApiException?,
       Response<RazorpayOrderPaymentsResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (orderId.isEmpty) {
       throw ArgumentError('`order_id` is mandatory');
@@ -179,7 +172,7 @@ class Orders {
   Future<Response<RazorpayRtoReview>> viewRtoReview({
     required String orderId,
     void Function(RazorpayApiException?, Response<RazorpayRtoReview>?)?
-        callback,
+    callback,
   }) async {
     if (orderId.isEmpty) {
       throw ArgumentError('`order_id` is mandatory');
@@ -202,17 +195,14 @@ class Orders {
     required String orderId,
     required RazorpayFulFillmentBaseRequestBody params,
     void Function(RazorpayApiException?, Response<RazorpayFulFillment>?)?
-        callback,
+    callback,
   }) async {
     if (orderId.isEmpty) {
       throw ArgumentError('`order_id` is mandatory');
     }
     // JS returns 'any', using the defined fulfillment model.
     return api.post<RazorpayFulFillment>(
-      {
-        'url': '/orders/$orderId/fulfillment',
-        'data': params.toJson(),
-      },
+      {'url': '/orders/$orderId/fulfillment', 'data': params.toJson()},
       fromJsonFactory:
           RazorpayFulFillment.fromJson, // Adjust if response differs
       callback: callback,

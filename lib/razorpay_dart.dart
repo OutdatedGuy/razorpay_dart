@@ -31,12 +31,7 @@ export 'resources/resources.dart';
 
 /// Razorpay API Client for Dart.
 class Razorpay {
-  Razorpay({
-    this.keyId,
-    this.keySecret,
-    this.oauthToken,
-    this.headers,
-  }) {
+  Razorpay({this.keyId, this.keySecret, this.oauthToken, this.headers}) {
     // Allow either key_id/key_secret OR oauthToken
     if ((keyId == null || keySecret == null) && oauthToken == null) {
       throw ArgumentError(
@@ -46,7 +41,7 @@ class Razorpay {
 
     api = API(
       hostUrl: 'https://api.razorpay.com',
-      ua: 'razorpay-dart@$VERSION', // Use static VERSION
+      ua: 'razorpay-dart@$version', // Use static version
       keyId: keyId,
       keySecret: keySecret,
       oauthToken: oauthToken,
@@ -61,32 +56,29 @@ class Razorpay {
   final Map<String, String>? headers;
   late API api;
 
-  static const String VERSION = '2.9.6'; // Define version as static const
+  static const String version = '2.9.6'; // Define version as static const
 
   // Static methods for utils
   static bool validateWebhookSignature(
     String body,
     String signature,
     String secret,
-  ) =>
-      utils.validateWebhookSignature(body, signature, secret);
+  ) => utils.validateWebhookSignature(body, signature, secret);
 
   static bool validatePaymentVerification({
     required Map<String, String> params,
     required String signature,
     required String secret,
-  }) =>
-      utils.validatePaymentVerification(
-        params: params,
-        signature: signature,
-        secret: secret,
-      );
+  }) => utils.validatePaymentVerification(
+    params: params,
+    signature: signature,
+    secret: secret,
+  );
 
   static String generateOnboardingSignature({
     required Map<String, dynamic> params,
     required String secret,
-  }) =>
-      utils.generateOnboardingSignature(params: params, secret: secret);
+  }) => utils.generateOnboardingSignature(params: params, secret: secret);
 
   static int normalizeDate(dynamic date) => utils.normalizeDate(date);
   // Add other static utils if needed

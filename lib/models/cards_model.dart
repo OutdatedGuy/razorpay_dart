@@ -10,7 +10,6 @@ part 'cards_model.g.dart';
 @freezed
 abstract class RazorpayCardReferenceRequest
     with _$RazorpayCardReferenceRequest {
-  @JsonSerializable(includeIfNull: false)
   @Assert(
     '(number != null && token == null) || (number == null && token != null)',
     'Either number or token must be provided, but not both.',
@@ -19,6 +18,7 @@ abstract class RazorpayCardReferenceRequest
     'tokenised == null || number != null',
     'tokenised can only be set if number is provided.',
   )
+  @JsonSerializable(includeIfNull: false)
   const factory RazorpayCardReferenceRequest({
     String? number,
     String? token,
@@ -36,9 +36,9 @@ abstract class RazorpayCardReference with _$RazorpayCardReference {
   const factory RazorpayCardReference({
     required String provider,
     CardNetwork? network, // Keep as String for now
-    String? payment_account_reference,
-    String? network_reference_id,
-    String? card_reference_number,
+    @JsonKey(name: 'payment_account_reference') String? paymentAccountReference,
+    @JsonKey(name: 'network_reference_id') String? networkReferenceId,
+    @JsonKey(name: 'card_reference_number') String? cardReferenceNumber,
   }) = _RazorpayCardReference;
 
   factory RazorpayCardReference.fromJson(Map<String, dynamic> json) =>

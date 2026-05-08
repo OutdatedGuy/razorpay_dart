@@ -7,82 +7,77 @@ part of 'oauth_token_model.dart';
 // **************************************************************************
 
 _InitiateAuthorisationRequest _$InitiateAuthorisationRequestFromJson(
-        Map<String, dynamic> json) =>
-    _InitiateAuthorisationRequest(
-      client_id: json['client_id'] as String,
-      response_type: json['response_type'] as String,
-      redirect_uri: json['redirect_uri'] as String,
-      scope: (json['scope'] as List<dynamic>).map((e) => e as String).toList(),
-      state: json['state'] as String,
-      onboarding_signature: json['onboarding_signature'] as String?,
-    );
+  Map<String, dynamic> json,
+) => _InitiateAuthorisationRequest(
+  clientId: json['client_id'] as String,
+  responseType: json['response_type'] as String,
+  redirectUri: json['redirect_uri'] as String,
+  scope: (json['scope'] as List<dynamic>).map((e) => e as String).toList(),
+  state: json['state'] as String,
+  onboardingSignature: json['onboarding_signature'] as String?,
+);
 
 Map<String, dynamic> _$InitiateAuthorisationRequestToJson(
-        _InitiateAuthorisationRequest instance) =>
-    <String, dynamic>{
-      'client_id': instance.client_id,
-      'response_type': instance.response_type,
-      'redirect_uri': instance.redirect_uri,
-      'scope': instance.scope,
-      'state': instance.state,
-      if (instance.onboarding_signature case final value?)
-        'onboarding_signature': value,
-    };
+  _InitiateAuthorisationRequest instance,
+) => <String, dynamic>{
+  'client_id': instance.clientId,
+  'response_type': instance.responseType,
+  'redirect_uri': instance.redirectUri,
+  'scope': instance.scope,
+  'state': instance.state,
+  'onboarding_signature': ?instance.onboardingSignature,
+};
 
 _OAuthTokenRequest _$OAuthTokenRequestFromJson(Map<String, dynamic> json) =>
     _OAuthTokenRequest(
-      client_id: json['client_id'] as String,
-      client_secret: json['client_secret'] as String,
-      grant_type: json['grant_type'] as String?,
-      redirect_uri: json['redirect_uri'] as String?,
+      clientId: json['client_id'] as String,
+      clientSecret: json['client_secret'] as String,
+      grantType: json['grant_type'] as String?,
+      redirectUri: json['redirect_uri'] as String?,
       code: json['code'] as String?,
       mode: json['mode'] as String?,
-      refresh_token: json['refresh_token'] as String?,
-      token_type_hint: json['token_type_hint'] as String?,
+      refreshToken: json['refresh_token'] as String?,
+      tokenTypeHint: json['token_type_hint'] as String?,
       token: json['token'] as String?,
     );
 
 Map<String, dynamic> _$OAuthTokenRequestToJson(_OAuthTokenRequest instance) =>
     <String, dynamic>{
-      'client_id': instance.client_id,
-      'client_secret': instance.client_secret,
-      if (instance.grant_type case final value?) 'grant_type': value,
-      if (instance.redirect_uri case final value?) 'redirect_uri': value,
-      if (instance.code case final value?) 'code': value,
-      if (instance.mode case final value?) 'mode': value,
-      if (instance.refresh_token case final value?) 'refresh_token': value,
-      if (instance.token_type_hint case final value?) 'token_type_hint': value,
-      if (instance.token case final value?) 'token': value,
+      'client_id': instance.clientId,
+      'client_secret': instance.clientSecret,
+      'grant_type': ?instance.grantType,
+      'redirect_uri': ?instance.redirectUri,
+      'code': ?instance.code,
+      'mode': ?instance.mode,
+      'refresh_token': ?instance.refreshToken,
+      'token_type_hint': ?instance.tokenTypeHint,
+      'token': ?instance.token,
     };
 
 _OAuthTokenResponse _$OAuthTokenResponseFromJson(Map<String, dynamic> json) =>
     _OAuthTokenResponse(
-      public_token: json['public_token'] as String,
-      token_type: json['token_type'] as String,
-      expires_in: (json['expires_in'] as num).toInt(),
-      access_token: json['access_token'] as String,
-      refresh_token: json['refresh_token'] as String,
-      razorpay_account_id: json['razorpay_account_id'] as String,
+      publicToken: json['public_token'] as String,
+      tokenType: json['token_type'] as String,
+      expiresIn: (json['expires_in'] as num).toInt(),
+      accessToken: json['access_token'] as String,
+      refreshToken: json['refresh_token'] as String,
+      razorpayAccountId: json['razorpay_account_id'] as String,
     );
 
 Map<String, dynamic> _$OAuthTokenResponseToJson(_OAuthTokenResponse instance) =>
     <String, dynamic>{
-      'public_token': instance.public_token,
-      'token_type': instance.token_type,
-      'expires_in': instance.expires_in,
-      'access_token': instance.access_token,
-      'refresh_token': instance.refresh_token,
-      'razorpay_account_id': instance.razorpay_account_id,
+      'public_token': instance.publicToken,
+      'token_type': instance.tokenType,
+      'expires_in': instance.expiresIn,
+      'access_token': instance.accessToken,
+      'refresh_token': instance.refreshToken,
+      'razorpay_account_id': instance.razorpayAccountId,
     };
 
 _OAuthRevokeTokenResponse _$OAuthRevokeTokenResponseFromJson(
-        Map<String, dynamic> json) =>
-    _OAuthRevokeTokenResponse(
-      message: json['message'] as String,
-    );
+  Map<String, dynamic> json,
+) => _OAuthRevokeTokenResponse(message: json['message'] as String);
 
 Map<String, dynamic> _$OAuthRevokeTokenResponseToJson(
-        _OAuthRevokeTokenResponse instance) =>
-    <String, dynamic>{
-      'message': instance.message,
-    };
+  _OAuthRevokeTokenResponse instance,
+) => <String, dynamic>{'message': instance.message};

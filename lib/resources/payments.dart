@@ -10,8 +10,8 @@ import 'package:razorpay_dart/utils.dart'; // For normalizeDate
 class Payments {
   Payments(this.api);
   final API api;
-  static const String BASE_URL = '/payments';
-  static const String ID_REQUIRED_MSG = '`payment_id` is mandatory';
+  static const String baseUrl = '/payments';
+  static const String idRequiredMsg = '`payment_id` is mandatory';
 
   /// Get all payments
   ///
@@ -21,7 +21,8 @@ class Payments {
     void Function(
       RazorpayApiException?,
       Response<RazorpayApiResponse<RazorpayPayment>>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     var from = params?.from;
     var to = params?.to;
@@ -44,10 +45,7 @@ class Payments {
     };
 
     return api.get<RazorpayApiResponse<RazorpayPayment>>(
-      {
-        'url': BASE_URL,
-        'data': queryParams,
-      },
+      {'url': baseUrl, 'data': queryParams},
       callback: callback,
       fromJsonFactory: (json) => RazorpayApiResponse<RazorpayPayment>.fromJson(
         json,
@@ -67,16 +65,14 @@ class Payments {
     void Function(RazorpayApiException?, Response<RazorpayPayment>?)? callback,
   }) async {
     if (paymentId.isEmpty) {
-      throw ArgumentError(ID_REQUIRED_MSG);
+      throw ArgumentError(idRequiredMsg);
     }
 
-    final queryParams = {
-      if (expand != null) 'expand[]': expand,
-    };
+    final queryParams = {'expand[]': ?expand};
 
     return api.get<RazorpayPayment>(
       {
-        'url': '$BASE_URL/$paymentId',
+        'url': '$baseUrl/$paymentId',
         'data': queryParams.isNotEmpty ? queryParams : null,
       },
       fromJsonFactory: RazorpayPayment.fromJson,
@@ -97,20 +93,14 @@ class Payments {
     void Function(RazorpayApiException?, Response<RazorpayPayment>?)? callback,
   }) async {
     if (paymentId.isEmpty) {
-      throw ArgumentError(ID_REQUIRED_MSG);
+      throw ArgumentError(idRequiredMsg);
     }
     // Amount validation happens implicitly via model or API
 
-    final payload = {
-      'amount': amount,
-      'currency': currency,
-    };
+    final payload = {'amount': amount, 'currency': currency};
 
     return api.post<RazorpayPayment>(
-      {
-        'url': '$BASE_URL/$paymentId/capture',
-        'data': payload,
-      },
+      {'url': '$baseUrl/$paymentId/capture', 'data': payload},
       fromJsonFactory: RazorpayPayment.fromJson,
       callback: callback,
     );
@@ -123,7 +113,7 @@ class Payments {
   Future<Response<RazorpayPaymentS2SJson>> createPaymentJson({
     required dynamic params, // Use dynamic for union type
     void Function(RazorpayApiException?, Response<RazorpayPaymentS2SJson>?)?
-        callback,
+    callback,
   }) async {
     Map<String, dynamic> requestData;
     if (params is RazorpayPaymentS2SCreateRequestBody ||
@@ -131,17 +121,14 @@ class Payments {
       requestData = params is RazorpayPaymentS2SCreateRequestBody
           ? params.toJson()
           : params is RazorpayPaymentThirdPartyCreateRequestBody
-              ? params.toJson()
-              : {};
+          ? params.toJson()
+          : {};
     } else {
       throw ArgumentError('Invalid params type for createPaymentJson.');
     }
 
     return api.post<RazorpayPaymentS2SJson>(
-      {
-        'url': '$BASE_URL/create/json',
-        'data': requestData,
-      },
+      {'url': '$baseUrl/create/json', 'data': requestData},
       fromJsonFactory: RazorpayPaymentS2SJson.fromJson,
       callback: callback,
     );
@@ -154,14 +141,11 @@ class Payments {
     // Response based on JS example (signature)
     required RazorpayRecurringPaymentCreateRequestBody params,
     void Function(RazorpayApiException?, Response<RazorpayOtpSubmitResponse>?)?
-        callback,
+    callback,
   }) async {
     return api.post<RazorpayOtpSubmitResponse>(
       // Assuming OTP submit response structure
-      {
-        'url': '$BASE_URL/create/recurring',
-        'data': params.toJson(),
-      },
+      {'url': '$baseUrl/create/recurring', 'data': params.toJson()},
       fromJsonFactory: RazorpayOtpSubmitResponse.fromJson,
       callback: callback,
     );
@@ -174,17 +158,14 @@ class Payments {
   Future<Response<RazorpayPayment>> edit({
     required String paymentId,
     required RazorpayPaymentUpdateRequestBody
-        params, // Use the specific update model
+    params, // Use the specific update model
     void Function(RazorpayApiException?, Response<RazorpayPayment>?)? callback,
   }) async {
     if (paymentId.isEmpty) {
-      throw ArgumentError(ID_REQUIRED_MSG);
+      throw ArgumentError(idRequiredMsg);
     }
     return api.patch<RazorpayPayment>(
-      {
-        'url': '$BASE_URL/$paymentId',
-        'data': params.toJson(),
-      },
+      {'url': '$baseUrl/$paymentId', 'data': params.toJson()},
       fromJsonFactory: RazorpayPayment.fromJson,
       callback: callback,
     );
@@ -200,7 +181,7 @@ class Payments {
     void Function(RazorpayApiException?, Response<RazorpayRefund>?)? callback,
   }) async {
     if (paymentId.isEmpty) {
-      throw ArgumentError(ID_REQUIRED_MSG);
+      throw ArgumentError(idRequiredMsg);
     }
     Map<String, dynamic> requestData;
     if (params is RazorpayRefundCreateRequestBody ||
@@ -208,17 +189,14 @@ class Payments {
       requestData = params is RazorpayRefundCreateRequestBody
           ? params.toJson()
           : params is RazorpayRefundPaymentLinkAccountCreateRequestBody
-              ? params.toJson()
-              : {};
+          ? params.toJson()
+          : {};
     } else {
       throw ArgumentError('Invalid params type for refund.');
     }
 
     return api.post<RazorpayRefund>(
-      {
-        'url': '$BASE_URL/$paymentId/refund',
-        'data': requestData,
-      },
+      {'url': '$baseUrl/$paymentId/refund', 'data': requestData},
       fromJsonFactory: RazorpayRefund.fromJson,
       callback: callback,
     );
@@ -234,10 +212,11 @@ class Payments {
     void Function(
       RazorpayApiException?,
       Response<RazorpayPaymentRefundsResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (paymentId.isEmpty) {
-      throw ArgumentError(ID_REQUIRED_MSG);
+      throw ArgumentError(idRequiredMsg);
     }
 
     var from = params?.from;
@@ -262,10 +241,7 @@ class Payments {
     queryParams.removeWhere((key, value) => value == null);
 
     return api.get<RazorpayPaymentRefundsResponse>(
-      {
-        'url': '$BASE_URL/$paymentId/refunds',
-        'data': queryParams,
-      },
+      {'url': '$baseUrl/$paymentId/refunds', 'data': queryParams},
       fromJsonFactory: RazorpayPaymentRefundsResponse.fromJson,
       callback: callback,
     );
@@ -287,7 +263,7 @@ class Payments {
       throw ArgumentError('refundId is mandatory');
     }
     return api.get<RazorpayRefund>(
-      {'url': '$BASE_URL/$paymentId/refunds/$refundId'},
+      {'url': '$baseUrl/$paymentId/refunds/$refundId'},
       fromJsonFactory: RazorpayRefund.fromJson,
       callback: callback,
     );
@@ -301,13 +277,14 @@ class Payments {
     void Function(
       RazorpayApiException?,
       Response<RazorpayPaymentTransfersResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (paymentId.isEmpty) {
       throw ArgumentError('paymentId is mandatory');
     }
     return api.get<RazorpayPaymentTransfersResponse>(
-      {'url': '$BASE_URL/$paymentId/transfers'},
+      {'url': '$baseUrl/$paymentId/transfers'},
       fromJsonFactory: RazorpayPaymentTransfersResponse.fromJson,
       callback: callback,
     );
@@ -323,14 +300,15 @@ class Payments {
     void Function(
       RazorpayApiException?,
       Response<RazorpayCreateTransferResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (paymentId.isEmpty) {
-      throw ArgumentError(ID_REQUIRED_MSG);
+      throw ArgumentError(idRequiredMsg);
     }
     return api.post<RazorpayCreateTransferResponse>(
       {
-        'url': '$BASE_URL/$paymentId/transfers',
+        'url': '$baseUrl/$paymentId/transfers',
         'data': {'transfers': transfers.map((t) => t.toJson()).toList()},
       },
       fromJsonFactory: RazorpayCreateTransferResponse.fromJson,
@@ -344,13 +322,13 @@ class Payments {
   Future<Response<RazorpayPaymentDetails>> bankTransfer({
     required String paymentId,
     void Function(RazorpayApiException?, Response<RazorpayPaymentDetails>?)?
-        callback,
+    callback,
   }) async {
     if (paymentId.isEmpty) {
-      throw ArgumentError(ID_REQUIRED_MSG);
+      throw ArgumentError(idRequiredMsg);
     }
     return api.get<RazorpayPaymentDetails>(
-      {'url': '$BASE_URL/$paymentId/bank_transfer'},
+      {'url': '$baseUrl/$paymentId/bank_transfer'},
       fromJsonFactory: RazorpayPaymentDetails.fromJson,
       callback: callback,
     );
@@ -364,10 +342,10 @@ class Payments {
     void Function(RazorpayApiException?, Response<RazorpayCard>?)? callback,
   }) async {
     if (paymentId.isEmpty) {
-      throw ArgumentError(ID_REQUIRED_MSG);
+      throw ArgumentError(idRequiredMsg);
     }
     return api.get<RazorpayCard>(
-      {'url': '$BASE_URL/$paymentId/card'},
+      {'url': '$baseUrl/$paymentId/card'},
       fromJsonFactory: RazorpayCard.fromJson,
       callback: callback,
     );
@@ -378,10 +356,11 @@ class Payments {
     void Function(
       RazorpayApiException?,
       Response<RazorpayPaymentDowntimeResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     return api.get<RazorpayPaymentDowntimeResponse>(
-      {'url': '$BASE_URL/downtimes'},
+      {'url': '$baseUrl/downtimes'},
       fromJsonFactory: RazorpayPaymentDowntimeResponse.fromJson,
       callback: callback,
     );
@@ -393,13 +372,13 @@ class Payments {
   Future<Response<RazorpayPaymentDowntime>> fetchPaymentDowntimeById({
     required String downtimeId,
     void Function(RazorpayApiException?, Response<RazorpayPaymentDowntime>?)?
-        callback,
+    callback,
   }) async {
     if (downtimeId.isEmpty) {
       throw ArgumentError('Downtime Id is mandatory');
     }
     return api.get<RazorpayPaymentDowntime>(
-      {'url': '$BASE_URL/downtimes/$downtimeId'},
+      {'url': '$baseUrl/downtimes/$downtimeId'},
       fromJsonFactory: RazorpayPaymentDowntime.fromJson,
       callback: callback,
     );
@@ -411,13 +390,13 @@ class Payments {
   Future<Response<RazorpayPaymentS2SJson>> otpGenerate({
     required String paymentId,
     void Function(RazorpayApiException?, Response<RazorpayPaymentS2SJson>?)?
-        callback,
+    callback,
   }) async {
     if (paymentId.isEmpty) {
       throw ArgumentError('paymentId is mandatory');
     }
     return api.post<RazorpayPaymentS2SJson>(
-      {'url': '$BASE_URL/$paymentId/otp_generate'},
+      {'url': '$baseUrl/$paymentId/otp_generate'},
       fromJsonFactory: RazorpayPaymentS2SJson.fromJson,
       callback: callback,
     );
@@ -431,7 +410,7 @@ class Payments {
     required String paymentId,
     required String otp,
     void Function(RazorpayApiException?, Response<RazorpayOtpSubmitResponse>?)?
-        callback,
+    callback,
   }) async {
     if (paymentId.isEmpty) {
       throw ArgumentError('paymentId is mandatory');
@@ -441,7 +420,7 @@ class Payments {
     }
     return api.post<RazorpayOtpSubmitResponse>(
       {
-        'url': '$BASE_URL/$paymentId/otp/submit',
+        'url': '$baseUrl/$paymentId/otp/submit',
         'data': {'otp': otp},
       },
       fromJsonFactory: RazorpayOtpSubmitResponse.fromJson,
@@ -455,13 +434,13 @@ class Payments {
   Future<Response<RazorpayOtpResendResponse>> otpResend({
     required String paymentId,
     void Function(RazorpayApiException?, Response<RazorpayOtpResendResponse>?)?
-        callback,
+    callback,
   }) async {
     if (paymentId.isEmpty) {
       throw ArgumentError('paymentId is mandatory');
     }
     return api.post<RazorpayOtpResendResponse>(
-      {'url': '$BASE_URL/$paymentId/otp/resend'},
+      {'url': '$baseUrl/$paymentId/otp/resend'},
       fromJsonFactory: RazorpayOtpResendResponse.fromJson,
       callback: callback,
     );
@@ -473,13 +452,10 @@ class Payments {
   Future<Response<RazorpayCreateUpiResponse>> createUpi({
     required RazorpayPaymentUpiCreateRequestBody params,
     void Function(RazorpayApiException?, Response<RazorpayCreateUpiResponse>?)?
-        callback,
+    callback,
   }) async {
     return api.post<RazorpayCreateUpiResponse>(
-      {
-        'url': '$BASE_URL/create/upi',
-        'data': params.toJson(),
-      },
+      {'url': '$baseUrl/create/upi', 'data': params.toJson()},
       fromJsonFactory: RazorpayCreateUpiResponse.fromJson,
       callback: callback,
     );
@@ -493,14 +469,15 @@ class Payments {
     void Function(
       RazorpayApiException?,
       Response<RazorpayValidateVpaResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (vpa.isEmpty) {
       throw ArgumentError('vpa is mandatory');
     }
     return api.post<RazorpayValidateVpaResponse>(
       {
-        'url': '$BASE_URL/validate/vpa',
+        'url': '$baseUrl/validate/vpa',
         'data': {'vpa': vpa},
       },
       fromJsonFactory: RazorpayValidateVpaResponse.fromJson,
@@ -512,7 +489,7 @@ class Payments {
   Future<Response<Map<String, dynamic>>> fetchPaymentMethods({
     // Returns a complex map
     void Function(RazorpayApiException?, Response<Map<String, dynamic>>?)?
-        callback,
+    callback,
   }) async {
     return api.get<Map<String, dynamic>>(
       {'url': '/methods'}, // Endpoint from JS code

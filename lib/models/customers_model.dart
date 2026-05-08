@@ -16,8 +16,8 @@ abstract class RazorpayCustomerBaseRequestBody
     String? name,
     String? email,
     dynamic contact, // string | number
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool)
-    bool? fail_existing, // boolean | 0 | 1
+    @JsonKey(name: 'fail_existing', toJson: _boolToInt, fromJson: _intToBool)
+    bool? failExisting, // boolean | 0 | 1
     String? gstin,
     IMap<dynamic>? notes, // IMap<string | number>
   }) = _RazorpayCustomerBaseRequestBody;
@@ -40,16 +40,15 @@ abstract class RazorpayCustomerCreateRequestBody
     String? name,
     String? email,
     dynamic contact, // string | number
-    @JsonKey(toJson: _boolToInt, fromJson: _intToBool)
-    bool? fail_existing, // boolean | 0 | 1
+    @JsonKey(name: 'fail_existing', toJson: _boolToInt, fromJson: _intToBool)
+    bool? failExisting, // boolean | 0 | 1
     String? gstin,
     IMap<dynamic>? notes, // IMap<string | number>
   }) = _RazorpayCustomerCreateRequestBody;
 
   factory RazorpayCustomerCreateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayCustomerCreateRequestBodyFromJson(json);
+  ) => _$RazorpayCustomerCreateRequestBodyFromJson(json);
 }
 
 @freezed
@@ -65,8 +64,7 @@ abstract class RazorpayCustomerUpdateRequestBody
 
   factory RazorpayCustomerUpdateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayCustomerUpdateRequestBodyFromJson(json);
+  ) => _$RazorpayCustomerUpdateRequestBodyFromJson(json);
 }
 
 // --- Response Body ---
@@ -76,17 +74,19 @@ abstract class RazorpayCustomer with _$RazorpayCustomer {
   const factory RazorpayCustomer({
     required String id,
     required String entity,
-    required int created_at,
+    @JsonKey(name: 'created_at') required int createdAt,
     String? name,
     String? email,
     dynamic contact, // string | number
     String? gstin,
     IMap<dynamic>? notes, // IMap<string | number>
     // shipping_address type is based on Invoices, ensure it's defined correctly there
-    List<RazorpayInvoiceAddress>? shipping_address,
+    @JsonKey(name: 'shipping_address')
+    List<RazorpayInvoiceAddress>? shippingAddress,
     @JsonKey(toJson: _boolToInt, fromJson: _intToBool)
+    @JsonKey(name: 'fail_existing')
     bool?
-        fail_existing, // Although usually not in response, keep if needed based on d.ts
+    failExisting, // Although usually not in response, keep if needed based on d.ts
   }) = _RazorpayCustomer;
 
   factory RazorpayCustomer.fromJson(Map<String, dynamic> json) =>
@@ -99,25 +99,24 @@ abstract class RazorpayCustomerBankAccountRequestBody
     with _$RazorpayCustomerBankAccountRequestBody {
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayCustomerBankAccountRequestBody({
-    required String ifsc_code,
-    required String account_number,
-    String? beneficiary_name,
-    String? beneficiary_address1,
-    String? beneficiary_address2,
-    String? beneficiary_address3,
-    String? beneficiary_address4,
-    String? beneficiary_email,
-    String? beneficiary_mobile,
-    String? beneficiary_city,
-    String? beneficiary_state,
-    String? beneficiary_country,
-    String? beneficiary_pin,
+    @JsonKey(name: 'ifsc_code') required String ifscCode,
+    @JsonKey(name: 'account_number') required String accountNumber,
+    @JsonKey(name: 'beneficiary_name') String? beneficiaryName,
+    @JsonKey(name: 'beneficiary_address1') String? beneficiaryAddress1,
+    @JsonKey(name: 'beneficiary_address2') String? beneficiaryAddress2,
+    @JsonKey(name: 'beneficiary_address3') String? beneficiaryAddress3,
+    @JsonKey(name: 'beneficiary_address4') String? beneficiaryAddress4,
+    @JsonKey(name: 'beneficiary_email') String? beneficiaryEmail,
+    @JsonKey(name: 'beneficiary_mobile') String? beneficiaryMobile,
+    @JsonKey(name: 'beneficiary_city') String? beneficiaryCity,
+    @JsonKey(name: 'beneficiary_state') String? beneficiaryState,
+    @JsonKey(name: 'beneficiary_country') String? beneficiaryCountry,
+    @JsonKey(name: 'beneficiary_pin') String? beneficiaryPin,
   }) = _RazorpayCustomerBankAccountRequestBody;
 
   factory RazorpayCustomerBankAccountRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayCustomerBankAccountRequestBodyFromJson(json);
+  ) => _$RazorpayCustomerBankAccountRequestBodyFromJson(json);
 }
 
 // Response for Add/Delete Bank Account
@@ -130,22 +129,20 @@ abstract class RazorpayCustomerBankAccount with _$RazorpayCustomerBankAccount {
     String? id,
     String? entity,
     String? ifsc,
-    String? bank_name,
-    String? account_number,
+    @JsonKey(name: 'bank_name') String? bankName,
+    @JsonKey(name: 'account_number') String? accountNumber,
     String? name,
     IMap<dynamic>? notes, // Assuming notes from Receiver if needed
-
     // Field specific to this response type in d.ts
     String? success, // Or bool? depending on actual API response
-
     // Potentially other fields if needed based on VirtualAccounts definition
     String? status, // from Receiver
     String? username, // from Receiver
     String? handle, // from Receiver
     String? address, // from Receiver
-    String? short_url, // from Receiver
+    @JsonKey(name: 'short_url') String? shortUrl, // from Receiver
     String? reference, // from Receiver
-    int? updated_at, // from Receiver
+    @JsonKey(name: 'updated_at') int? updatedAt, // from Receiver
   }) = _RazorpayCustomerBankAccount;
 
   factory RazorpayCustomerBankAccount.fromJson(Map<String, dynamic> json) =>
@@ -161,7 +158,7 @@ abstract class CustomersEligibility with _$CustomersEligibility {
     required String contact,
     required String ip,
     required String referrer,
-    required String user_agent,
+    @JsonKey(name: 'user_agent') required String userAgent,
   }) = _CustomersEligibility;
 
   factory CustomersEligibility.fromJson(Map<String, dynamic> json) =>
@@ -174,15 +171,14 @@ abstract class RazorpayCustomerEligibilityRequestBody
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayCustomerEligibilityRequestBody({
     required dynamic
-        amount, // number | string, required String currency, // Partial<CustomersEligibility> -> make fields nullable
+    amount, // number | string, required String currency, // Partial<CustomersEligibility> -> make fields nullable
     required CustomersEligibilityInput customer,
     String? inquiry,
   }) = _RazorpayCustomerEligibilityRequestBody;
 
   factory RazorpayCustomerEligibilityRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayCustomerEligibilityRequestBodyFromJson(json);
+  ) => _$RazorpayCustomerEligibilityRequestBodyFromJson(json);
 }
 
 // Input version of CustomersEligibility for the request body
@@ -194,7 +190,7 @@ abstract class CustomersEligibilityInput with _$CustomersEligibilityInput {
     String? contact,
     String? ip,
     String? referrer,
-    String? user_agent,
+    @JsonKey(name: 'user_agent') String? userAgent,
   }) = _CustomersEligibilityInput;
 
   factory CustomersEligibilityInput.fromJson(Map<String, dynamic> json) =>
@@ -239,7 +235,7 @@ abstract class Instruments with _$Instruments {
     required String issuer,
     required String type,
     required String provider,
-    required String eligibility_req_id,
+    @JsonKey(name: 'eligibility_req_id') required String eligibilityReqId,
     required InstrumentEligibility eligibility,
   }) = _Instruments;
 
@@ -254,9 +250,9 @@ abstract class RazorpayCustomerEligibility with _$RazorpayCustomerEligibility {
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayCustomerEligibility({
     required dynamic
-        amount, // number | string, required String currency, String? inquiry,
+    amount, // number | string, required String currency, String? inquiry,
     CustomersEligibilityInput?
-        customer, // Use the input type or a response-specific one if different
+    customer, // Use the input type or a response-specific one if different
     List<Instruments>? instruments,
   }) = _RazorpayCustomerEligibility;
 
@@ -286,9 +282,8 @@ abstract class RazorpayCustomerTokensResponse
 @freezed
 abstract class RazorpayDeleteTokenResponse with _$RazorpayDeleteTokenResponse {
   @JsonSerializable(includeIfNull: false)
-  const factory RazorpayDeleteTokenResponse({
-    required bool deleted,
-  }) = _RazorpayDeleteTokenResponse;
+  const factory RazorpayDeleteTokenResponse({required bool deleted}) =
+      _RazorpayDeleteTokenResponse;
 
   factory RazorpayDeleteTokenResponse.fromJson(Map<String, dynamic> json) =>
       _$RazorpayDeleteTokenResponseFromJson(json);

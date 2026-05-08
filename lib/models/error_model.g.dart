@@ -23,23 +23,23 @@ Map<String, dynamic> _$RazorpayErrorToJson(_RazorpayError instance) =>
     <String, dynamic>{
       'code': instance.code,
       'description': instance.description,
-      if (instance.field case final value?) 'field': value,
-      if (instance.source case final value?) 'source': value,
-      if (instance.step case final value?) 'step': value,
-      if (instance.reason case final value?) 'reason': value,
-      if (instance.metadata case final value?) 'metadata': value,
+      'field': ?instance.field,
+      'source': ?instance.source,
+      'step': ?instance.step,
+      'reason': ?instance.reason,
+      'metadata': ?instance.metadata,
     };
 
 _RazorpayApiErrorResponse _$RazorpayApiErrorResponseFromJson(
-        Map<String, dynamic> json) =>
-    _RazorpayApiErrorResponse(
-      error: RazorpayError.fromJson(json['error'] as Map<String, dynamic>),
-      statusCode: (json['statusCode'] as num?)?.toInt(),
-    );
+  Map<String, dynamic> json,
+) => _RazorpayApiErrorResponse(
+  error: RazorpayError.fromJson(json['error'] as Map<String, dynamic>),
+  statusCode: (json['statusCode'] as num?)?.toInt(),
+);
 
 Map<String, dynamic> _$RazorpayApiErrorResponseToJson(
-        _RazorpayApiErrorResponse instance) =>
-    <String, dynamic>{
-      'error': instance.error,
-      if (instance.statusCode case final value?) 'statusCode': value,
-    };
+  _RazorpayApiErrorResponse instance,
+) => <String, dynamic>{
+  'error': instance.error,
+  'statusCode': ?instance.statusCode,
+};

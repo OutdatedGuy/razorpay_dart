@@ -9,7 +9,7 @@ part of 'disputes_model.dart';
 _OthersEvidence _$OthersEvidenceFromJson(Map<String, dynamic> json) =>
     _OthersEvidence(
       type: json['type'] as String,
-      document_ids: (json['document_ids'] as List<dynamic>)
+      documentIds: (json['document_ids'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
     );
@@ -17,111 +17,102 @@ _OthersEvidence _$OthersEvidenceFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$OthersEvidenceToJson(_OthersEvidence instance) =>
     <String, dynamic>{
       'type': instance.type,
-      'document_ids': instance.document_ids,
+      'document_ids': instance.documentIds,
     };
 
 _RazorpayDisputesContestBaseRequestBody
-    _$RazorpayDisputesContestBaseRequestBodyFromJson(
-            Map<String, dynamic> json) =>
-        _RazorpayDisputesContestBaseRequestBody(
-          amount: (json['amount'] as num?)?.toInt(),
-          summary: json['summary'] as String?,
-          shipping_proof: (json['shipping_proof'] as List<dynamic>?)
+_$RazorpayDisputesContestBaseRequestBodyFromJson(Map<String, dynamic> json) =>
+    _RazorpayDisputesContestBaseRequestBody(
+      amount: (json['amount'] as num?)?.toInt(),
+      summary: json['summary'] as String?,
+      shippingProof: (json['shipping_proof'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      billingProof: (json['billing_proof'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      cancellationProof: (json['cancellation_proof'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      customerCommunication: (json['customer_communication'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      proofOfService: (json['proof_of_service'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      explanationLetter: (json['explanation_letter'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      refundConfirmation: (json['refund_confirmation'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      accessActivityLog: (json['access_activity_log'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      refundCancellationPolicy:
+          (json['refund_cancellation_policy'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList(),
-          billing_proof: (json['billing_proof'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList(),
-          cancellation_proof: (json['cancellation_proof'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList(),
-          customer_communication:
-              (json['customer_communication'] as List<dynamic>?)
-                  ?.map((e) => e as String)
-                  .toList(),
-          proof_of_service: (json['proof_of_service'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList(),
-          explanation_letter: (json['explanation_letter'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList(),
-          refund_confirmation: (json['refund_confirmation'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList(),
-          access_activity_log: (json['access_activity_log'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList(),
-          refund_cancellation_policy:
-              (json['refund_cancellation_policy'] as List<dynamic>?)
-                  ?.map((e) => e as String)
-                  .toList(),
-          term_and_conditions: (json['term_and_conditions'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList(),
-          others: (json['others'] as List<dynamic>?)
-              ?.map((e) => OthersEvidence.fromJson(e as Map<String, dynamic>))
-              .toList(),
-          action: json['action'] as String?,
-          submitted_at: json['submitted_at'],
-        );
+      termAndConditions: (json['term_and_conditions'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      others: (json['others'] as List<dynamic>?)
+          ?.map((e) => OthersEvidence.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      action: json['action'] as String?,
+      submittedAt: json['submitted_at'],
+    );
 
 Map<String, dynamic> _$RazorpayDisputesContestBaseRequestBodyToJson(
-        _RazorpayDisputesContestBaseRequestBody instance) =>
-    <String, dynamic>{
-      if (instance.amount case final value?) 'amount': value,
-      if (instance.summary case final value?) 'summary': value,
-      if (instance.shipping_proof case final value?) 'shipping_proof': value,
-      if (instance.billing_proof case final value?) 'billing_proof': value,
-      if (instance.cancellation_proof case final value?)
-        'cancellation_proof': value,
-      if (instance.customer_communication case final value?)
-        'customer_communication': value,
-      if (instance.proof_of_service case final value?)
-        'proof_of_service': value,
-      if (instance.explanation_letter case final value?)
-        'explanation_letter': value,
-      if (instance.refund_confirmation case final value?)
-        'refund_confirmation': value,
-      if (instance.access_activity_log case final value?)
-        'access_activity_log': value,
-      if (instance.refund_cancellation_policy case final value?)
-        'refund_cancellation_policy': value,
-      if (instance.term_and_conditions case final value?)
-        'term_and_conditions': value,
-      if (instance.others case final value?) 'others': value,
-      if (instance.action case final value?) 'action': value,
-      if (instance.submitted_at case final value?) 'submitted_at': value,
-    };
+  _RazorpayDisputesContestBaseRequestBody instance,
+) => <String, dynamic>{
+  'amount': ?instance.amount,
+  'summary': ?instance.summary,
+  'shipping_proof': ?instance.shippingProof,
+  'billing_proof': ?instance.billingProof,
+  'cancellation_proof': ?instance.cancellationProof,
+  'customer_communication': ?instance.customerCommunication,
+  'proof_of_service': ?instance.proofOfService,
+  'explanation_letter': ?instance.explanationLetter,
+  'refund_confirmation': ?instance.refundConfirmation,
+  'access_activity_log': ?instance.accessActivityLog,
+  'refund_cancellation_policy': ?instance.refundCancellationPolicy,
+  'term_and_conditions': ?instance.termAndConditions,
+  'others': ?instance.others,
+  'action': ?instance.action,
+  'submitted_at': ?instance.submittedAt,
+};
 
 _RazorpayDispute _$RazorpayDisputeFromJson(Map<String, dynamic> json) =>
     _RazorpayDispute(
       id: json['id'] as String,
       entity: json['entity'] as String,
-      payment_id: json['payment_id'] as String,
+      paymentId: json['payment_id'] as String,
       amount: (json['amount'] as num).toInt(),
       currency: json['currency'] as String,
-      amount_deducted: (json['amount_deducted'] as num).toInt(),
-      reason_code: json['reason_code'] as String,
-      respond_by: (json['respond_by'] as num).toInt(),
+      amountDeducted: (json['amount_deducted'] as num).toInt(),
+      reasonCode: json['reason_code'] as String,
+      respondBy: (json['respond_by'] as num).toInt(),
       status: json['status'] as String,
       phase: json['phase'] as String,
-      created_at: (json['created_at'] as num).toInt(),
+      createdAt: (json['created_at'] as num).toInt(),
       evidence: RazorpayDisputesContestBaseRequestBody.fromJson(
-          json['evidence'] as Map<String, dynamic>),
+        json['evidence'] as Map<String, dynamic>,
+      ),
     );
 
 Map<String, dynamic> _$RazorpayDisputeToJson(_RazorpayDispute instance) =>
     <String, dynamic>{
       'id': instance.id,
       'entity': instance.entity,
-      'payment_id': instance.payment_id,
+      'payment_id': instance.paymentId,
       'amount': instance.amount,
       'currency': instance.currency,
-      'amount_deducted': instance.amount_deducted,
-      'reason_code': instance.reason_code,
-      'respond_by': instance.respond_by,
+      'amount_deducted': instance.amountDeducted,
+      'reason_code': instance.reasonCode,
+      'respond_by': instance.respondBy,
       'status': instance.status,
       'phase': instance.phase,
-      'created_at': instance.created_at,
+      'created_at': instance.createdAt,
       'evidence': instance.evidence,
     };

@@ -6,7 +6,7 @@ import 'package:razorpay_dart/models/stakeholders_model.dart';
 class Stakeholders {
   Stakeholders(this.api);
   final API api;
-  static const String BASE_URL = '/accounts';
+  static const String baseUrl = '/accounts';
 
   /// Creates a stakeholder
   ///
@@ -16,7 +16,7 @@ class Stakeholders {
     required String accountId,
     required RazorpayStakeholderCreateRequestBody params,
     void Function(RazorpayApiException?, Response<RazorpayStakeholder>?)?
-        callback,
+    callback,
   }) async {
     if (accountId.isEmpty) {
       throw ArgumentError('accountId is required');
@@ -24,7 +24,7 @@ class Stakeholders {
     return api.post<RazorpayStakeholder>(
       {
         'version': 'v2',
-        'url': '$BASE_URL/$accountId/stakeholders',
+        'url': '$baseUrl/$accountId/stakeholders',
         'data': params.toJson(),
       },
       fromJsonFactory: RazorpayStakeholder.fromJson,
@@ -42,7 +42,7 @@ class Stakeholders {
     required String stakeholderId,
     required RazorpayStakeholderUpdateRequestBody params,
     void Function(RazorpayApiException?, Response<RazorpayStakeholder>?)?
-        callback,
+    callback,
   }) async {
     if (accountId.isEmpty) {
       throw ArgumentError('accountId is required');
@@ -53,7 +53,7 @@ class Stakeholders {
     return api.patch<RazorpayStakeholder>(
       {
         'version': 'v2',
-        'url': '$BASE_URL/$accountId/stakeholders/$stakeholderId',
+        'url': '$baseUrl/$accountId/stakeholders/$stakeholderId',
         'data': params.toJson(),
       },
       fromJsonFactory: RazorpayStakeholder.fromJson,
@@ -69,7 +69,7 @@ class Stakeholders {
     required String accountId,
     required String stakeholderId,
     void Function(RazorpayApiException?, Response<RazorpayStakeholder>?)?
-        callback,
+    callback,
   }) async {
     if (accountId.isEmpty) {
       throw ArgumentError('accountId is required');
@@ -80,7 +80,7 @@ class Stakeholders {
     return api.get<RazorpayStakeholder>(
       {
         'version': 'v2',
-        'url': '$BASE_URL/$accountId/stakeholders/$stakeholderId',
+        'url': '$baseUrl/$accountId/stakeholders/$stakeholderId',
       },
       fromJsonFactory: RazorpayStakeholder.fromJson,
       callback: callback,
@@ -95,16 +95,14 @@ class Stakeholders {
     void Function(
       RazorpayApiException?,
       Response<RazorpayStakeholderListResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (accountId.isEmpty) {
       throw ArgumentError('accountId is required');
     }
     return api.get<RazorpayStakeholderListResponse>(
-      {
-        'version': 'v2',
-        'url': '$BASE_URL/$accountId/stakeholders',
-      },
+      {'version': 'v2', 'url': '$baseUrl/$accountId/stakeholders'},
       fromJsonFactory: RazorpayStakeholderListResponse.fromJson,
       callback: callback,
     );
@@ -126,7 +124,8 @@ class Stakeholders {
     void Function(
       RazorpayApiException?,
       Response<RazorpayStakeholderDocuments>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (accountId.isEmpty) {
       throw ArgumentError('accountId is required');
@@ -147,7 +146,7 @@ class Stakeholders {
     return api.postFormData<RazorpayStakeholderDocuments>(
       {
         'version': 'v2',
-        'url': '$BASE_URL/$accountId/stakeholders/$stakeholderId/documents',
+        'url': '$baseUrl/$accountId/stakeholders/$stakeholderId/documents',
       },
       formData: FormData.fromMap(formDataMap),
       fromJsonFactory: RazorpayStakeholderDocuments.fromJson,
@@ -165,7 +164,8 @@ class Stakeholders {
     void Function(
       RazorpayApiException?,
       Response<RazorpayStakeholderDocuments>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (accountId.isEmpty) {
       throw ArgumentError('accountId is required');
@@ -176,7 +176,7 @@ class Stakeholders {
     return api.get<RazorpayStakeholderDocuments>(
       {
         'version': 'v2',
-        'url': '$BASE_URL/$accountId/stakeholders/$stakeholderId/documents',
+        'url': '$baseUrl/$accountId/stakeholders/$stakeholderId/documents',
       },
       fromJsonFactory: RazorpayStakeholderDocuments.fromJson,
       callback: callback,

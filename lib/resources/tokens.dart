@@ -6,7 +6,7 @@ import 'package:razorpay_dart/models/tokens_model.dart';
 class Tokens {
   Tokens(this.api);
   final API api;
-  static const String BASE_URL = '/tokens';
+  static const String baseUrl = '/tokens';
 
   /// Create a token (Token HQ)
   ///
@@ -16,10 +16,7 @@ class Tokens {
     void Function(RazorpayApiException?, Response<RazorpayToken>?)? callback,
   }) async {
     return api.post<RazorpayToken>(
-      {
-        'url': BASE_URL,
-        'data': params.toJson(),
-      },
+      {'url': baseUrl, 'data': params.toJson()},
       fromJsonFactory: RazorpayToken.fromJson,
       callback: callback,
     );
@@ -38,7 +35,7 @@ class Tokens {
     // Note: JS uses POST for fetch, which is unusual. Following JS implementation.
     return api.post<RazorpayToken>(
       {
-        'url': '$BASE_URL/fetch',
+        'url': '$baseUrl/fetch',
         'data': {'id': tokenId}, // Pass ID in the body
       },
       fromJsonFactory: RazorpayToken.fromJson,
@@ -55,7 +52,8 @@ class Tokens {
     void Function(
       RazorpayApiException?,
       Response<RazorpayTokenDeleteResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (tokenId.isEmpty) {
       throw ArgumentError('tokenId is required');
@@ -63,7 +61,7 @@ class Tokens {
     // Note: JS uses POST for delete, which is unusual. Following JS implementation.
     return api.post<RazorpayTokenDeleteResponse>(
       {
-        'url': '$BASE_URL/delete',
+        'url': '$baseUrl/delete',
         'data': {'id': tokenId}, // Pass ID in the body
       },
       fromJsonFactory: RazorpayTokenDeleteResponse.fromJson,
@@ -75,19 +73,20 @@ class Tokens {
   ///
   /// @param tokenId - The ID of the token to use.
   Future<Response<RazorpayProcessPaymentResponse>>
-      processPaymentOnAlternatePAorPG({
+  processPaymentOnAlternatePAorPG({
     required String tokenId,
     void Function(
       RazorpayApiException?,
       Response<RazorpayProcessPaymentResponse>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     if (tokenId.isEmpty) {
       throw ArgumentError('tokenId is required');
     }
     return api.post<RazorpayProcessPaymentResponse>(
       {
-        'url': '$BASE_URL/service_provider_tokens/token_transactional_data',
+        'url': '$baseUrl/service_provider_tokens/token_transactional_data',
         'data': {'id': tokenId}, // Pass ID in the body
       },
       fromJsonFactory: RazorpayProcessPaymentResponse.fromJson,

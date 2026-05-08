@@ -8,8 +8,8 @@ import 'package:razorpay_dart/utils.dart'; // For normalizeDate
 class Invoices {
   Invoices(this.api);
   final API api;
-  static const String BASE_URL = '/invoices';
-  static const String MISSING_ID_ERROR = 'Invoice ID is mandatory';
+  static const String baseUrl = '/invoices';
+  static const String missingIdError = 'Invoice ID is mandatory';
 
   /// Creates an invoice or payment link.
   ///
@@ -18,12 +18,9 @@ class Invoices {
     required RazorpayInvoiceCreateRequestBody params,
     void Function(RazorpayApiException?, Response<RazorpayInvoice>?)? callback,
   }) async {
-    const url = BASE_URL;
+    const url = baseUrl;
     return api.post<RazorpayInvoice>(
-      {
-        'url': url,
-        'data': params.toJson(),
-      },
+      {'url': url, 'data': params.toJson()},
       fromJsonFactory: RazorpayInvoice.fromJson,
       callback: callback,
     );
@@ -39,14 +36,11 @@ class Invoices {
     void Function(RazorpayApiException?, Response<RazorpayInvoice>?)? callback,
   }) async {
     if (invoiceId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$invoiceId';
+    final url = '$baseUrl/$invoiceId';
     return api.patch<RazorpayInvoice>(
-      {
-        'url': url,
-        'data': params.toJson(),
-      },
+      {'url': url, 'data': params.toJson()},
       fromJsonFactory: RazorpayInvoice.fromJson,
       callback: callback,
     );
@@ -60,9 +54,9 @@ class Invoices {
     void Function(RazorpayApiException?, Response<RazorpayInvoice>?)? callback,
   }) async {
     if (invoiceId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$invoiceId/issue';
+    final url = '$baseUrl/$invoiceId/issue';
     return api.post<RazorpayInvoice>(
       {'url': url},
       fromJsonFactory: RazorpayInvoice.fromJson,
@@ -77,12 +71,12 @@ class Invoices {
     // JS returns [], use specific empty model
     required String invoiceId,
     void Function(RazorpayApiException?, Response<RazorpayDeleteResponse>?)?
-        callback,
+    callback,
   }) async {
     if (invoiceId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$invoiceId';
+    final url = '$baseUrl/$invoiceId';
     return api.delete<RazorpayDeleteResponse>(
       {'url': url},
       fromJsonFactory:
@@ -99,9 +93,9 @@ class Invoices {
     void Function(RazorpayApiException?, Response<RazorpayInvoice>?)? callback,
   }) async {
     if (invoiceId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$invoiceId/cancel';
+    final url = '$baseUrl/$invoiceId/cancel';
     return api.post<RazorpayInvoice>(
       {'url': url},
       fromJsonFactory: RazorpayInvoice.fromJson,
@@ -117,9 +111,9 @@ class Invoices {
     void Function(RazorpayApiException?, Response<RazorpayInvoice>?)? callback,
   }) async {
     if (invoiceId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$invoiceId';
+    final url = '$baseUrl/$invoiceId';
     return api.get<RazorpayInvoice>(
       {'url': url},
       fromJsonFactory: RazorpayInvoice.fromJson,
@@ -135,9 +129,10 @@ class Invoices {
     void Function(
       RazorpayApiException?,
       Response<RazorpayApiResponse<RazorpayInvoice>>?,
-    )? callback,
+    )?
+    callback,
   }) async {
-    const url = BASE_URL;
+    const url = baseUrl;
     var from = params?.from;
     var to = params?.to;
     final count = params?.count ?? 10;
@@ -160,10 +155,7 @@ class Invoices {
     queryParams.removeWhere((key, value) => value == null);
 
     return api.get<RazorpayApiResponse<RazorpayInvoice>>(
-      {
-        'url': url,
-        'data': queryParams,
-      },
+      {'url': url, 'data': queryParams},
       callback: callback,
       fromJsonFactory: (json) => RazorpayApiResponse<RazorpayInvoice>.fromJson(
         json,
@@ -181,14 +173,14 @@ class Invoices {
     required String invoiceId,
     required NotifyMedium medium,
     void Function(RazorpayApiException?, Response<RazorpayNotifyResponse>?)?
-        callback,
+    callback,
   }) async {
     if (invoiceId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
     // Convert enum to string for URL
     final mediumString = medium.toString().split('.').last;
-    final url = '$BASE_URL/$invoiceId/notify_by/$mediumString';
+    final url = '$baseUrl/$invoiceId/notify_by/$mediumString';
 
     return api.post<RazorpayNotifyResponse>(
       {'url': url},

@@ -17,7 +17,8 @@ class Transfers {
     void Function(
       RazorpayApiException?,
       Response<RazorpayApiResponse<RazorpayTransfer>>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     const url = '/transfers';
     // Note: Filtering by payment_id is done via the Payments resource (payments.fetchTransfer),
@@ -43,16 +44,13 @@ class Transfers {
       'to': to,
       'count': count,
       'skip': skip,
-      'recipient_settlement_id': params?.recipient_settlement_id,
+      'recipient_settlement_id': params?.recipientSettlementId,
       // 'payment_id': params?.payment_id, // Usually not passed to /transfers directly
     };
     queryParams.removeWhere((key, value) => value == null);
 
     return api.get<RazorpayApiResponse<RazorpayTransfer>>(
-      {
-        'url': url,
-        'data': queryParams,
-      },
+      {'url': url, 'data': queryParams},
       callback: callback,
       fromJsonFactory: (json) => RazorpayApiResponse<RazorpayTransfer>.fromJson(
         json,
@@ -89,10 +87,7 @@ class Transfers {
     void Function(RazorpayApiException?, Response<RazorpayTransfer>?)? callback,
   }) async {
     return api.post<RazorpayTransfer>(
-      {
-        'url': '/transfers',
-        'data': params.toJson(),
-      },
+      {'url': '/transfers', 'data': params.toJson()},
       fromJsonFactory: RazorpayTransfer.fromJson,
       callback: callback,
     );
@@ -111,10 +106,7 @@ class Transfers {
       throw ArgumentError('`transfer_id` is mandatory');
     }
     return api.patch<RazorpayTransfer>(
-      {
-        'url': '/transfers/$transferId',
-        'data': params.toJson(),
-      },
+      {'url': '/transfers/$transferId', 'data': params.toJson()},
       fromJsonFactory: RazorpayTransfer.fromJson,
       callback: callback,
     );
@@ -134,10 +126,7 @@ class Transfers {
     }
     final url = '/transfers/$transferId/reversals';
     return api.post<RazorpayReversal>(
-      {
-        'url': url,
-        if (params != null) 'data': params.toJson(),
-      },
+      {'url': url, if (params != null) 'data': params.toJson()},
       fromJsonFactory: RazorpayReversal.fromJson,
       callback: callback,
     );
@@ -151,7 +140,8 @@ class Transfers {
     void Function(
       RazorpayApiException?,
       Response<RazorpayApiResponse<RazorpayTransfer>>?,
-    )? callback,
+    )?
+    callback,
   }) async {
     // Use the 'all' method with expand parameter
     final transferQuery = RazorpayTransferQuery(
@@ -170,10 +160,7 @@ class Transfers {
     queryParams.removeWhere((key, value) => value == null);
 
     return api.get<RazorpayApiResponse<RazorpayTransfer>>(
-      {
-        'url': '/transfers',
-        'data': queryParams,
-      },
+      {'url': '/transfers', 'data': queryParams},
       callback: callback,
       fromJsonFactory: (json) => RazorpayApiResponse<RazorpayTransfer>.fromJson(
         json,

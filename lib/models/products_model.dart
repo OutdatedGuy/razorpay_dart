@@ -98,7 +98,7 @@ abstract class UpiConfig with _$UpiConfig {
   const factory UpiConfig({
     required bool enabled,
     List<String>?
-        instrument, // Currently seems empty/unused in d.ts, maybe for future?
+    instrument, // Currently seems empty/unused in d.ts, maybe for future?
   }) = _UpiConfig;
 
   factory UpiConfig.fromJson(Map<String, dynamic> json) =>
@@ -139,8 +139,10 @@ abstract class PaymentCapture with _$PaymentCapture {
   @JsonSerializable(includeIfNull: false)
   const factory PaymentCapture({
     required String mode, // 'automatic' or 'manual'
-    required String refund_speed, // 'normal' or 'optimum'
-    required int automatic_expiry_period,
+    @JsonKey(name: 'refund_speed')
+    required String refundSpeed, // 'normal' or 'optimum'
+    @JsonKey(name: 'automatic_expiry_period')
+    required int automaticExpiryPeriod,
   }) = _PaymentCapture;
 
   factory PaymentCapture.fromJson(Map<String, dynamic> json) =>
@@ -152,9 +154,9 @@ abstract class PaymentCapture with _$PaymentCapture {
 abstract class SettlementsConfig with _$SettlementsConfig {
   @JsonSerializable(includeIfNull: false)
   const factory SettlementsConfig({
-    required String account_number,
-    required String ifsc_code,
-    required String beneficiary_name,
+    @JsonKey(name: 'account_number') required String accountNumber,
+    @JsonKey(name: 'ifsc_code') required String ifscCode,
+    @JsonKey(name: 'beneficiary_name') required String beneficiaryName,
   }) = _SettlementsConfig;
 
   factory SettlementsConfig.fromJson(Map<String, dynamic> json) =>
@@ -165,8 +167,8 @@ abstract class SettlementsConfig with _$SettlementsConfig {
 abstract class CheckoutConfig with _$CheckoutConfig {
   @JsonSerializable(includeIfNull: false)
   const factory CheckoutConfig({
-    String? theme_color,
-    bool? flash_checkout,
+    @JsonKey(name: 'theme_color') String? themeColor,
+    @JsonKey(name: 'flash_checkout') bool? flashCheckout,
   }) = _CheckoutConfig;
 
   factory CheckoutConfig.fromJson(Map<String, dynamic> json) =>
@@ -177,7 +179,8 @@ abstract class CheckoutConfig with _$CheckoutConfig {
 abstract class RefundConfig with _$RefundConfig {
   @JsonSerializable(includeIfNull: false)
   const factory RefundConfig({
-    required String default_refund_speed, // 'normal' or 'optimum'
+    @JsonKey(name: 'default_refund_speed')
+    required String defaultRefundSpeed, // 'normal' or 'optimum'
   }) = _RefundConfig;
 
   factory RefundConfig.fromJson(Map<String, dynamic> json) =>
@@ -201,12 +204,12 @@ abstract class NotificationsConfig with _$NotificationsConfig {
 abstract class ActiveConfiguration with _$ActiveConfiguration {
   @JsonSerializable(includeIfNull: false)
   const factory ActiveConfiguration({
-    PaymentCapture? payment_capture,
+    @JsonKey(name: 'payment_capture') PaymentCapture? paymentCapture,
     SettlementsConfig? settlements,
     CheckoutConfig? checkout,
     RefundConfig? refund,
     NotificationsConfig? notifications,
-    PaymentMethods? payment_methods,
+    @JsonKey(name: 'payment_methods') PaymentMethods? paymentMethods,
   }) = _ActiveConfiguration;
 
   factory ActiveConfiguration.fromJson(Map<String, dynamic> json) =>
@@ -220,7 +223,7 @@ abstract class RequestedConfiguration with _$RequestedConfiguration {
   const factory RequestedConfiguration({
     // Note: d.ts has List<PaymentMethods>, but JSON structure is likely
     // the PaymentMethods object itself. Adjust if API response differs.
-    PaymentMethods? payment_methods,
+    @JsonKey(name: 'payment_methods') PaymentMethods? paymentMethods,
   }) = _RequestedConfiguration;
 
   factory RequestedConfiguration.fromJson(Map<String, dynamic> json) =>
@@ -232,10 +235,10 @@ abstract class RequestedConfiguration with _$RequestedConfiguration {
 abstract class Requirement with _$Requirement {
   @JsonSerializable(includeIfNull: false)
   const factory Requirement({
-    required String field_reference,
-    required String resolution_url,
+    @JsonKey(name: 'field_reference') required String fieldReference,
+    @JsonKey(name: 'resolution_url') required String resolutionUrl,
     required String status, // 'pending', 'resolved', etc.
-    required String reason_code,
+    @JsonKey(name: 'reason_code') required String reasonCode,
   }) = _Requirement;
 
   factory Requirement.fromJson(Map<String, dynamic> json) =>
@@ -249,7 +252,7 @@ abstract class Tnc with _$Tnc {
   const factory Tnc({
     required String id,
     required bool accepted,
-    required int accepted_at,
+    @JsonKey(name: 'accepted_at') required int acceptedAt,
   }) = _Tnc;
 
   factory Tnc.fromJson(Map<String, dynamic> json) => _$TncFromJson(json);
@@ -261,8 +264,9 @@ abstract class RazorpayProductBaseRequestBody
     with _$RazorpayProductBaseRequestBody {
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayProductBaseRequestBody({
-    required String product_name, // 'payment_gateway' | 'payment_links'
-    bool? tnc_accepted,
+    @JsonKey(name: 'product_name')
+    required String productName, // 'payment_gateway' | 'payment_links'
+    @JsonKey(name: 'tnc_accepted') bool? tncAccepted,
     String? ip,
   }) = _RazorpayProductBaseRequestBody;
 
@@ -277,15 +281,14 @@ abstract class RazorpayProductCreateRequestBody
   // Inherits Base
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayProductCreateRequestBody({
-    required String product_name,
-    bool? tnc_accepted,
+    @JsonKey(name: 'product_name') required String productName,
+    @JsonKey(name: 'tnc_accepted') bool? tncAccepted,
     String? ip,
   }) = _RazorpayProductCreateRequestBody;
 
   factory RazorpayProductCreateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayProductCreateRequestBodyFromJson(json);
+  ) => _$RazorpayProductCreateRequestBodyFromJson(json);
 }
 
 // --- Update Request Body ---
@@ -295,20 +298,19 @@ abstract class RazorpayProductUpdateRequestBody
   // PartialOptional<Omit<Base, 'product_name'>, 'tnc_accepted' | 'ip'> + config sections
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayProductUpdateRequestBody({
-    bool? tnc_accepted,
+    @JsonKey(name: 'tnc_accepted') bool? tncAccepted,
     String? ip,
     NotificationsConfig? notifications,
     CheckoutConfig? checkout,
     RefundConfig? refund,
     // Omit<Orders.RazorpayBankAccountBaseRequestBody, 'beneficiary_mobile' | 'account_type'>
     SettlementsConfig? settlements,
-    PaymentMethods? payment_methods,
+    @JsonKey(name: 'payment_methods') PaymentMethods? paymentMethods,
   }) = _RazorpayProductUpdateRequestBody;
 
   factory RazorpayProductUpdateRequestBody.fromJson(
     Map<String, dynamic> json,
-  ) =>
-      _$RazorpayProductUpdateRequestBodyFromJson(json);
+  ) => _$RazorpayProductUpdateRequestBodyFromJson(json);
 }
 
 // --- Product Response Body ---
@@ -318,15 +320,19 @@ abstract class RazorpayProduct with _$RazorpayProduct {
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayProduct({
     required String id,
-    required String product_name,
+    @JsonKey(name: 'product_name') required String productName,
+
     // Response specific fields
-    required RequestedConfiguration requested_configuration,
-    required ActiveConfiguration active_configuration,
+    @JsonKey(name: 'requested_configuration')
+    required RequestedConfiguration requestedConfiguration,
+    @JsonKey(name: 'active_configuration')
+    required ActiveConfiguration activeConfiguration,
     required List<Requirement> requirements,
     required Tnc tnc,
-    required String activation_status,
+    @JsonKey(name: 'activation_status') required String activationStatus,
+    @JsonKey(name: 'requested_at')
     required int
-        requested_at, // 'active', 'pending', etc., required String account_id, required int requested_at, bool? tnc_accepted, // From Base
+    requestedAt, // 'active', 'pending', etc., required String account_id, required int requested_at, bool? tnc_accepted, // From Base
     String? ip, // From Base
   }) = _RazorpayProduct;
 
@@ -353,10 +359,10 @@ abstract class RazorpayProductTnc with _$RazorpayProductTnc {
   @JsonSerializable(includeIfNull: false)
   const factory RazorpayProductTnc({
     required String entity,
-    required String product_name,
+    @JsonKey(name: 'product_name') required String productName,
     required String id,
     required ProductsTncContent tnc,
-    required int last_published_at,
+    @JsonKey(name: 'last_published_at') required int lastPublishedAt,
   }) = _RazorpayProductTnc;
 
   factory RazorpayProductTnc.fromJson(Map<String, dynamic> json) =>

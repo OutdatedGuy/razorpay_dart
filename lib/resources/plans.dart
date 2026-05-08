@@ -7,8 +7,8 @@ import 'package:razorpay_dart/utils.dart'; // For normalizeDate
 class Plans {
   Plans(this.api);
   final API api;
-  static const String BASE_URL = '/plans';
-  static const String MISSING_ID_ERROR = 'Plan ID is mandatory';
+  static const String baseUrl = '/plans';
+  static const String missingIdError = 'Plan ID is mandatory';
 
   /// Creates a plan
   ///
@@ -16,30 +16,26 @@ class Plans {
   Future<RazorpayPlan> create({
     required RazorpayPlanCreateRequestBody params,
   }) async {
-    const url = BASE_URL;
-    return api.post<RazorpayPlan>(
-      {
-        'url': url,
-        'data': params.toJson(),
-      },
-      fromJsonFactory: RazorpayPlan.fromJson,
-    ).then((response) => response.data!);
+    const url = baseUrl;
+    return api
+        .post<RazorpayPlan>({
+          'url': url,
+          'data': params.toJson(),
+        }, fromJsonFactory: RazorpayPlan.fromJson)
+        .then((response) => response.data!);
   }
 
   /// Fetches a plan given Plan ID
   ///
   /// @param planId - The unique identifier of the plan
-  Future<RazorpayPlan> fetch({
-    required String planId,
-  }) async {
+  Future<RazorpayPlan> fetch({required String planId}) async {
     if (planId.isEmpty) {
-      throw ArgumentError(MISSING_ID_ERROR);
+      throw ArgumentError(missingIdError);
     }
-    final url = '$BASE_URL/$planId';
-    return api.get<RazorpayPlan>(
-      {'url': url},
-      fromJsonFactory: RazorpayPlan.fromJson,
-    ).then((response) => response.data!);
+    final url = '$baseUrl/$planId';
+    return api
+        .get<RazorpayPlan>({'url': url}, fromJsonFactory: RazorpayPlan.fromJson)
+        .then((response) => response.data!);
   }
 
   /// Get all Plans
@@ -48,7 +44,7 @@ class Plans {
   Future<RazorpayApiResponse<RazorpayPlan>> all({
     RazorpayPaginationOptions? params,
   }) async {
-    const url = BASE_URL;
+    const url = baseUrl;
     var from = params?.from;
     var to = params?.to;
     final count = params?.count ?? 10;
@@ -69,15 +65,15 @@ class Plans {
       ...?params?.toJson(),
     }..removeWhere((key, value) => value == null);
 
-    return api.get<RazorpayApiResponse<RazorpayPlan>>(
-      {
-        'url': url,
-        'data': queryParams,
-      },
-      fromJsonFactory: (json) => RazorpayApiResponse<RazorpayPlan>.fromJson(
-        json,
-        (itemJson) => RazorpayPlan.fromJson(itemJson! as Map<String, dynamic>),
-      ),
-    ).then((response) => response.data!);
+    return api
+        .get<RazorpayApiResponse<RazorpayPlan>>(
+          {'url': url, 'data': queryParams},
+          fromJsonFactory: (json) => RazorpayApiResponse<RazorpayPlan>.fromJson(
+            json,
+            (itemJson) =>
+                RazorpayPlan.fromJson(itemJson! as Map<String, dynamic>),
+          ),
+        )
+        .then((response) => response.data!);
   }
 }
