@@ -389,8 +389,9 @@ abstract class RazorpayOrderQuery with _$RazorpayOrderQuery {
 }
 
 // Helper functions for bool <-> int conversion
-int? _boolToInt(bool? b) => b == null ? null : (b ? 1 : 0);
-bool? _intToBool(dynamic i) => i == null ? null : (i == 1 || i == true);
+String? _boolToInt(bool? b) => b == null ? null : (b ? '1' : '0');
+bool? _intToBool(dynamic i) =>
+    i == null ? null : (i == 1 || i == '1' || i == true);
 
 // --- RTO Review Response ---
 @freezed
