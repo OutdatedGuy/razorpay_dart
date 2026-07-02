@@ -80,7 +80,7 @@ abstract class RazorpayCustomer with _$RazorpayCustomer {
     String? email,
     dynamic contact, // string | number
     String? gstin,
-    IMap<dynamic>? notes, // IMap<string | number>
+    Object? notes, // IMap<string | number>
     // shipping_address type is based on Invoices, ensure it's defined correctly there
     @JsonKey(name: 'shipping_address')
     List<RazorpayInvoiceAddress>? shippingAddress,

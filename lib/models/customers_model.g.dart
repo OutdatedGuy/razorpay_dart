@@ -75,7 +75,7 @@ _RazorpayCustomer _$RazorpayCustomerFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String?,
       contact: json['contact'],
       gstin: json['gstin'] as String?,
-      notes: json['notes'] as Map<String, dynamic>?,
+      notes: json['notes'],
       shippingAddress: (json['shipping_address'] as List<dynamic>?)
           ?.map(
             (e) => RazorpayInvoiceAddress.fromJson(e as Map<String, dynamic>),

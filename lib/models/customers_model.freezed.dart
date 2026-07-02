@@ -865,7 +865,7 @@ as dynamic,
 mixin _$RazorpayCustomer {
 
  String get id; String get entity;@JsonKey(name: 'created_at') int get createdAt; String? get name; String? get email; dynamic get contact;// string | number
- String? get gstin; IMap<dynamic>? get notes;// IMap<string | number>
+ String? get gstin; Object? get notes;// IMap<string | number>
 // shipping_address type is based on Invoices, ensure it's defined correctly there
 @JsonKey(name: 'shipping_address') List<RazorpayInvoiceAddress>? get shippingAddress;@JsonKey(toJson: _boolToInt, fromJson: _intToBool)@JsonKey(name: 'fail_existing') bool? get failExisting;
 /// Create a copy of RazorpayCustomer
@@ -900,7 +900,7 @@ abstract mixin class $RazorpayCustomerCopyWith<$Res>  {
   factory $RazorpayCustomerCopyWith(RazorpayCustomer value, $Res Function(RazorpayCustomer) _then) = _$RazorpayCustomerCopyWithImpl;
 @useResult
 $Res call({
- String id, String entity,@JsonKey(name: 'created_at') int createdAt, String? name, String? email, dynamic contact, String? gstin, IMap<dynamic>? notes,@JsonKey(name: 'shipping_address') List<RazorpayInvoiceAddress>? shippingAddress,@JsonKey(toJson: _boolToInt, fromJson: _intToBool)@JsonKey(name: 'fail_existing') bool? failExisting
+ String id, String entity,@JsonKey(name: 'created_at') int createdAt, String? name, String? email, dynamic contact, String? gstin, Object? notes,@JsonKey(name: 'shipping_address') List<RazorpayInvoiceAddress>? shippingAddress,@JsonKey(toJson: _boolToInt, fromJson: _intToBool)@JsonKey(name: 'fail_existing') bool? failExisting
 });
 
 
@@ -926,8 +926,7 @@ as int,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non
 as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,contact: freezed == contact ? _self.contact : contact // ignore: cast_nullable_to_non_nullable
 as dynamic,gstin: freezed == gstin ? _self.gstin : gstin // ignore: cast_nullable_to_non_nullable
-as String?,notes: freezed == notes ? _self.notes : notes // ignore: cast_nullable_to_non_nullable
-as IMap<dynamic>?,shippingAddress: freezed == shippingAddress ? _self.shippingAddress : shippingAddress // ignore: cast_nullable_to_non_nullable
+as String?,notes: freezed == notes ? _self.notes : notes ,shippingAddress: freezed == shippingAddress ? _self.shippingAddress : shippingAddress // ignore: cast_nullable_to_non_nullable
 as List<RazorpayInvoiceAddress>?,failExisting: freezed == failExisting ? _self.failExisting : failExisting // ignore: cast_nullable_to_non_nullable
 as bool?,
   ));
@@ -1014,7 +1013,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String entity, @JsonKey(name: 'created_at')  int createdAt,  String? name,  String? email,  dynamic contact,  String? gstin,  IMap<dynamic>? notes, @JsonKey(name: 'shipping_address')  List<RazorpayInvoiceAddress>? shippingAddress, @JsonKey(toJson: _boolToInt, fromJson: _intToBool)@JsonKey(name: 'fail_existing')  bool? failExisting)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String entity, @JsonKey(name: 'created_at')  int createdAt,  String? name,  String? email,  dynamic contact,  String? gstin,  Object? notes, @JsonKey(name: 'shipping_address')  List<RazorpayInvoiceAddress>? shippingAddress, @JsonKey(toJson: _boolToInt, fromJson: _intToBool)@JsonKey(name: 'fail_existing')  bool? failExisting)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RazorpayCustomer() when $default != null:
 return $default(_that.id,_that.entity,_that.createdAt,_that.name,_that.email,_that.contact,_that.gstin,_that.notes,_that.shippingAddress,_that.failExisting);case _:
@@ -1035,7 +1034,7 @@ return $default(_that.id,_that.entity,_that.createdAt,_that.name,_that.email,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String entity, @JsonKey(name: 'created_at')  int createdAt,  String? name,  String? email,  dynamic contact,  String? gstin,  IMap<dynamic>? notes, @JsonKey(name: 'shipping_address')  List<RazorpayInvoiceAddress>? shippingAddress, @JsonKey(toJson: _boolToInt, fromJson: _intToBool)@JsonKey(name: 'fail_existing')  bool? failExisting)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String entity, @JsonKey(name: 'created_at')  int createdAt,  String? name,  String? email,  dynamic contact,  String? gstin,  Object? notes, @JsonKey(name: 'shipping_address')  List<RazorpayInvoiceAddress>? shippingAddress, @JsonKey(toJson: _boolToInt, fromJson: _intToBool)@JsonKey(name: 'fail_existing')  bool? failExisting)  $default,) {final _that = this;
 switch (_that) {
 case _RazorpayCustomer():
 return $default(_that.id,_that.entity,_that.createdAt,_that.name,_that.email,_that.contact,_that.gstin,_that.notes,_that.shippingAddress,_that.failExisting);case _:
@@ -1055,7 +1054,7 @@ return $default(_that.id,_that.entity,_that.createdAt,_that.name,_that.email,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String entity, @JsonKey(name: 'created_at')  int createdAt,  String? name,  String? email,  dynamic contact,  String? gstin,  IMap<dynamic>? notes, @JsonKey(name: 'shipping_address')  List<RazorpayInvoiceAddress>? shippingAddress, @JsonKey(toJson: _boolToInt, fromJson: _intToBool)@JsonKey(name: 'fail_existing')  bool? failExisting)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String entity, @JsonKey(name: 'created_at')  int createdAt,  String? name,  String? email,  dynamic contact,  String? gstin,  Object? notes, @JsonKey(name: 'shipping_address')  List<RazorpayInvoiceAddress>? shippingAddress, @JsonKey(toJson: _boolToInt, fromJson: _intToBool)@JsonKey(name: 'fail_existing')  bool? failExisting)?  $default,) {final _that = this;
 switch (_that) {
 case _RazorpayCustomer() when $default != null:
 return $default(_that.id,_that.entity,_that.createdAt,_that.name,_that.email,_that.contact,_that.gstin,_that.notes,_that.shippingAddress,_that.failExisting);case _:
@@ -1070,7 +1069,7 @@ return $default(_that.id,_that.entity,_that.createdAt,_that.name,_that.email,_th
 
 @JsonSerializable(includeIfNull: false)
 class _RazorpayCustomer implements RazorpayCustomer {
-  const _RazorpayCustomer({required this.id, required this.entity, @JsonKey(name: 'created_at') required this.createdAt, this.name, this.email, this.contact, this.gstin, final  IMap<dynamic>? notes, @JsonKey(name: 'shipping_address') final  List<RazorpayInvoiceAddress>? shippingAddress, @JsonKey(toJson: _boolToInt, fromJson: _intToBool)@JsonKey(name: 'fail_existing') this.failExisting}): _notes = notes,_shippingAddress = shippingAddress;
+  const _RazorpayCustomer({required this.id, required this.entity, @JsonKey(name: 'created_at') required this.createdAt, this.name, this.email, this.contact, this.gstin, this.notes, @JsonKey(name: 'shipping_address') final  List<RazorpayInvoiceAddress>? shippingAddress, @JsonKey(toJson: _boolToInt, fromJson: _intToBool)@JsonKey(name: 'fail_existing') this.failExisting}): _shippingAddress = shippingAddress;
   factory _RazorpayCustomer.fromJson(Map<String, dynamic> json) => _$RazorpayCustomerFromJson(json);
 
 @override final  String id;
@@ -1081,15 +1080,7 @@ class _RazorpayCustomer implements RazorpayCustomer {
 @override final  dynamic contact;
 // string | number
 @override final  String? gstin;
- final  IMap<dynamic>? _notes;
-@override IMap<dynamic>? get notes {
-  final value = _notes;
-  if (value == null) return null;
-  if (_notes is EqualUnmodifiableMapView) return _notes;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableMapView(value);
-}
-
+@override final  Object? notes;
 // IMap<string | number>
 // shipping_address type is based on Invoices, ensure it's defined correctly there
  final  List<RazorpayInvoiceAddress>? _shippingAddress;
@@ -1118,12 +1109,12 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RazorpayCustomer&&(identical(other.id, id) || other.id == id)&&(identical(other.entity, entity) || other.entity == entity)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&const DeepCollectionEquality().equals(other.contact, contact)&&(identical(other.gstin, gstin) || other.gstin == gstin)&&const DeepCollectionEquality().equals(other._notes, _notes)&&const DeepCollectionEquality().equals(other._shippingAddress, _shippingAddress)&&(identical(other.failExisting, failExisting) || other.failExisting == failExisting));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RazorpayCustomer&&(identical(other.id, id) || other.id == id)&&(identical(other.entity, entity) || other.entity == entity)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&const DeepCollectionEquality().equals(other.contact, contact)&&(identical(other.gstin, gstin) || other.gstin == gstin)&&const DeepCollectionEquality().equals(other.notes, notes)&&const DeepCollectionEquality().equals(other._shippingAddress, _shippingAddress)&&(identical(other.failExisting, failExisting) || other.failExisting == failExisting));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,entity,createdAt,name,email,const DeepCollectionEquality().hash(contact),gstin,const DeepCollectionEquality().hash(_notes),const DeepCollectionEquality().hash(_shippingAddress),failExisting);
+int get hashCode => Object.hash(runtimeType,id,entity,createdAt,name,email,const DeepCollectionEquality().hash(contact),gstin,const DeepCollectionEquality().hash(notes),const DeepCollectionEquality().hash(_shippingAddress),failExisting);
 
 @override
 String toString() {
@@ -1138,7 +1129,7 @@ abstract mixin class _$RazorpayCustomerCopyWith<$Res> implements $RazorpayCustom
   factory _$RazorpayCustomerCopyWith(_RazorpayCustomer value, $Res Function(_RazorpayCustomer) _then) = __$RazorpayCustomerCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String entity,@JsonKey(name: 'created_at') int createdAt, String? name, String? email, dynamic contact, String? gstin, IMap<dynamic>? notes,@JsonKey(name: 'shipping_address') List<RazorpayInvoiceAddress>? shippingAddress,@JsonKey(toJson: _boolToInt, fromJson: _intToBool)@JsonKey(name: 'fail_existing') bool? failExisting
+ String id, String entity,@JsonKey(name: 'created_at') int createdAt, String? name, String? email, dynamic contact, String? gstin, Object? notes,@JsonKey(name: 'shipping_address') List<RazorpayInvoiceAddress>? shippingAddress,@JsonKey(toJson: _boolToInt, fromJson: _intToBool)@JsonKey(name: 'fail_existing') bool? failExisting
 });
 
 
@@ -1164,8 +1155,7 @@ as int,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non
 as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,contact: freezed == contact ? _self.contact : contact // ignore: cast_nullable_to_non_nullable
 as dynamic,gstin: freezed == gstin ? _self.gstin : gstin // ignore: cast_nullable_to_non_nullable
-as String?,notes: freezed == notes ? _self._notes : notes // ignore: cast_nullable_to_non_nullable
-as IMap<dynamic>?,shippingAddress: freezed == shippingAddress ? _self._shippingAddress : shippingAddress // ignore: cast_nullable_to_non_nullable
+as String?,notes: freezed == notes ? _self.notes : notes ,shippingAddress: freezed == shippingAddress ? _self._shippingAddress : shippingAddress // ignore: cast_nullable_to_non_nullable
 as List<RazorpayInvoiceAddress>?,failExisting: freezed == failExisting ? _self.failExisting : failExisting // ignore: cast_nullable_to_non_nullable
 as bool?,
   ));
